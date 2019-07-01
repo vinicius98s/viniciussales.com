@@ -20,7 +20,10 @@ export default ({ data }) => {
             <LayoutContext>
                 <PageTitleWrapper>
                     <StyledH1 margin="0 8px 0 0">Vinicius Sales</StyledH1>
-                    <StyledH2> - FrontEnd developer</StyledH2>
+                    <StyledH2 margin="0 0 1px 0">
+                        {' '}
+                        - FrontEnd developer
+                    </StyledH2>
                     <DescriptionWrapper>
                         <StyledP>
                             Lorem ipsum dolor sit, amet consectetur adipisicing

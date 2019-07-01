@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const PageTitleWrapper = styled.div`
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: flex-end;
 `;
 
 export const StyledH1 = styled.h1`
@@ -15,6 +15,7 @@ export const StyledH1 = styled.h1`
 export const StyledH2 = styled.h2`
     font-size: 20px;
     font-weight: 500;
+    margin: ${({ margin }) => margin};
 `;
 
 export const DescriptionWrapper = styled.div`
@@ -24,5 +25,5 @@ export const DescriptionWrapper = styled.div`
 
 export const StyledP = styled.p`
     font-size: 20px;
-    font-weight: 200;
+    font-weight: 300;
 `;
