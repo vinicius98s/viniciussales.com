@@ -1,24 +1,36 @@
-import React from "react";
-import { StyledMenu, StyledItem } from "./styled";
-import { Link } from "gatsby";
-import PropTypes from "prop-types";
+import React, { useContext } from 'react';
+import { Link } from 'gatsby';
 
-const Menu = props => {
-    const arrayMenuItems = ["home", "about", "projects", "posts"];
+import Switch from '../Switch';
+
+import { MenuUl, MenuLi } from './styles';
+
+import { CurrentPageContext } from '../LayoutContext';
+import { ThemeContext } from '../LayoutContext';
+
+const Menu = () => {
+    const { currentPage } = useContext(CurrentPageContext);
+    const { colorTheme, toggleTheme } = useContext(ThemeContext);
 
     return (
-        <StyledMenu>
-            {arrayMenuItems.map(menu => (
-                <Link to={menu === "home" ? "/" : `/${menu}`} key={menu}>
-                    <StyledItem active={menu === props.active}>{menu}</StyledItem>
-                </Link>
-            ))}
-        </StyledMenu>
+        <MenuUl>
+            <MenuLi active={currentPage === 'home'} colorTheme={colorTheme}>
+                <Link to="/">Home</Link>
+            </MenuLi>
+            <MenuLi
+                marginLeft
+                active={currentPage === 'projects'}
+                colorTheme={colorTheme}
+            >
+                <Link to="/projects">Projects</Link>
+            </MenuLi>
+            <Switch
+                handleOnToggle={toggleTheme}
+                checked={colorTheme === 'dark'}
+                colorTheme={colorTheme}
+            />
+        </MenuUl>
     );
-};
-
-Menu.propTypes = {
-    active: PropTypes.string.isRequired
 };
 
 export default Menu;

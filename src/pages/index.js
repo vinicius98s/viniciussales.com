@@ -1,18 +1,15 @@
-import React from "react";
-import { graphql } from "gatsby";
-import Layout from "../components/Layout";
-import SEO from "../components/SEO";
-
-import PostPreview from "../components/PostPreview";
-import { StyledPostPreviewWrapper } from "../components/PostPreview/styled";
+import React from 'react';
+import { graphql } from 'gatsby';
+import LayoutContext from '../components/LayoutContext';
+import SEO from '../components/SEO';
 
 export default ({ data }) => {
-    const { edges: posts } = data.allMarkdownRemark;
+    // const { edges: posts } = data.allMarkdownRemark;
 
     return (
-        <Layout active="home" headerTitle="Vinícius Sales" headerDescription="Front-end Developer">
+        <LayoutContext>
             <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
-            <StyledPostPreviewWrapper>
+            {/*  <StyledPostPreviewWrapper>
                 <div className="title">
                     <h1>LAST POSTS</h1>
                 </div>
@@ -21,8 +18,8 @@ export default ({ data }) => {
                     .map(({ node: post }) => (
                         <PostPreview post={post} key={post.id} />
                     ))}
-            </StyledPostPreviewWrapper>
-        </Layout>
+            </StyledPostPreviewWrapper> */}
+        </LayoutContext>
     );
 };
 
@@ -37,20 +34,6 @@ export const pageQuery = graphql`
                         title
                         date(formatString: "MMMM DD, YYYY")
                         path
-                        featuredImage {
-                            childImageSharp {
-                                fluid(maxWidth: 1250, maxHeight: 250) {
-                                    ...GatsbyImageSharpFluid
-                                }
-                            }
-                        }
-                        previewImage {
-                            childImageSharp {
-                                fluid(maxWidth: 400) {
-                                    ...GatsbyImageSharpFluid
-                                }
-                            }
-                        }
                     }
                 }
             }

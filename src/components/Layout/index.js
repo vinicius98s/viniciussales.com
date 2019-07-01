@@ -1,33 +1,28 @@
-import React, { Fragment } from "react";
-import PropTypes from "prop-types";
+import React, { useContext } from 'react';
+import { ThemeProvider } from 'styled-components';
+import { LayoutWrapper, TopLine, ContentWrapper } from './styles';
 
-import Header from "../Header";
-import Menu from "../Menu";
-import Footer from "../Footer";
+import Header from '../Header';
+import { ThemeContext } from '../LayoutContext';
 
-import "./styles.css";
+import theme from '../../assets/theme';
 
-import { LayoutWrapper, LayoutContent, LayoutMain } from "./styled";
+import './normalize.css';
 
-const Layout = props => {
+const Layout = ({ children }) => {
+    const { colorTheme } = useContext(ThemeContext);
+
     return (
-        <Fragment>
-            <Menu active={props.active} />
-            <LayoutWrapper>
-                <LayoutContent>
-                    <Header title={props.headerTitle} description={props.headerDescription} />
-                    <LayoutMain>{props.children}</LayoutMain>
-                    <Footer>Footer</Footer>
-                </LayoutContent>
+        <ThemeProvider theme={theme}>
+            <LayoutWrapper colorTheme={colorTheme}>
+                <ContentWrapper>
+                    <TopLine />
+                    <Header />
+                    {children}
+                </ContentWrapper>
             </LayoutWrapper>
-        </Fragment>
+        </ThemeProvider>
     );
-};
-
-Layout.propTypes = {
-    active: PropTypes.string.isRequired,
-    headerTitle: PropTypes.string,
-    headerDescription: PropTypes.string
 };
 
 export default Layout;
