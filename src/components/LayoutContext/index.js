@@ -8,7 +8,7 @@ import constants from '../../utils/constants';
 export const ThemeContext = React.createContext();
 export const CurrentPageContext = React.createContext();
 
-const LayoutContext = () => {
+const LayoutContext = ({ children }) => {
     const [localStorageColorTheme, setLocalStorageColorTheme] = useLocalStorage(
         constants.localStorageThemeColorKey,
         'light'
@@ -29,7 +29,7 @@ const LayoutContext = () => {
             <CurrentPageContext.Provider
                 value={{ currentPage, handleCurrentPage }}
             >
-                <Layout />
+                <Layout>{children}</Layout>
             </CurrentPageContext.Provider>
         </ThemeContext.Provider>
     );
