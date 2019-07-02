@@ -4,6 +4,7 @@ import { graphql } from 'gatsby';
 import LayoutContext from '../components/LayoutContext';
 import SEO from '../components/SEO';
 import SocialMedia from '../components/SocialMedia';
+import PostsPreview from '../components/PostsPreview';
 
 import {
     PageTitleWrapper,
@@ -14,7 +15,7 @@ import {
 } from './styles';
 
 export default ({ data }) => {
-    // const { edges: posts } = data.allMarkdownRemark;
+    const { edges: posts } = data.allMarkdownRemark;
 
     return (
         <>
@@ -37,16 +38,7 @@ export default ({ data }) => {
                     </DescriptionWrapper>
                     <SocialMedia />
                 </PageTitleWrapper>
-                {/*  <StyledPostPreviewWrapper>
-                    <div className="title">
-                        <h1>LAST POSTS</h1>
-                    </div>
-                    {posts
-                        .filter(post => post.node.frontmatter.title.length > 0)
-                        .map(({ node: post }) => (
-                            <PostPreview post={post} key={post.id} />
-                        ))}
-                </StyledPostPreviewWrapper> */}
+                <PostsPreview posts={posts} />
             </LayoutContext>
         </>
     );
