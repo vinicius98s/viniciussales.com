@@ -1,7 +1,9 @@
 import React from 'react';
 import { graphql } from 'gatsby';
+
 import LayoutContext from '../components/LayoutContext';
 import SEO from '../components/SEO';
+import SocialMedia from '../components/SocialMedia';
 
 import {
     PageTitleWrapper,
@@ -33,6 +35,7 @@ export default ({ data }) => {
                             Excepturi, placeat ducimus?
                         </StyledP>
                     </DescriptionWrapper>
+                    <SocialMedia />
                 </PageTitleWrapper>
                 {/*  <StyledPostPreviewWrapper>
                     <div className="title">
