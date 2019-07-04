@@ -1,5 +1,6 @@
 export const theme = {
     sizes: {
+        mini: '5px',
         small: '10px',
         default: '25px',
         medium: '50px',
