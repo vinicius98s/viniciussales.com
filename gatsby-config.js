@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
     siteMetadata: {
         title: `Gatsby Default Starter`,
@@ -12,6 +14,13 @@ module.exports = {
         `gatsby-plugin-styled-components`,
         `gatsby-plugin-robots-txt`,
         `gatsby-plugin-offline`,
+        {
+            resolve: 'gatsby-plugin-root-import',
+            options: {
+                src: path.join(__dirname, 'src'),
+                pages: path.join(__dirname, 'pages'),
+            },
+        },
         {
             resolve: `gatsby-transformer-remark`,
             options: {

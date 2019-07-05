@@ -5,7 +5,7 @@ import Menu from '../Menu';
 
 const Header = () => (
     <HeaderWrapper>
-        <Logo src={require('../../assets/images/Logo.svg')} />
+        <Logo src={require('src/assets/images/Logo.svg')} />
         <Menu />
     </HeaderWrapper>
 );

@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 import Layout from '../Layout';
 
-import useLocalStorage from '../../utils/useLocalStorage';
-import constants from '../../utils/constants';
+import useLocalStorage from 'src/utils/useLocalStorage';
+import constants from 'src/utils/constants';
 
 export const ThemeContext = React.createContext();
 export const CurrentPageContext = React.createContext();

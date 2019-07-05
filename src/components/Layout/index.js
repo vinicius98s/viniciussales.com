@@ -5,7 +5,7 @@ import { LayoutWrapper, TopLine, ContentWrapper } from './styles';
 import Header from '../Header';
 import { ThemeContext } from '../LayoutContext';
 
-import theme from '../../assets/theme';
+import theme from 'src/assets/theme';
 
 import './normalize.css';
 

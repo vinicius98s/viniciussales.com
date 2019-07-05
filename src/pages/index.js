@@ -1,10 +1,10 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 
-import LayoutContext from '../components/LayoutContext';
-import SEO from '../components/SEO';
-import SocialMedia from '../components/SocialMedia';
-import PostsPreview from '../components/PostsPreview';
+import LayoutContext from 'src/components/LayoutContext';
+import SEO from 'src/components/SEO';
+import SocialMedia from 'src/components/SocialMedia';
+import PostsPreview from 'src/components/PostsPreview';
 
 import {
     PageTitleWrapper,
