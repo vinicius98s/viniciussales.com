@@ -21,7 +21,8 @@ export const LayoutWrapper = styled.div`
 
 export const ContentWrapper = styled.div`
     width: 100%;
-    max-width: 1200px;
+    max-width: 1175px;
+    padding: ${({ theme }) => `0 ${theme.sizes.default}`};
 `;
 
 export const TopLine = styled.div`

@@ -1,35 +1,31 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import Button from '../Button';
-import { ThemeContext } from '../LayoutContext';
+import Card from '../Card';
 
-import {
-    PostsPreviewWrapper,
-    PostPreview,
-    PostTitle,
-    PostDescription,
-} from './styles';
+import { PostsPreviewWrapper, PostTitle, PostDescription } from './styles';
 
 const PostsPreview = ({ posts }) => {
-    const { colorTheme } = useContext(ThemeContext);
-
     return (
         <PostsPreviewWrapper>
             {posts
                 .filter(post => post.node.frontmatter.title.length > 0)
                 .map(({ node: post }, index) => (
-                    <PostPreview
+                    <Card
                         key={post.id}
-                        margin={index % 2 === 0}
-                        colorTheme={colorTheme}
+                        margin={{
+                            right: index % 2 === 0 && 'default',
+                            bottom: 'medium',
+                        }}
+                        flexBasis={48}
                     >
                         <PostTitle>{post.frontmatter.title}</PostTitle>
                         <PostDescription>{post.excerpt}</PostDescription>
                         <Button width="130px" margin="25px 0 0">
                             Read
                         </Button>
-                    </PostPreview>
+                    </Card>
                 ))}
         </PostsPreviewWrapper>
     );
