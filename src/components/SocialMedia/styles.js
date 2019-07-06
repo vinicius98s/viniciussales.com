@@ -6,7 +6,7 @@ export const SocialMediaWrapper = styled.div`
 `;
 
 export const Link = styled.a`
-    transition: 0.5s ease;
+    transition: ${({ theme }) => theme.transition};
     text-decoration: none;
     color: ${({ theme, colorTheme }) =>
         colorTheme === 'light' ? theme.colors.darkGrey : theme.colors.white};
@@ -14,6 +14,6 @@ export const Link = styled.a`
     margin-right: ${({ theme }) => theme.sizes.default};
 
     :hover {
-        color: ${({ theme }) => theme.colors.pink};
+        color: ${({ theme }) => theme.colors.main};
     }
 `;

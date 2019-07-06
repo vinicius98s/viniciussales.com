@@ -12,7 +12,9 @@ const Card = ({
     customBackgroundColor,
     flexDirection,
     flexBasis,
+    flexWrap,
     margin,
+    alignItems,
 }) => {
     const { colorTheme } = useContext(ThemeContext);
 
@@ -21,10 +23,12 @@ const Card = ({
             width={width}
             height={height}
             flexDirection={flexDirection}
+            flexBasis={flexBasis}
+            flexWrap={flexWrap}
+            alignItems={alignItems}
             customBorderColor={customBorderColor}
             colorTheme={colorTheme}
             customBackgroundColor={customBackgroundColor}
-            flexBasis={flexBasis}
             margin={margin}
         >
             {children}
@@ -44,6 +48,8 @@ Card.propTypes = {
     flexDirection: PropTypes.string,
     flexBasis: PropTypes.number,
     margin: PropTypes.object,
+    flexWrap: PropTypes.string,
+    alignItems: PropTypes.string,
 };
 
 export default Card;

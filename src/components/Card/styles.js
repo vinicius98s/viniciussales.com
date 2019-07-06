@@ -2,7 +2,10 @@ import styled, { css } from 'styled-components';
 import hexToRgba from 'src/utils/hexToRgba';
 
 export const CardWrapper = styled.div`
+    position: relative;
     flex-basis: ${({ flexBasis }) => flexBasis && `${flexBasis}%`};
+    flex-wrap: ${({ flexWrap }) => flexWrap};
+    align-items: ${({ alignItems }) => alignItems};
     width: ${({ width }) => width};
     height: ${({ height }) => height};
     display: flex;
@@ -20,7 +23,7 @@ export const CardWrapper = styled.div`
         colorTheme === 'light' ? theme.colors.darkGrey : theme.colors.white};
     border-top: 5px solid
         ${({ theme, customBorderColor }) =>
-            customBorderColor || theme.colors.pink};
+            customBorderColor || theme.colors.main};
     border-radius: 15px;
     margin-top: ${({ theme, margin }) => theme.sizes[margin.top]};
     margin-right: ${({ theme, margin }) => theme.sizes[margin.right]};

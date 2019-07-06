@@ -23,7 +23,7 @@ export const DescriptionWrapper = styled.div`
     margin-top: ${({ theme }) => theme.sizes.small};
 `;
 
-export const StyledP = styled.p`
+export const StyledText = styled.p`
     font-size: 20px;
     font-weight: 300;
 `;

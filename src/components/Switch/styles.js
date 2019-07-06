@@ -34,8 +34,8 @@ export const SwitchSlider = styled.span`
     background: transparent;
     border: 2px solid
         ${({ theme, colorTheme }) =>
-            colorTheme === 'light' ? theme.colors.pink : theme.colors.white};
-    transition: 0.5s ease;
+            colorTheme === 'light' ? theme.colors.main : theme.colors.white};
+    transition: ${({ theme }) => theme.transition};
     border-radius: 20px;
 
     ::before {
@@ -46,8 +46,8 @@ export const SwitchSlider = styled.span`
         left: 1px;
         bottom: 1px;
         background-color: ${({ theme, colorTheme }) =>
-            colorTheme === 'light' ? theme.colors.pink : theme.colors.white};
-        transition: 0.5s ease;
+            colorTheme === 'light' ? theme.colors.main : theme.colors.white};
+        transition: ${({ theme }) => theme.transition};
         border-radius: 50%;
     }
 `;

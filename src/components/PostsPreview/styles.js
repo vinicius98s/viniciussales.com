@@ -17,6 +17,25 @@ export const PostTitle = styled.h1`
 export const PostDescription = styled.p`
     font-size: 14px;
     text-overflow: ellipsis;
-    height: 40px;
     margin-bottom: ${({ theme }) => theme.sizes.default};
+`;
+
+export const PostDetails = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: ${({ theme }) => theme.sizes.medium};
+`;
+
+export const PostDetailsText = styled.div`
+    width: calc(100% - 135px);
+    margin-left: ${({ theme }) => theme.sizes.default};
+`;
+
+export const ButtonWrapper = styled.div`
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    cursor: pointer;
 `;

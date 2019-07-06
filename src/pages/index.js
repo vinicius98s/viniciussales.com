@@ -10,7 +10,7 @@ import {
     PageTitleWrapper,
     StyledH1,
     StyledH2,
-    StyledP,
+    StyledText,
     DescriptionWrapper,
 } from './styles';
 
@@ -28,13 +28,13 @@ export default ({ data }) => {
                         - FrontEnd developer
                     </StyledH2>
                     <DescriptionWrapper>
-                        <StyledP>
+                        <StyledText>
                             Lorem ipsum dolor sit, amet consectetur adipisicing
                             elit. Consequuntur odio, quia quae cupiditate eius
                             est vitae dolorum, iste impedit cumque facilis quas
                             sapiente! Placeat mollitia reprehenderit ratione?
                             Excepturi, placeat ducimus?
-                        </StyledP>
+                        </StyledText>
                     </DescriptionWrapper>
                     <SocialMedia />
                 </PageTitleWrapper>
@@ -53,8 +53,16 @@ export const pageQuery = graphql`
                     id
                     frontmatter {
                         title
-                        date(formatString: "MMMM DD, YYYY")
+                        # date(formatString: "MMMM DD, YYYY")
                         path
+                        tags
+                        previewImage {
+                            childImageSharp {
+                                fixed(width: 135, height: 135, quality: 100) {
+                                    ...GatsbyImageSharpFixed
+                                }
+                            }
+                        }
                     }
                 }
             }

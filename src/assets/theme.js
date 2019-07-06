@@ -10,9 +10,11 @@ export const theme = {
         darkGrey: '#141414',
         semiDarkGrey: '#1D1D1D',
         lightGrey: '#F2F2F2',
-        pink: '#DE4A5E',
+        main: '#DE4A5E',
+        mainHover: '#B92D40',
         white: '#FFFFFF',
     },
+    transition: '0.5s ease',
 };
 
 export default theme;

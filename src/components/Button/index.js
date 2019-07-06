@@ -13,6 +13,8 @@ const Button = ({
     fontSize,
     padding,
     margin,
+    borderRadius,
+    customColorHover,
 }) => (
     <ButtonWrapper
         variant={variant}
@@ -23,6 +25,8 @@ const Button = ({
         fontSize={fontSize}
         padding={padding}
         margin={margin}
+        borderRadius={borderRadius}
+        customColorHover={customColorHover}
     >
         {children}
     </ButtonWrapper>
@@ -39,8 +43,10 @@ Button.propTypes = {
     height: PropTypes.string,
     fontSize: PropTypes.string,
     customColor: PropTypes.string,
+    customColorHover: PropTypes.string,
     padding: PropTypes.string,
     margin: PropTypes.string,
+    borderRadius: PropTypes.object || PropTypes.string,
 };
 
 export default Button;

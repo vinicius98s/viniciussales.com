@@ -1,17 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'gatsby';
+import Img from 'gatsby-image';
 
 import Button from '../Button';
+import PostTags from '../PostTags';
 import Card from '../Card';
 
-import { PostsPreviewWrapper, PostTitle, PostDescription } from './styles';
+import {
+    PostsPreviewWrapper,
+    PostTitle,
+    PostDescription,
+    PostDetails,
+    ButtonWrapper,
+    PostDetailsText,
+} from './styles';
 
 const PostsPreview = ({ posts }) => {
     return (
         <PostsPreviewWrapper>
-            {posts
-                .filter(post => post.node.frontmatter.title.length > 0)
-                .map(({ node: post }, index) => (
+            {posts.map(({ node: post }, index) => {
+                const { frontmatter: postDetails } = post;
+                console.log(postDetails);
+
+                return (
                     <Card
                         key={post.id}
                         margin={{
@@ -19,14 +31,42 @@ const PostsPreview = ({ posts }) => {
                             bottom: 'medium',
                         }}
                         flexBasis={48}
+                        flexDirection="row"
                     >
-                        <PostTitle>{post.frontmatter.title}</PostTitle>
-                        <PostDescription>{post.excerpt}</PostDescription>
-                        <Button width="130px" margin="25px 0 0">
-                            Read
-                        </Button>
+                        <PostDetails>
+                            <Img
+                                fixed={
+                                    postDetails.previewImage.childImageSharp
+                                        .fixed
+                                }
+                            />
+                            <PostDetailsText>
+                                <PostTitle>{postDetails.title}</PostTitle>
+                                <PostDescription>
+                                    {post.excerpt}
+                                </PostDescription>
+                                <PostTags tags={postDetails.tags} />
+                            </PostDetailsText>
+                        </PostDetails>
+                        <ButtonWrapper>
+                            <Link to={postDetails.path}>
+                                <Button
+                                    width="100%"
+                                    padding="10px 0"
+                                    borderRadius={{
+                                        topLeft: '0',
+                                        topRight: '0',
+                                        bottomLeft: '10px',
+                                        bottomRight: '10px',
+                                    }}
+                                >
+                                    Continue reading
+                                </Button>
+                            </Link>
+                        </ButtonWrapper>
                     </Card>
-                ))}
+                );
+            })}
         </PostsPreviewWrapper>
     );
 };

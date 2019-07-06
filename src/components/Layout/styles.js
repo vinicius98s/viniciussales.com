@@ -28,7 +28,7 @@ export const ContentWrapper = styled.div`
 export const TopLine = styled.div`
     width: 100%;
     height: 5px;
-    background: ${({ theme }) => theme.colors.pink};
+    background: ${({ theme }) => theme.colors.main};
     position: absolute;
     top: 0;
     left: 0;

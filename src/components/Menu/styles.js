@@ -9,7 +9,7 @@ export const MenuUl = styled.ul`
 export const MenuLi = styled.li`
     display: inline-flex;
     margin-left: ${({ marginLeft, theme }) => marginLeft && theme.sizes.big};
-    transition: 0.5s ease;
+    transition: ${({ theme }) => theme.transition};
     position: relative;
 
     ${({ active }) =>
@@ -22,7 +22,7 @@ export const MenuLi = styled.li`
                       width: 100%;
                       height: 5px;
                       top: 30px;
-                      background: ${({ theme }) => theme.colors.pink};
+                      background: ${({ theme }) => theme.colors.main};
                   }
               `
             : css`
