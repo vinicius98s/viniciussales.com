@@ -31,7 +31,7 @@ export const MenuLi = styled.li`
 
     a {
         text-decoration: none;
-        font-weight: bold;
+        font-weight: ${({ theme }) => theme.fonts.bold};
         font-size: 18px;
         color: ${({ theme, colorTheme }) =>
             colorTheme === 'light'

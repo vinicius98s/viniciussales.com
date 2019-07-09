@@ -1,19 +1,23 @@
 const colorsHelpers = {
     react: {
-        color: '#61DBFB',
-        hover: '#fff',
+        backgroundColor: '#282C34',
+        hover: '#20232A',
+        fontColor: '#61DBFB',
     },
     javascript: {
-        color: '#FAC552',
-        hover: '#fff',
+        backgroundColor: '#FDDA3E',
+        hover: '#D6BA32',
+        fontColor: '#000000',
     },
     gatsby: {
-        color: '#672E9B',
-        hover: '#fff',
+        backgroundColor: '#8a4baf',
+        hover: '#452475',
+        fontColor: '#FFFFFF',
     },
     'node.js': {
-        color: '#8BC500',
-        hover: '#fff',
+        backgroundColor: '#026e00',
+        hover: '#43853d',
+        fontColor: '#FFFFFF',
     },
 };
 

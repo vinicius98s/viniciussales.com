@@ -12,6 +12,8 @@ export const ButtonWrapper = styled.button`
             : customColor
             ? `2px solid ${customColor}`
             : `2px solid ${theme.colors.main}`};
+    font-weight: ${({ theme, fontWeight }) =>
+        fontWeight && theme.fonts[fontWeight]};
     margin: ${({ margin }) => margin};
     padding: ${({ theme, padding }) => padding || theme.sizes.mini};
     width: ${({ width }) => width};

@@ -15,6 +15,14 @@ module.exports = {
         `gatsby-plugin-robots-txt`,
         `gatsby-plugin-offline`,
         {
+            resolve: 'gatsby-plugin-web-font-loader',
+            options: {
+                google: {
+                    families: ['Montserrat:400,500,700'],
+                },
+            },
+        },
+        {
             resolve: 'gatsby-plugin-root-import',
             options: {
                 src: path.join(__dirname, 'src'),

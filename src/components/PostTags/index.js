@@ -11,12 +11,15 @@ const PostTags = ({ tags, justifyContent, alignItems }) => (
         {tags.length &&
             tags.map((tag, index) => (
                 <Button
-                    customColor={colorsHelpers[tag.toLowerCase()].color}
+                    customColor={
+                        colorsHelpers[tag.toLowerCase()].backgroundColor
+                    }
                     customColorHover={colorsHelpers[tag.toLowerCase()].hover}
-                    fontSize="12px"
-                    fontColor="white"
+                    fontColor={colorsHelpers[tag.toLowerCase()].fontColor}
+                    fontSize="13px"
                     key={`${tag}-${index}`}
                     padding="4px 10px"
+                    fontWeight="medium"
                     borderRadius={{
                         topLeft: '5px',
                         topRight: '5px',

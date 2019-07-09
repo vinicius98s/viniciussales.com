@@ -1,4 +1,9 @@
 export const theme = {
+    fonts: {
+        regular: 400,
+        medium: 500,
+        bold: 700,
+    },
     sizes: {
         mini: '5px',
         small: '10px',

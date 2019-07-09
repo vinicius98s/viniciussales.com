@@ -9,7 +9,7 @@ export const PostsPreviewWrapper = styled.div`
 
 export const PostTitle = styled.h1`
     font-size: 20px;
-    font-weight: 500;
+    font-weight: ${({ theme }) => theme.fonts.bold};
     width: 100%;
     margin-bottom: ${({ theme }) => theme.sizes.small};
 `;

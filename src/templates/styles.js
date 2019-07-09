@@ -18,15 +18,24 @@ export const PostInfoWrapper = styled.div`
 
 export const PostTitle = styled.h1`
     text-transform: uppercase;
-    font-weight: 600;
+    font-weight: ${({ theme }) => theme.fonts.bold};
 `;
 
 export const PostDescription = styled.h3`
-    font-weight: 400;
+    font-weight: ${({ theme }) => theme.fonts.medium};
+    margin: ${({ theme }) => `${theme.sizes.mini} 0 ${theme.sizes.small}`};
 `;
 
 export const Post = styled.div`
-    line-height: 25px;
+    line-height: 1.58;
+
+    h3 {
+        font-size: 22px;
+    }
+
+    p {
+        font-size: 20px;
+    }
 
     * {
         margin: ${({ theme }) => `${theme.sizes.default} 0`};
@@ -34,5 +43,10 @@ export const Post = styled.div`
 
     .gatsby-highlight {
         border-left: 2px solid ${({ theme }) => theme.colors.main};
+
+        * {
+            font-family: 'Courier New', Courier, monospace !important;
+            font-size: 18px;
+        }
     }
 `;

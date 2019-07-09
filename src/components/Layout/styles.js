@@ -16,7 +16,6 @@ export const LayoutWrapper = styled.div`
         colorTheme === 'light'
             ? theme.colors.darkGrey
             : theme.colors.lightGrey};
-    font-family: 'Montserrat', sans-serif;
 `;
 
 export const ContentWrapper = styled.div`

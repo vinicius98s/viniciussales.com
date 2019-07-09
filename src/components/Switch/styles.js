@@ -53,10 +53,9 @@ export const SwitchSlider = styled.span`
 `;
 
 export const SwitchLabel = styled.span`
-    font-weight: bold;
+    font-weight: ${({ theme }) => theme.fonts.bold};
     font-size: 18px;
-    margin-left: ${({ rightSideLabel, theme }) => theme.sizes.small};
-    margin-right: ${({ leftSideLabel, theme }) => theme.sizes.small};
+    margin: ${({ theme }) => `0 ${theme.sizes.small}`};
     color: ${({ theme, colorTheme }) =>
         colorTheme === 'light'
             ? theme.colors.darkGrey

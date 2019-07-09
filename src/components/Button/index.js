@@ -7,10 +7,11 @@ const Button = ({
     children,
     variant,
     fontColor,
+    fontSize,
+    fontWeight,
     customColor,
     width,
     height,
-    fontSize,
     padding,
     margin,
     borderRadius,
@@ -19,10 +20,11 @@ const Button = ({
     <ButtonWrapper
         variant={variant}
         fontColor={fontColor}
+        fontSize={fontSize}
+        fontWeight={fontWeight}
         customColor={customColor}
         width={width}
         height={height}
-        fontSize={fontSize}
         padding={padding}
         margin={margin}
         borderRadius={borderRadius}
@@ -47,6 +49,7 @@ Button.propTypes = {
     padding: PropTypes.string,
     margin: PropTypes.string,
     borderRadius: PropTypes.object || PropTypes.string,
+    fontWeight: PropTypes.string,
 };
 
 export default Button;

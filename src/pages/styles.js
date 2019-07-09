@@ -8,14 +8,13 @@ export const PageTitleWrapper = styled.div`
 
 export const StyledH1 = styled.h1`
     font-size: 26px;
-    font-weight: bold;
-    margin: ${({ margin }) => margin};
+    font-weight: ${({ theme }) => theme.fonts.bold};
 `;
 
 export const StyledH2 = styled.h2`
-    font-size: 20px;
-    font-weight: 500;
-    margin: ${({ margin }) => margin};
+    font-size: 18px;
+    font-weight: ${({ theme }) => theme.fonts.medium};
+    margin: ${({ theme }) => `${theme.sizes.mini} 0 ${theme.sizes.default}`};
 `;
 
 export const DescriptionWrapper = styled.div`
@@ -25,5 +24,5 @@ export const DescriptionWrapper = styled.div`
 
 export const StyledText = styled.p`
     font-size: 20px;
-    font-weight: 300;
+    font-weight: ${({ theme }) => theme.fonts.regular};
 `;
