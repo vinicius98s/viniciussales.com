@@ -15,7 +15,7 @@ export const theme = {
         darkGrey: '#141414',
         semiDarkGrey: '#1D1D1D',
         lightGrey: '#F2F2F2',
-        main: '#DE4A5E',
+        main: '#D93047',
         mainHover: '#B92D40',
         white: '#FFFFFF',
     },

@@ -1,21 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withTheme } from 'styled-components';
 
 import Button from '../Button';
 
 import { TagsWrapper } from './styles';
-import colorsHelpers from './colorsHelpers';
 
-const PostTags = ({ tags, justifyContent, alignItems }) => (
+const PostTags = ({ tags, justifyContent, alignItems, theme }) => (
     <TagsWrapper justifyContent={justifyContent} alignItems={alignItems}>
         {tags.length &&
             tags.map((tag, index) => (
                 <Button
-                    customColor={
-                        colorsHelpers[tag.toLowerCase()].backgroundColor
-                    }
-                    customColorHover={colorsHelpers[tag.toLowerCase()].hover}
-                    fontColor={colorsHelpers[tag.toLowerCase()].fontColor}
+                    customColor="#595959"
+                    fontColor={theme.colors.white}
                     fontSize="13px"
                     key={`${tag}-${index}`}
                     padding="4px 10px"
@@ -39,4 +36,4 @@ PostTags.propTypes = {
     tags: PropTypes.array.isRequired,
 };
 
-export default PostTags;
+export default withTheme(PostTags);
