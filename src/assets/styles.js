@@ -1,11 +1,5 @@
 import styled from 'styled-components';
 
-export const PageTitleWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-`;
-
 export const StyledH1 = styled.h1`
   font-size: 26px;
   font-weight: ${({ theme }) => theme.fonts.bold};

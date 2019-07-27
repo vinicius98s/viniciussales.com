@@ -11,13 +11,12 @@ import Button from 'src/components/Button';
 import { projects } from 'src/utils/constants';
 
 import {
-  PageTitleWrapper,
   StyledH1,
   StyledText,
   ProjectInfoWrapper,
   ProjectWrapper,
   ImageWrapper,
-} from './styles';
+} from 'src/assets/styles';
 
 const Projects = ({ data }) => {
   const projectsImages = data.allFile.edges;
@@ -38,14 +37,12 @@ const Projects = ({ data }) => {
       />
       <LayoutContext>
         <StyledH1>Projects</StyledH1>
-        <PageTitleWrapper>
-          <StyledText>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-            Consequuntur odio, quia quae cupiditate eius est vitae dolorum, iste
-            impedit cumque facilis quas sapiente! Placeat mollitia reprehenderit
-            ratione? Excepturi, placeat ducimus?
-          </StyledText>
-        </PageTitleWrapper>
+        <StyledText>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequuntur
+          odio, quia quae cupiditate eius est vitae dolorum, iste impedit cumque
+          facilis quas sapiente! Placeat mollitia reprehenderit ratione?
+          Excepturi, placeat ducimus?
+        </StyledText>
         {projects.map(project => (
           <Card
             key={project.pathToRepository}

@@ -7,27 +7,30 @@ import Switch from 'src/components/Switch';
 import { MenuUl, MenuLi } from './styles';
 
 const Menu = () => {
-    const { colorTheme, toggleTheme } = useContext(ThemeContext);
+  const { colorTheme, toggleTheme } = useContext(ThemeContext);
 
-    return (
-      <MenuUl>
-        <MenuLi active={window.location.pathname === '/'} colorTheme={colorTheme}>
-          <Link to="/">Home</Link>
-        </MenuLi>
-        <MenuLi
-          marginLeft
-          active={window.location.pathname.includes('projects')}
-          colorTheme={colorTheme}
-        >
-          <Link to="/projects">Projects</Link>
-        </MenuLi>
-        <Switch
-          handleOnToggle={toggleTheme}
-          checked={colorTheme === 'dark'}
-          colorTheme={colorTheme}
-        />
-      </MenuUl>
-    );
+  const windowLocation =
+    typeof window !== 'undefined' ? window.location.pathname : '';
+
+  return (
+    <MenuUl>
+      <MenuLi active={windowLocation === '/'} colorTheme={colorTheme}>
+        <Link to="/">Home</Link>
+      </MenuLi>
+      <MenuLi
+        marginLeft
+        active={windowLocation.includes('projects')}
+        colorTheme={colorTheme}
+      >
+        <Link to="/projects">Projects</Link>
+      </MenuLi>
+      <Switch
+        handleOnToggle={toggleTheme}
+        checked={colorTheme === 'dark'}
+        colorTheme={colorTheme}
+      />
+    </MenuUl>
+  );
 };
 
 export default Menu;
