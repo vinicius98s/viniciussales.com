@@ -1,37 +1,111 @@
 import React from 'react';
-// import { Link } from "gatsby";
+import PropTypes from 'prop-types';
+import { graphql } from 'gatsby';
+import Img from 'gatsby-image';
 
 import LayoutContext from 'src/components/LayoutContext';
 import SEO from 'src/components/SEO';
+import Card from 'src/components/Card';
+import Button from 'src/components/Button';
+
+import { projects } from 'src/utils/constants';
 
 import {
-    PageTitleWrapper,
-    StyledH1,
-    StyledText,
-    DescriptionWrapper,
+  PageTitleWrapper,
+  StyledH1,
+  StyledText,
+  ProjectInfoWrapper,
+  ProjectWrapper,
+  ImageWrapper,
 } from './styles';
 
-const SecondPage = () => (
-  <>
-    <SEO
-      title="Projects"
-      keywords={[`Vinicius Sales`, `projects`, `Front-end`, 'react']}
-    />
-    <LayoutContext>
-      <StyledH1>Projects</StyledH1>
-      <PageTitleWrapper>
-        <DescriptionWrapper>
-          <StyledText>
-                        Lorem ipsum dolor sit, amet consectetur adipisicing
-                        elit. Consequuntur odio, quia quae cupiditate eius est
-                        vitae dolorum, iste impedit cumque facilis quas
-                        sapiente! Placeat mollitia reprehenderit ratione?
-                        Excepturi, placeat ducimus?
-          </StyledText>
-        </DescriptionWrapper>
-      </PageTitleWrapper>
-    </LayoutContext>
-  </>
-);
+const Projects = ({ data }) => {
+  const projectsImages = data.allFile.edges;
 
-export default SecondPage;
+  const getProjectImage = name => {
+    const projectImage = projectsImages.find(image =>
+      decodeURI(image.node.childImageSharp.fluid.src).includes(name)
+    );
+
+    return projectImage.node.childImageSharp.fluid;
+  };
+
+  return (
+    <>
+      <SEO
+        title="Projects"
+        keywords={[`Vinicius Sales`, `projects`, `Front-end`, 'react']}
+      />
+      <LayoutContext>
+        <StyledH1>Projects</StyledH1>
+        <PageTitleWrapper>
+          <StyledText>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+            Consequuntur odio, quia quae cupiditate eius est vitae dolorum, iste
+            impedit cumque facilis quas sapiente! Placeat mollitia reprehenderit
+            ratione? Excepturi, placeat ducimus?
+          </StyledText>
+        </PageTitleWrapper>
+        {projects.map(project => (
+          <Card
+            key={project.pathToRepository}
+            margin={{
+              top: 'medium',
+              right: 'none',
+              bottom: 'none',
+              left: 'none',
+            }}
+          >
+            <ProjectWrapper>
+              <ImageWrapper>
+                <Img fluid={getProjectImage(project.imageName)} />
+              </ImageWrapper>
+              <ProjectInfoWrapper>
+                <StyledH1>{project.name}</StyledH1>
+                <StyledText>{project.description}</StyledText>
+                <Button
+                  margin={{
+                    top: 'default',
+                    right: 'none',
+                    bottom: 'none',
+                    left: 'none',
+                  }}
+                >
+                  <a
+                    href={project.pathToRepository}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Repository
+                  </a>
+                </Button>
+              </ProjectInfoWrapper>
+            </ProjectWrapper>
+          </Card>
+        ))}
+      </LayoutContext>
+    </>
+  );
+};
+
+export const imagesQuery = graphql`
+  query {
+    allFile(filter: { relativeDirectory: { regex: "/projects/" } }) {
+      edges {
+        node {
+          childImageSharp {
+            fluid(maxHeight: 250, quality: 100) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+Projects.propTypes = {
+  data: PropTypes.object,
+};
+
+export default Projects;
