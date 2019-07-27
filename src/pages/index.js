@@ -1,4 +1,5 @@
 import React from 'react';
+import Proptypes from 'prop-types';
 import { graphql } from 'gatsby';
 
 import LayoutContext from 'src/components/LayoutContext';
@@ -14,32 +15,32 @@ import {
     DescriptionWrapper,
 } from './styles';
 
-export default ({ data }) => {
+const Home = ({ data }) => {
     const { edges: posts } = data.allMarkdownRemark;
 
     return (
-        <>
-            <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
-            <LayoutContext>
-                <StyledH1>Vinicius Sales</StyledH1>
-                <StyledH2>
+      <>
+        <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
+        <LayoutContext>
+          <StyledH1>Vinicius Sales</StyledH1>
+          <StyledH2>
                     Front-end developer - React, React Native and Node.js
-                </StyledH2>
-                <PageTitleWrapper>
-                    <DescriptionWrapper>
-                        <StyledText>
+          </StyledH2>
+          <PageTitleWrapper>
+            <DescriptionWrapper>
+              <StyledText>
                             Lorem ipsum dolor sit, amet consectetur adipisicing
                             elit. Consequuntur odio, quia quae cupiditate eius
                             est vitae dolorum, iste impedit cumque facilis quas
                             sapiente! Placeat mollitia reprehenderit ratione?
                             Excepturi, placeat ducimus?
-                        </StyledText>
-                    </DescriptionWrapper>
-                    <SocialMedia />
-                </PageTitleWrapper>
-                <PostsPreview posts={posts} />
-            </LayoutContext>
-        </>
+              </StyledText>
+            </DescriptionWrapper>
+            <SocialMedia />
+          </PageTitleWrapper>
+          <PostsPreview posts={posts} />
+        </LayoutContext>
+      </>
     );
 };
 
@@ -68,3 +69,9 @@ export const pageQuery = graphql`
         }
     }
 `;
+
+Home.propTypes = {
+    data: Proptypes.object,
+}
+
+export default Home;

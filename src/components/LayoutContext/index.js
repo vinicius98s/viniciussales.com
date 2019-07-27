@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-
-import Layout from '../Layout';
+import PropTypes from 'prop-types';
 
 import useLocalStorage from 'src/utils/useLocalStorage';
 import constants from 'src/utils/constants';
+import Layout from 'src/components/Layout';
 
 export const ThemeContext = React.createContext();
-export const CurrentPageContext = React.createContext();
 
 const LayoutContext = ({ children }) => {
     const [localStorageColorTheme, setLocalStorageColorTheme] = useLocalStorage(
@@ -14,7 +13,6 @@ const LayoutContext = ({ children }) => {
         'light'
     );
     const [colorTheme, setColorTheme] = useState(localStorageColorTheme);
-    const [currentPage, setCurrentPage] = useState('home');
 
     const toggleTheme = () => {
         const newColorTheme = colorTheme === 'light' ? 'dark' : 'light';
@@ -22,17 +20,15 @@ const LayoutContext = ({ children }) => {
         setLocalStorageColorTheme(newColorTheme);
     };
 
-    const handleCurrentPage = currentPage => setCurrentPage(currentPage);
-
     return (
-        <ThemeContext.Provider value={{ colorTheme, toggleTheme }}>
-            <CurrentPageContext.Provider
-                value={{ currentPage, handleCurrentPage }}
-            >
-                <Layout>{children}</Layout>
-            </CurrentPageContext.Provider>
-        </ThemeContext.Provider>
+      <ThemeContext.Provider value={{ colorTheme, toggleTheme }}>
+        <Layout>{children}</Layout>
+      </ThemeContext.Provider>
     );
 };
+
+LayoutContext.propTypes = {
+  children: PropTypes.object,
+}
 
 export default LayoutContext;

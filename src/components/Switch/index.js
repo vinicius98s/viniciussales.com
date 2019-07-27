@@ -9,30 +9,30 @@ import {
 
 const Switch = ({ handleOnToggle, checked, colorTheme }) => {
     return (
-        <SwitchWrapper>
-            <SwitchLabel
-                active={colorTheme === 'light'}
-                leftSideLabel
-                colorTheme={colorTheme}
-            >
+      <SwitchWrapper>
+        <SwitchLabel
+          active={colorTheme === 'light'}
+          leftSideLabel
+          colorTheme={colorTheme}
+        >
                 Light
-            </SwitchLabel>
-            <SwitchToggleTheme colorTheme={colorTheme}>
-                <input
-                    onChange={handleOnToggle}
-                    type="checkbox"
-                    checked={checked}
-                />
-                <SwitchSlider colorTheme={colorTheme} />
-            </SwitchToggleTheme>
-            <SwitchLabel
-                active={colorTheme === 'dark'}
-                rightSideLabel
-                colorTheme={colorTheme}
-            >
+        </SwitchLabel>
+        <SwitchToggleTheme colorTheme={colorTheme}>
+          <input
+            onChange={handleOnToggle}
+            type="checkbox"
+            checked={checked}
+          />
+          <SwitchSlider colorTheme={colorTheme} />
+        </SwitchToggleTheme>
+        <SwitchLabel
+          active={colorTheme === 'dark'}
+          rightSideLabel
+          colorTheme={colorTheme}
+        >
                 Dark
-            </SwitchLabel>
-        </SwitchWrapper>
+        </SwitchLabel>
+      </SwitchWrapper>
     );
 };
 

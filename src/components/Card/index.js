@@ -19,20 +19,20 @@ const Card = ({
     const { colorTheme } = useContext(ThemeContext);
 
     return (
-        <CardWrapper
-            width={width}
-            height={height}
-            flexDirection={flexDirection}
-            flexBasis={flexBasis}
-            flexWrap={flexWrap}
-            alignItems={alignItems}
-            customBorderColor={customBorderColor}
-            colorTheme={colorTheme}
-            customBackgroundColor={customBackgroundColor}
-            margin={margin}
-        >
-            {children}
-        </CardWrapper>
+      <CardWrapper
+        width={width}
+        height={height}
+        flexDirection={flexDirection}
+        flexBasis={flexBasis}
+        flexWrap={flexWrap}
+        alignItems={alignItems}
+        customBorderColor={customBorderColor}
+        colorTheme={colorTheme}
+        customBackgroundColor={customBackgroundColor}
+        margin={margin}
+      >
+        {children}
+      </CardWrapper>
     );
 };
 
@@ -42,6 +42,7 @@ Card.defaultProps = {
 
 Card.propTypes = {
     width: PropTypes.string,
+    children: PropTypes.object,
     height: PropTypes.string,
     customBorderColor: PropTypes.string,
     customBackgroundColor: PropTypes.string,

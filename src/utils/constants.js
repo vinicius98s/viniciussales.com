@@ -1,5 +1,3 @@
-const constants = {
+export default {
     localStorageThemeColorKey: '@vinicius98s:ThemeColor',
 };
-
-export default constants;

@@ -1,4 +1,4 @@
-export const theme = {
+export default {
     fonts: {
         regular: 400,
         medium: 500,
@@ -21,5 +21,3 @@ export const theme = {
     },
     transition: '0.5s ease',
 };
-
-export default theme;

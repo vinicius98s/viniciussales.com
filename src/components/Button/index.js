@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { ButtonWrapper } from './styles.js';
+import { ButtonWrapper } from './styles';
 
 const Button = ({
     children,
@@ -17,21 +17,21 @@ const Button = ({
     borderRadius,
     customColorHover,
 }) => (
-    <ButtonWrapper
-        variant={variant}
-        fontColor={fontColor}
-        fontSize={fontSize}
-        fontWeight={fontWeight}
-        customColor={customColor}
-        width={width}
-        height={height}
-        padding={padding}
-        margin={margin}
-        borderRadius={borderRadius}
-        customColorHover={customColorHover}
-    >
-        {children}
-    </ButtonWrapper>
+  <ButtonWrapper
+    variant={variant}
+    fontColor={fontColor}
+    fontSize={fontSize}
+    fontWeight={fontWeight}
+    customColor={customColor}
+    width={width}
+    height={height}
+    padding={padding}
+    margin={margin}
+    borderRadius={borderRadius}
+    customColorHover={customColorHover}
+  >
+    {children}
+  </ButtonWrapper>
 );
 
 Button.defaultProps = {
@@ -39,6 +39,7 @@ Button.defaultProps = {
 };
 
 Button.propTypes = {
+    children: PropTypes.object,
     variant: PropTypes.string,
     fontColor: PropTypes.string,
     width: PropTypes.string,
