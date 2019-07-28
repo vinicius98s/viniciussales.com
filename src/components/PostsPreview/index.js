@@ -43,7 +43,7 @@ const PostsPreview = ({ posts, theme }) => (
                 <Img fixed={postDetails.previewImage.childImageSharp.fixed} />
                 <PostDetailsText>
                   <PostTitle>{postDetails.title}</PostTitle>
-                  <PostDescription>{post.excerpt}</PostDescription>
+                  <PostDescription>{postDetails.description}</PostDescription>
                   <PostTags
                     tags={postDetails.tags}
                     justifyContent="flex-start"

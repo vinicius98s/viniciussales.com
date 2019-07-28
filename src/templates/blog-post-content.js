@@ -21,8 +21,8 @@ const BlogPostContent = ({ data }) => {
   const { frontmatter: postDetails } = post;
 
   return (
-    <LayoutContext>
-      <Helmet title={`Vinicius Sales - ${postDetails.title}`} />
+    <LayoutContext readingProgress>
+      <Helmet title={postDetails.title} />
       <MainInfoWrapper>
         <Img
           style={{
@@ -47,7 +47,6 @@ export const pageQuery = graphql`
   query BlogPostByPath($path: String!) {
     markdownRemark(frontmatter: { path: { eq: $path } }) {
       html
-      excerpt(pruneLength: 200)
       frontmatter {
         date(formatString: "MMMM DD, YYYY")
         description

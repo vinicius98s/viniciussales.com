@@ -1,28 +1,49 @@
-import React, { useContext } from 'react';
+import React, { useContext, createRef } from 'react';
+import PropTypes from 'prop-types';
 import { ThemeProvider } from 'styled-components';
 
 import theme from 'src/assets/theme';
 import Header from 'src/components/Header';
+import ReadingProgress from 'src/components/ReadingProgress';
 import { ThemeContext } from 'src/components/LayoutContext';
 
-import { LayoutWrapper, TopLine, ContentWrapper } from './styles';
+import { LayoutWrapper, TopLine, ContentWrapper, Normalize } from './styles';
 
-import './normalize.css';
-
-const Layout = ({ children }) => {
+const Layout = ({ children, readingProgress }) => {
   const { colorTheme } = useContext(ThemeContext);
+
+  const layouRef = createRef();
 
   return (
     <ThemeProvider theme={theme}>
-      <LayoutWrapper colorTheme={colorTheme}>
-        <ContentWrapper>
+      <>
+        {readingProgress ? (
+          <ReadingProgress
+            target={layouRef}
+            backgroundColor={
+              colorTheme === 'dark'
+                ? theme.colors.darkGrey
+                : theme.colors.lightGrey
+            }
+            progressColor={theme.colors.main}
+          />
+        ) : (
           <TopLine />
-          <Header />
-          {children}
-        </ContentWrapper>
-      </LayoutWrapper>
+        )}
+        <LayoutWrapper colorTheme={colorTheme} ref={layouRef}>
+          <Normalize />
+          <ContentWrapper>
+            <Header />
+            {children}
+          </ContentWrapper>
+        </LayoutWrapper>
+      </>
     </ThemeProvider>
   );
+};
+
+Layout.propTypes = {
+  readingProgress: PropTypes.bool,
 };
 
 export default Layout;
