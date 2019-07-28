@@ -12,6 +12,7 @@ module.exports = {
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-robots-txt`,
     `gatsby-plugin-offline`,
+    `gatsby-plugin-transition-link`,
     {
       resolve: 'gatsby-plugin-web-font-loader',
       options: {

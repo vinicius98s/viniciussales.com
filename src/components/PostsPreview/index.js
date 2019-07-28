@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'gatsby';
 import Img from 'gatsby-image';
+import { TransitionState } from 'gatsby-plugin-transition-link';
 import { withTheme } from 'styled-components';
 
-import Button from '../Button';
-import PostTags from '../PostTags';
-import Card from '../Card';
+import TransitionLink from 'src/components/TransitionLink';
+import Button from 'src/components/Button';
+import PostTags from 'src/components/PostTags';
+import Card from 'src/components/Card';
 
 import {
   PostsPreviewWrapper,
@@ -18,49 +19,60 @@ import {
 } from './styles';
 
 const PostsPreview = ({ posts, theme }) => (
-  <PostsPreviewWrapper>
-    {posts.map(({ node: post }, index) => {
-      const { frontmatter: postDetails } = post;
+  <TransitionState>
+    {({ transitionStatus }) => (
+      <PostsPreviewWrapper>
+        {posts.map(({ node: post }, index) => {
+          const { frontmatter: postDetails } = post;
 
-      return (
-        <Card
-          key={post.id}
-          margin={{
-            right: index % 2 === 0 && 'default',
-            bottom: 'medium',
-          }}
-          flexBasis={48}
-          flexDirection="row"
-        >
-          <PostDetails>
-            <Img fixed={postDetails.previewImage.childImageSharp.fixed} />
-            <PostDetailsText>
-              <PostTitle>{postDetails.title}</PostTitle>
-              <PostDescription>{post.excerpt}</PostDescription>
-              <PostTags tags={postDetails.tags} justifyContent="flex-start" />
-            </PostDetailsText>
-          </PostDetails>
-          <ButtonWrapper>
-            <Link to={postDetails.path}>
-              <Button
-                width="100%"
-                padding={`${theme.sizes.small} 0`}
-                fontWeight="bold"
-                borderRadius={{
-                  topLeft: 0,
-                  topRight: 0,
-                  bottomLeft: theme.sizes.small,
-                  bottomRight: theme.sizes.small,
-                }}
-              >
-                Continue reading
-              </Button>
-            </Link>
-          </ButtonWrapper>
-        </Card>
-      );
-    })}
-  </PostsPreviewWrapper>
+          return (
+            <Card
+              key={post.id}
+              flexBasis={48}
+              flexDirection="row"
+              animation={
+                transitionStatus === 'entering' ||
+                transitionStatus === 'entered'
+              }
+              margin={{
+                right: index % 2 === 0 && 'default',
+                bottom: 'medium',
+              }}
+            >
+              <PostDetails>
+                <Img fixed={postDetails.previewImage.childImageSharp.fixed} />
+                <PostDetailsText>
+                  <PostTitle>{postDetails.title}</PostTitle>
+                  <PostDescription>{post.excerpt}</PostDescription>
+                  <PostTags
+                    tags={postDetails.tags}
+                    justifyContent="flex-start"
+                  />
+                </PostDetailsText>
+              </PostDetails>
+              <ButtonWrapper>
+                <TransitionLink direction="up" to={postDetails.path}>
+                  <Button
+                    width="100%"
+                    padding={`${theme.sizes.small} 0`}
+                    fontWeight="bold"
+                    borderRadius={{
+                      topLeft: 0,
+                      topRight: 0,
+                      bottomLeft: theme.sizes.small,
+                      bottomRight: theme.sizes.small,
+                    }}
+                  >
+                    Continue reading
+                  </Button>
+                </TransitionLink>
+              </ButtonWrapper>
+            </Card>
+          );
+        })}
+      </PostsPreviewWrapper>
+    )}
+  </TransitionState>
 );
 
 PostsPreview.propTypes = {

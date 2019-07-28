@@ -15,6 +15,7 @@ const Card = ({
   flexWrap,
   margin,
   alignItems,
+  animation,
 }) => {
   const { colorTheme } = useContext(ThemeContext);
 
@@ -30,6 +31,7 @@ const Card = ({
       colorTheme={colorTheme}
       customBackgroundColor={customBackgroundColor}
       margin={margin}
+      animation={animation}
     >
       {children}
     </CardWrapper>
@@ -37,6 +39,7 @@ const Card = ({
 };
 
 Card.defaultProps = {
+  animation: false,
   alignItems: 'center',
   flexDirection: 'column',
   margin: {
@@ -48,6 +51,7 @@ Card.defaultProps = {
 };
 
 Card.propTypes = {
+  animation: PropTypes.bool,
   width: PropTypes.string,
   height: PropTypes.string,
   customBorderColor: PropTypes.string,

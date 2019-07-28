@@ -1,13 +1,16 @@
 import React from 'react';
 
 import Menu from 'src/components/Menu';
+import TransitionLink from 'src/components/TransitionLink';
 import logoSvg from 'src/assets/images/Logo.svg';
 
 import { HeaderWrapper, Logo } from './styles';
 
 const Header = () => (
   <HeaderWrapper>
-    <Logo src={logoSvg} />
+    <TransitionLink>
+      <Logo src={logoSvg} />
+    </TransitionLink>
     <Menu />
   </HeaderWrapper>
 );
