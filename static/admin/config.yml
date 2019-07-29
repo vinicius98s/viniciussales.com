@@ -1,0 +1,26 @@
+backend:
+  name: github
+  repo: vinicius98s/viniciussales.com
+  branch: development
+media_folder: src/pages/images
+publish_mode: editorial_workflow
+collections:
+  - name: post
+    label: Post
+    folder: src/pages
+    create: true
+    slug: '{{title}}'
+    path: '/{{title}}'
+    fields:
+      - { name: date, label: Date, widget: date }
+      - { name: title, label: Title, widget: string }
+      - { name: body, label: Body, widget: markdown }
+      - { name: featuredImage, label: Featured Image, widget: image }
+      - { name: previewImage, label: Preview Image, widget: image }
+      - {
+          name: tags,
+          label: Tags,
+          widget: list,
+          allow_add: true,
+          default: [javascript, node],
+        }

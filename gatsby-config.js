@@ -6,6 +6,7 @@ module.exports = {
     siteUrl: 'https://vinicius98s.github.io',
   },
   plugins: [
+    `gatsby-plugin-netlify-cms`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-catch-links`,
     `gatsby-transformer-remark`,
