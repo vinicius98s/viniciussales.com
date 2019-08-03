@@ -4,15 +4,18 @@ export const ProgressBarWrapper = styled.div`
   width: 100vw;
   height: 5px;
   background-color: ${({ backgroundColor }) => backgroundColor};
-  position: sticky;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 1;
 `;
 
-export const ProgressBar = styled.div`
+export const ProgressBar = styled.div.attrs(({ width }) => ({
+  style: {
+    width: `${width}%`,
+  },
+}))`
   height: 5px;
   top: 0;
   background-color: ${({ progressColor }) => progressColor};
-  width: ${({ width }) => `${width}%`};
 `;

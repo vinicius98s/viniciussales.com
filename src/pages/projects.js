@@ -41,10 +41,10 @@ const Projects = ({ data }) => {
           <LayoutContext>
             <StyledH1>Projects</StyledH1>
             <StyledText>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequuntur
-              odio, quia quae cupiditate eius est vitae dolorum, iste impedit cumque
-              facilis quas sapiente! Placeat mollitia reprehenderit ratione?
-              Excepturi, placeat ducimus?
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              Consequuntur odio, quia quae cupiditate eius est vitae dolorum,
+              iste impedit cumque facilis quas sapiente! Placeat mollitia
+              reprehenderit ratione? Excepturi, placeat ducimus?
             </StyledText>
             {projects.map(project => (
               <Card
@@ -74,6 +74,7 @@ const Projects = ({ data }) => {
                         bottom: 'none',
                         left: 'none',
                       }}
+                      fontSize="16px"
                     >
                       <a
                         href={project.pathToRepository}

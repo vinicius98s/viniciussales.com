@@ -26,7 +26,7 @@ export const ButtonWrapper = styled.button`
         : `${borderRadius.topLeft} ${borderRadius.topRight} ${borderRadius.bottomRight} ${borderRadius.bottomLeft}`
       : theme.sizes.small};
   outline: none;
-  font-size: ${({ fontSize }) => fontSize || '20px'};
+  font-size: ${({ fontSize }) => fontSize || '18px'};
   cursor: pointer;
   color: ${({ theme, fontColor }) => fontColor || theme.colors.white};
 

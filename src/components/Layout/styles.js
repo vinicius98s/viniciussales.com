@@ -43,8 +43,4 @@ export const Normalize = createGlobalStyle`
   a {
     text-decoration: none;
   }
-
-  .tl-edges {
-    overflow-x: unset;
-  }
 `;
