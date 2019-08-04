@@ -34,4 +34,7 @@ module.exports = {
       alias: [['src', './src']],
     },
   },
+  env: {
+    jest: true,
+  },
 };

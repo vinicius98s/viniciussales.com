@@ -20,7 +20,7 @@ import {
 
 const PostsPreview = ({ posts, theme }) => (
   <TransitionState>
-    {({ transitionStatus }) => (
+    {({ transitionStatus } = 'entered') => (
       <PostsPreviewWrapper>
         {posts.map(({ node: post }, index) => {
           const { frontmatter: postDetails } = post;

@@ -43,10 +43,11 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "gatsby build",
+    "build": "yarn test && gatsby build",
     "start": "gatsby develop",
     "serve": "gatsby serve",
-    "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\""
+    "test": "jest -c jest.config.js",
+    "test:watch": "jest -c jest.config.js --watch"
   },
   "repository": {
     "type": "git",
@@ -58,6 +59,8 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^4.0.0",
     "@testing-library/react": "^8.0.7",
+    "babel-jest": "^24.8.0",
+    "babel-preset-gatsby": "^0.2.8",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.1",
     "eslint-config-prettier": "^6.0.0",
@@ -67,6 +70,9 @@
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.14.3",
     "gatsby-plugin-root-import": "^2.0.5",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^24.8.0",
+    "jest-cli": "^24.8.0",
     "prettier": "^1.18.2"
   }
 }
