@@ -57,8 +57,8 @@ Button.propTypes = {
   customColor: PropTypes.string,
   customColorHover: PropTypes.string,
   padding: PropTypes.string,
-  margin: PropTypes.object || PropTypes.string,
-  borderRadius: PropTypes.object || PropTypes.string,
+  margin: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  borderRadius: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   fontWeight: PropTypes.string,
   noHover: PropTypes.bool,
 };
