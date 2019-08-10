@@ -16,6 +16,7 @@ const Button = ({
   margin,
   borderRadius,
   customColorHover,
+  noHover,
 }) => (
   <ButtonWrapper
     variant={variant}
@@ -29,6 +30,7 @@ const Button = ({
     margin={margin}
     borderRadius={borderRadius}
     customColorHover={customColorHover}
+    noHover={noHover}
   >
     {children}
   </ButtonWrapper>
@@ -43,6 +45,7 @@ Button.defaultProps = {
     bottom: 'none',
     left: 'none',
   },
+  noHover: false,
 };
 
 Button.propTypes = {
@@ -57,6 +60,7 @@ Button.propTypes = {
   margin: PropTypes.object || PropTypes.string,
   borderRadius: PropTypes.object || PropTypes.string,
   fontWeight: PropTypes.string,
+  noHover: PropTypes.bool,
 };
 
 export default Button;

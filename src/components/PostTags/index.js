@@ -8,20 +8,19 @@ import { TagsWrapper } from './styles';
 
 const PostTags = ({ tags, justifyContent, alignItems, theme }) => (
   <TagsWrapper justifyContent={justifyContent} alignItems={alignItems}>
-    {tags.length &&
+    {!!tags.length &&
       tags.map(tag => (
         <Button
-          customColor="#595959"
-          fontColor={theme.colors.white}
+          noHover
+          customColor={theme.colors.darkGrey}
+          fontColor={theme.colors.lightGrey}
           fontSize="13px"
           key={tag}
           padding="4px 10px"
           fontWeight="medium"
-          borderRadius={{
-            topLeft: '5px',
-            topRight: '5px',
-            bottomLeft: '5px',
-            bottomRight: '5px',
+          borderRadius="4px"
+          margin={{
+            top: 'small',
           }}
         >
           {tag}

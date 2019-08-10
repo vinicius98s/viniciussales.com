@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const ButtonWrapper = styled.button`
   transition: ${({ theme }) => theme.transition};
@@ -27,15 +27,20 @@ export const ButtonWrapper = styled.button`
       : theme.sizes.small};
   outline: none;
   font-size: ${({ fontSize }) => fontSize || '18px'};
-  cursor: pointer;
   color: ${({ theme, fontColor }) => fontColor || theme.colors.white};
 
   * {
     color: ${({ theme, fontColor }) => fontColor || theme.colors.white};
   }
 
-  &:hover {
-    background: ${({ theme, customColorHover }) =>
-      customColorHover || theme.colors.mainHover};
-  }
+  ${({ noHover }) =>
+    !noHover &&
+    css`
+      cursor: pointer;
+
+      &:hover {
+        background: ${({ theme, customColorHover }) =>
+          customColorHover || theme.colors.mainHover};
+      }
+    `}
 `;

@@ -38,9 +38,15 @@ export const Normalize = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: none;
   }
 
   a {
     text-decoration: none;
+  }
+
+  ul {
+    list-style: none;
   }
 `;

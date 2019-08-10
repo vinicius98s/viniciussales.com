@@ -1,0 +1,1 @@
+export const POSTS_PREVIEW_BREAKPOINT = 1118;

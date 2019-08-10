@@ -28,6 +28,7 @@ module.exports = {
     'import/no-cycle': 'off',
     'react/prop-types': [2, { ignore: ['children'] }],
     'consistent-return': 'off',
+    'no-undef': [2, { ignore: ['window'] }],
   },
   settings: {
     'import/resolver': {
