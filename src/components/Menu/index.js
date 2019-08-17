@@ -1,37 +1,65 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 
 import { ThemeContext } from 'src/components/LayoutContext';
 import TransitionLink from 'src/components/TransitionLink';
 import Switch from 'src/components/Switch';
 
-import { MenuUl, MenuLi } from './styles';
+import useWindowSize from 'src/utils/useWindowSize';
+
+import {
+  MenuUl,
+  MenuLi,
+  MobileMenu,
+  MobileMenuWrapper,
+  ExpandBackground,
+} from './styles';
 
 const Menu = () => {
+  const [mobileMenuActive, setMobileMenuActive] = useState(false);
+  const [windowWidth] = useWindowSize();
   const { colorTheme, toggleTheme } = useContext(ThemeContext);
+
+  const WIDTH_BREAKPOINT = 710;
 
   const windowLocation =
     typeof window !== 'undefined' ? window.location.pathname : '/';
 
+  const toggleMobileMenuActive = () =>
+    setMobileMenuActive(previousState => !previousState);
+
   return (
-    <MenuUl>
-      <MenuLi active={windowLocation === '/'} colorTheme={colorTheme}>
-        <TransitionLink>Home</TransitionLink>
-      </MenuLi>
-      <MenuLi
-        marginLeft
-        active={windowLocation.includes('projects')}
-        colorTheme={colorTheme}
+    <>
+      {windowWidth < WIDTH_BREAKPOINT && (
+        <>
+          <ExpandBackground expand={mobileMenuActive} colorTheme={colorTheme} />
+          <MobileMenuWrapper role="button" onClick={toggleMobileMenuActive}>
+            <MobileMenu active={mobileMenuActive} />
+          </MobileMenuWrapper>
+        </>
+      )}
+      <MenuUl
+        shouldDisplay={windowWidth > WIDTH_BREAKPOINT}
+        active={mobileMenuActive}
       >
-        <TransitionLink direction="left" to="/projects">
-          Projects
-        </TransitionLink>
-      </MenuLi>
-      <Switch
-        handleOnToggle={toggleTheme}
-        checked={colorTheme === 'dark'}
-        colorTheme={colorTheme}
-      />
-    </MenuUl>
+        <MenuLi active={windowLocation === '/'} colorTheme={colorTheme}>
+          <TransitionLink>Home</TransitionLink>
+        </MenuLi>
+        <MenuLi
+          marginLeft
+          active={windowLocation.includes('projects')}
+          colorTheme={colorTheme}
+        >
+          <TransitionLink direction="left" to="/projects">
+            Projects
+          </TransitionLink>
+        </MenuLi>
+        <Switch
+          handleOnToggle={toggleTheme}
+          checked={colorTheme === 'dark'}
+          colorTheme={colorTheme}
+        />
+      </MenuUl>
+    </>
   );
 };
 

@@ -22,13 +22,13 @@ import {
 } from './styles';
 
 const PostsPreview = ({ posts, theme }) => {
-  const screenWidth = useWindowSize().width;
+  const [windowWidth] = useWindowSize();
 
   return (
     <TransitionState>
       {({ transitionStatus } = 'entered') => (
         <PostsPreviewWrapper
-          shouldWrap={screenWidth < POSTS_PREVIEW_BREAKPOINT}
+          shouldWrap={windowWidth < POSTS_PREVIEW_BREAKPOINT}
         >
           {posts.map(({ node: post }, index) => {
             const { frontmatter: postDetails } = post;
@@ -36,7 +36,7 @@ const PostsPreview = ({ posts, theme }) => {
             return (
               <Card
                 key={post.id}
-                width={screenWidth > POSTS_PREVIEW_BREAKPOINT ? '50%' : '100%'}
+                width={windowWidth > POSTS_PREVIEW_BREAKPOINT ? '50%' : '100%'}
                 flexDirection="row"
                 animation={
                   transitionStatus === 'entering' ||
@@ -45,7 +45,7 @@ const PostsPreview = ({ posts, theme }) => {
                 margin={{
                   right:
                     index % 2 === 0 &&
-                    screenWidth > POSTS_PREVIEW_BREAKPOINT &&
+                    windowWidth > POSTS_PREVIEW_BREAKPOINT &&
                     'default',
                   bottom: 'medium',
                 }}

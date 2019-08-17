@@ -18,17 +18,15 @@ export const StyledText = styled.p`
 `;
 
 export const ProjectInfoWrapper = styled.div`
-  margin-left: ${({ theme }) => theme.sizes.default};
+  margin-left: ${({ theme, marginLeft }) => marginLeft && theme.sizes.default};
+  margin-top: ${({ theme, marginTop }) => marginTop && theme.sizes.default};
+
   p {
     font-size: 16px;
   }
 `;
 
-export const ProjectWrapper = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
 export const ImageWrapper = styled.div`
-  min-width: 400px;
+  min-width: ${({ minWidth }) => minWidth && '400px'};
+  width: 100%;
 `;

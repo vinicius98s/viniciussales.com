@@ -10,12 +10,12 @@ import Card from 'src/components/Card';
 import Button from 'src/components/Button';
 
 import { projects } from 'src/utils/constants';
+import useWindowSize from 'src/utils/useWindowSize';
 
 import {
   StyledH1,
   StyledText,
   ProjectInfoWrapper,
-  ProjectWrapper,
   ImageWrapper,
 } from 'src/assets/styles';
 
@@ -29,6 +29,9 @@ const Projects = ({ data }) => {
 
     return projectImage.node.childImageSharp.fluid;
   };
+
+  const [windowWidth] = useWindowSize();
+  const WIDTH_BREAKPOINT = 820;
 
   return (
     <TransitionState>
@@ -49,6 +52,9 @@ const Projects = ({ data }) => {
             {projects.map(project => (
               <Card
                 key={project.pathToRepository}
+                flexDirection={
+                  windowWidth < WIDTH_BREAKPOINT ? 'column' : 'row'
+                }
                 margin={{
                   top: 'medium',
                   right: 'none',
@@ -60,32 +66,33 @@ const Projects = ({ data }) => {
                   transitionStatus === 'entered'
                 }
               >
-                <ProjectWrapper>
-                  <ImageWrapper>
-                    <Img fluid={getProjectImage(project.imageName)} />
-                  </ImageWrapper>
-                  <ProjectInfoWrapper>
-                    <StyledH1>{project.name}</StyledH1>
-                    <StyledText>{project.description}</StyledText>
-                    <Button
-                      margin={{
-                        top: 'default',
-                        right: 'none',
-                        bottom: 'none',
-                        left: 'none',
-                      }}
-                      fontSize="16px"
+                <ImageWrapper minWidth={windowWidth > WIDTH_BREAKPOINT}>
+                  <Img fluid={getProjectImage(project.imageName)} />
+                </ImageWrapper>
+                <ProjectInfoWrapper
+                  marginTop={windowWidth < WIDTH_BREAKPOINT}
+                  marginLeft={windowWidth > WIDTH_BREAKPOINT}
+                >
+                  <StyledH1>{project.name}</StyledH1>
+                  <StyledText>{project.description}</StyledText>
+                  <Button
+                    margin={{
+                      top: 'default',
+                      right: 'none',
+                      bottom: 'none',
+                      left: 'none',
+                    }}
+                    fontSize="16px"
+                  >
+                    <a
+                      href={project.pathToRepository}
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
-                      <a
-                        href={project.pathToRepository}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Repository
-                      </a>
-                    </Button>
-                  </ProjectInfoWrapper>
-                </ProjectWrapper>
+                      Repository
+                    </a>
+                  </Button>
+                </ProjectInfoWrapper>
               </Card>
             ))}
           </LayoutContext>
