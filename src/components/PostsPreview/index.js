@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Img from 'gatsby-image';
 import { TransitionState } from 'gatsby-plugin-transition-link';
 import { withTheme } from 'styled-components';
+import ReactGA from 'react-ga';
 
 import TransitionLink from 'src/components/TransitionLink';
 import Button from 'src/components/Button';
@@ -23,6 +24,13 @@ import {
 
 const PostsPreview = ({ posts, theme }) => {
   const [windowWidth] = useWindowSize();
+
+  const sendGAEvent = postTitle =>
+    ReactGA.event({
+      category: 'posts',
+      action: 'click',
+      label: postTitle,
+    });
 
   return (
     <TransitionState>
@@ -64,6 +72,7 @@ const PostsPreview = ({ posts, theme }) => {
                 <ButtonWrapper>
                   <TransitionLink direction="up" to={postDetails.path}>
                     <Button
+                      onClick={() => sendGAEvent(postDetails.title)}
                       width="100%"
                       padding={`${theme.sizes.small} 0`}
                       fontWeight="bold"

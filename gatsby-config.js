@@ -66,9 +66,15 @@ module.exports = {
         background_color: `#D93047`,
         theme_color: `#D93047`,
         display: `minimal-ui`,
-        icon: `src/assets/images/Logo.svg`, // This path is relative to the root of the site.
+        icon: `src/assets/images/Logo.svg`,
       },
     },
     'gatsby-plugin-offline',
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: "UA-145380484-1",
+      },
+    },
   ],
 };

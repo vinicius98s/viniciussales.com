@@ -17,6 +17,7 @@ const Button = ({
   borderRadius,
   customColorHover,
   noHover,
+  onClick,
 }) => (
   <ButtonWrapper
     variant={variant}
@@ -31,6 +32,7 @@ const Button = ({
     borderRadius={borderRadius}
     customColorHover={customColorHover}
     noHover={noHover}
+    onClick={onClick}
   >
     {children}
   </ButtonWrapper>
@@ -61,6 +63,7 @@ Button.propTypes = {
   borderRadius: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   fontWeight: PropTypes.string,
   noHover: PropTypes.bool,
+  onClick: PropTypes.func,
 };
 
 export default Button;
