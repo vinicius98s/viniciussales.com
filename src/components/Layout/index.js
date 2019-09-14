@@ -7,10 +7,13 @@ import Header from 'src/components/Header';
 import ReadingProgress from 'src/components/ReadingProgress';
 import { ThemeContext } from 'src/components/LayoutContext';
 
+import useWindowSize from 'src/utils/useWindowSize';
+
 import { LayoutWrapper, TopLine, ContentWrapper, Normalize } from './styles';
 
 const Layout = ({ children, readingProgress }) => {
   const { colorTheme } = useContext(ThemeContext);
+  const [windowWidth] = useWindowSize();
 
   const layouRef = createRef();
 
@@ -30,7 +33,11 @@ const Layout = ({ children, readingProgress }) => {
         ) : (
           <TopLine />
         )}
-        <LayoutWrapper colorTheme={colorTheme} ref={layouRef}>
+        <LayoutWrapper
+          colorTheme={colorTheme}
+          ref={layouRef}
+          windowWidth={windowWidth}
+        >
           <Normalize />
           <ContentWrapper>
             <Header />

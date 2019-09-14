@@ -24,14 +24,7 @@ const BlogPostContent = ({ data }) => {
     <LayoutContext readingProgress>
       <Helmet title={postDetails.title} />
       <MainInfoWrapper>
-        <Img
-          style={{
-            position: 'absolute',
-            width: '100%',
-            opacity: 0.1,
-          }}
-          fluid={postDetails.featuredImage.childImageSharp.fluid}
-        />
+        <Img fluid={postDetails.featuredImage.childImageSharp.fluid} />
         <PostInfoWrapper>
           <PostTitle>{postDetails.title}</PostTitle>
           <PostDescription>{postDetails.description}</PostDescription>

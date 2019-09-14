@@ -5,9 +5,14 @@ export const MainInfoWrapper = styled.div`
   min-height: 250px;
   width: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   margin-bottom: ${({ theme }) => theme.sizes.default};
+
+  & > div {
+    width: 100%;
+  }
 `;
 
 export const PostInfoWrapper = styled.div`
@@ -58,21 +63,40 @@ export const Post = styled.div`
     color: ${({ theme }) => theme.colors.main};
   }
 
-  pre {
-    padding: ${({ theme }) => theme.sizes.default};
-  }
-
   .gatsby-highlight {
-    border-left: 0.25em solid ${({ theme }) => theme.colors.main};
+    background-color: ${({ theme }) => theme.colors.semiDarkGrey};
+    border-radius: 0.3em;
+    margin: 0.5em 0;
+    overflow: auto;
 
-    .gatsby-highlight-code-line {
-      background-color: ${({ theme }) => theme.colors.darkGrey};
-      display: block;
-      margin-right: -1.58em;
-      margin-left: -1.55em;
-      padding-right: 1em;
-      padding-left: 1.4em;
-      border-left: 0.25em solid ${({ theme }) => theme.colors.lightGrey};
+    pre[class*='language-'] {
+      background-color: transparent;
+      overflow: initial;
+      float: left;
+      min-width: calc(100% - 1em);
+      margin-left: 1em;
+      padding-right: 1.5em;
+
+      .gatsby-highlight-code-line {
+        background-color: ${({ theme }) => theme.colors.darkGrey};
+        display: block;
+        margin-right: -1.5em;
+        margin-left: -2em;
+        padding-right: 2em;
+        padding-left: 1.75em;
+        border-left: 0.25em solid ${({ theme }) => theme.colors.main};
+      }
+
+      .line-numbers-rows {
+        margin-top: 1em;
+      }
+
+      .line-numbers {
+        margin-top: 1em;
+        padding: 0;
+        padding-left: 2.8em;
+        overflow: initial;
+      }
     }
 
     * {

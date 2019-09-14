@@ -307,7 +307,7 @@ try {
 
 Which means that those pieces can even become librarified:
 
-```js
+```js{numberLines: true}{1,2}
 import { withMyLoggingLibrary } from 'my-log';
 import { withMyFileSystem } from 'my-fs';
 

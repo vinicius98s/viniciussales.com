@@ -1,8 +1,20 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
+
+const fadeUpAnimation = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(12%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
 
 export const ExpandBackground = styled.div`
   transition: ${({ theme }) => theme.transition};
-  z-index: 1;
+  z-index: 997;
   box-shadow: ${({ theme, colorTheme }) =>
     `0 0 0 0 ${
       colorTheme === 'dark' ? theme.colors.darkGrey : theme.colors.lightGrey
@@ -19,11 +31,11 @@ export const ExpandBackground = styled.div`
   ${({ expand, theme, colorTheme }) =>
     expand &&
     css`
-      box-shadow: 0 0 0 200vw
+      box-shadow: 0 0 0 300vw
           ${colorTheme === 'dark'
             ? theme.colors.darkGrey
             : theme.colors.lightGrey},
-        0 0 0 200vw
+        0 0 0 300vw
           ${colorTheme === 'dark'
             ? theme.colors.darkGrey
             : theme.colors.lightGrey};
@@ -36,7 +48,7 @@ export const MobileMenuWrapper = styled.div`
   cursor: pointer;
   display: flex;
   align-items: center;
-  z-index: 3;
+  z-index: 999;
 `;
 
 export const MobileMenu = styled.div`
@@ -46,7 +58,7 @@ export const MobileMenu = styled.div`
     active ? 'transparent' : theme.colors.main};
   transition: ${({ theme }) => theme.transition};
   transform: ${({ active }) => active && 'rotate(180deg)'};
-  z-index: 2;
+  z-index: 998;
 
   ::after,
   ::before {
@@ -83,7 +95,7 @@ export const MobileMenu = styled.div`
 `;
 
 export const MenuUl = styled.ul`
-  z-index: 2;
+  z-index: 998;
 
   ${({ active, theme, shouldDisplay }) =>
     active
@@ -97,6 +109,7 @@ export const MenuUl = styled.ul`
           height: 100vh;
           top: 0;
           left: 0;
+          animation: ${fadeUpAnimation} 0.6s ease-in-out;
 
           li {
             margin: ${theme.sizes.default} 0;
@@ -105,7 +118,6 @@ export const MenuUl = styled.ul`
       : css`
           display: ${shouldDisplay ? 'flex' : 'none'};
           align-items: center;
-          opacity: 1;
         `};
 `;
 

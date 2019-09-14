@@ -1,4 +1,5 @@
 import styled, { createGlobalStyle } from 'styled-components';
+import { WIDTH_BREAKPOINT } from 'src/utils/constants';
 
 export const LayoutWrapper = styled.div`
   width: 100%;
@@ -7,7 +8,9 @@ export const LayoutWrapper = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
-  padding: ${({ theme }) => theme.sizes.medium} 0;
+  padding: ${({ theme, windowWidth }) =>
+      windowWidth > WIDTH_BREAKPOINT ? theme.sizes.medium : theme.sizes.default}
+    0;
   background: ${({ theme, colorTheme }) =>
     colorTheme === 'light' ? theme.colors.lightGrey : theme.colors.darkGrey};
   color: ${({ theme, colorTheme }) =>

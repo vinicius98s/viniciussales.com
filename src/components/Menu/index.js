@@ -5,6 +5,7 @@ import TransitionLink from 'src/components/TransitionLink';
 import Switch from 'src/components/Switch';
 
 import useWindowSize from 'src/utils/useWindowSize';
+import { WIDTH_BREAKPOINT } from 'src/utils/constants';
 
 import {
   MenuUl,
@@ -18,8 +19,6 @@ const Menu = () => {
   const [mobileMenuActive, setMobileMenuActive] = useState(false);
   const [windowWidth] = useWindowSize();
   const { colorTheme, toggleTheme } = useContext(ThemeContext);
-
-  const WIDTH_BREAKPOINT = 710;
 
   const windowLocation =
     typeof window !== 'undefined' ? window.location.pathname : '/';

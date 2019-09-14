@@ -16,3 +16,5 @@ export const projects = [
     pathToRepository: 'https://github.com/vinicius98s/udacity-readable',
   },
 ];
+
+export const WIDTH_BREAKPOINT = 710;
