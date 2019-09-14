@@ -37,6 +37,7 @@ const Menu = () => {
           </MobileMenuWrapper>
         </>
       )}
+
       <MenuUl
         shouldDisplay={windowWidth > WIDTH_BREAKPOINT}
         active={mobileMenuActive}

@@ -7,11 +7,7 @@ import SEO from 'src/components/SEO';
 import SocialMedia from 'src/components/SocialMedia';
 import PostsPreview from 'src/components/PostsPreview';
 
-import {
-  StyledH1,
-  StyledH2,
-  StyledText,
-} from 'src/assets/styles';
+import { StyledH1, StyledH2, StyledText } from 'src/assets/styles';
 
 const Home = ({ data }) => {
   const { edges: posts } = data.allMarkdownRemark;

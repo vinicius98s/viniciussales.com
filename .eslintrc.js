@@ -3,8 +3,8 @@ module.exports = {
     browser: true,
     es6: true,
   },
-  extends: ['airbnb', 'prettier'],
-  plugins: ['prettier'],
+  extends: ['airbnb', 'prettier', 'prettier/react'],
+  plugins: ['prettier', 'react'],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
@@ -16,8 +16,8 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  plugins: ['react'],
   rules: {
+    'prettier/prettier': 'error',
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'import/prefer-default-export': 'off',
     'no-nested-ternary': 'off',
@@ -29,6 +29,7 @@ module.exports = {
   },
   globals: {
     window: true,
+    document: true,
   },
   settings: {
     'import/resolver': {
