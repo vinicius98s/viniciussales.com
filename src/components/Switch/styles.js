@@ -10,8 +10,8 @@ export const SwitchWrapper = styled.li`
 export const SwitchToggleTheme = styled.label`
   position: relative;
   display: inline-block;
-  width: 45px;
-  height: 22px;
+  width: 35px;
+  height: 15px;
 
   input {
     opacity: 0;
@@ -20,7 +20,7 @@ export const SwitchToggleTheme = styled.label`
   }
 
   input:checked + span::before {
-    transform: translateX(23px);
+    transform: translateX(20px);
   }
 `;
 
@@ -43,8 +43,8 @@ export const SwitchSlider = styled.span`
     content: '';
     height: 20px;
     width: 20px;
-    left: -1px;
-    bottom: -1px;
+    left: -3px;
+    bottom: -4px;
     background-color: ${({ theme, colorTheme }) =>
       colorTheme === 'light' ? theme.colors.main : theme.colors.white};
     transition: ${({ theme }) => theme.transition};
