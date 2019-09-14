@@ -1,5 +1,5 @@
 {
-  "name": "vinicius98s.github.io",
+  "name": "viniciussales.com",
   "private": true,
   "description": "My portfolio and personal blog page",
   "version": "0.1.0",
@@ -11,13 +11,13 @@
     "gatsby-image": "^2.0.29",
     "gatsby-plugin-catch-links": "^2.0.10",
     "gatsby-plugin-manifest": "^2.2.4",
-    "gatsby-plugin-netlify-cms": "^4.1.6",
+    "gatsby-plugin-netlify-cms": "^4.1.14",
     "gatsby-plugin-offline": "^2.2.4",
     "gatsby-plugin-react-helmet": "^3.0.6",
     "gatsby-plugin-robots-txt": "^1.4.0",
     "gatsby-plugin-sharp": "^2.2.9",
     "gatsby-plugin-styled-components": "^3.0.5",
-    "gatsby-plugin-transition-link": "^1.12.4",
+    "gatsby-plugin-transition-link": "^1.13.0",
     "gatsby-plugin-web-font-loader": "^1.0.4",
     "gatsby-remark-images": "^3.1.7",
     "gatsby-remark-prismjs": "^3.2.4",
@@ -33,7 +33,7 @@
     "react-dom": "^16.8.0",
     "react-helmet": "^5.2.0",
     "react-icons": "^3.6.1",
-    "styled-components": "^4.1.3"
+    "styled-components": "^4.3.2"
   },
   "keywords": [
     "gatsby",
@@ -51,10 +51,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vinicius98s/vinicius98s.github.io"
+    "url": "https://github.com/vinicius98s/viniciussales.com"
   },
   "bugs": {
-    "url": "https://github.com/vinicius98s/vinicius98s.github.io/issues"
+    "url": "https://github.com/vinicius98s/viniciussales.com/issues"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^4.0.0",

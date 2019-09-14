@@ -60,8 +60,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `Vinicius Sales Blog`,
+        short_name: `Vinicius`,
         start_url: `/`,
         background_color: `#D93047`,
         theme_color: `#D93047`,
@@ -69,8 +69,6 @@ module.exports = {
         icon: `src/assets/images/Logo.svg`, // This path is relative to the root of the site.
       },
     },
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.app/offline
-    // 'gatsby-plugin-offline',
+    'gatsby-plugin-offline',
   ],
 };
