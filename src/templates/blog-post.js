@@ -18,32 +18,33 @@ import {
   Post,
 } from './styles';
 
-const sendGAEvent = scrollPercentage => {
-  const eventsCondition = {
-    initial: scrollPercentage > 10 && scrollPercentage < 25,
-    middle: scrollPercentage > 26 && scrollPercentage < 50,
-    end: scrollPercentage > 75 && scrollPercentage <= 100,
-  };
-
-  switch (true) {
-    case eventsCondition.initial:
-    case eventsCondition.middle:
-    case eventsCondition.end:
-      return ReactGA.event({
-        category: 'Posts',
-        action: 'Scroll',
-        label: `${scrollPercentage}%`,
-      });
-    default:
-      return false;
-  }
-};
-
 const BlogPostContent = ({ data }) => {
   const { markdownRemark: post } = data;
   const { frontmatter: postDetails } = post;
 
   const { scrollPercentage } = useScroll();
+
+  const sendGAEvent = percentage => {
+    const eventsCondition = {
+      initial: percentage > 10 && percentage < 25,
+      middle: percentage > 26 && percentage < 50,
+      end: percentage > 75 && percentage <= 100,
+    };
+
+    switch (true) {
+      case eventsCondition.initial:
+      case eventsCondition.middle:
+      case eventsCondition.end:
+        return ReactGA.event({
+          category: 'Posts',
+          action: 'Scroll',
+          label: `${postDetails.title} - ${percentage}%`,
+        });
+      default:
+        return false;
+    }
+  };
+
   sendGAEvent(scrollPercentage);
 
   return (
