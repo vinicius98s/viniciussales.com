@@ -1,25 +1,61 @@
 import React from 'react';
 import Proptypes from 'prop-types';
 import { graphql } from 'gatsby';
+import { FaReact, FaNodeJs, FaVuejs } from 'react-icons/fa';
+import ReactGA from 'react-ga';
 
 import LayoutContext from 'src/components/LayoutContext';
 import SEO from 'src/components/SEO';
 import SocialMedia from 'src/components/SocialMedia';
 import PostsPreview from 'src/components/PostsPreview';
+import Tooltip from 'src/components/Tooltip';
 
-import { StyledH1, StyledH2, StyledText } from 'src/assets/styles';
+import {
+  StyledH1,
+  StyledH2,
+  TechInfo,
+  Techs,
+  StyledText,
+} from 'src/assets/styles';
 
 const Home = ({ data }) => {
   const { edges: posts } = data.allMarkdownRemark;
+
+  const sendGAEvent = label =>
+    ReactGA.event({
+      category: 'Tooltip',
+      action: 'Mouse enter',
+      label,
+    });
 
   return (
     <>
       <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
       <LayoutContext>
         <StyledH1>Vinicius Sales</StyledH1>
-        <StyledH2>
-          Front-end developer - React, React Native and Node.js
-        </StyledH2>
+        <TechInfo>
+          <StyledH2 noMargin>A web developer currently working with:</StyledH2>
+          <Techs>
+            <Tooltip
+              title="React and React Native"
+              onMouseEnter={() => sendGAEvent('React')}
+            >
+              <FaReact />
+            </Tooltip>
+            <Tooltip
+              title="Some CRUD's"
+              onMouseEnter={() => sendGAEvent('Node')}
+            >
+              <FaNodeJs />
+            </Tooltip>
+            <Tooltip
+              title="Yeah, basically JavaScript"
+              onMouseEnter={() => sendGAEvent('Vue')}
+            >
+              <FaVuejs />
+            </Tooltip>
+          </Techs>
+        </TechInfo>
         <StyledText>
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequuntur
           odio, quia quae cupiditate eius est vitae dolorum, iste impedit cumque
