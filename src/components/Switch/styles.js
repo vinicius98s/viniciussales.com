@@ -11,7 +11,7 @@ export const SwitchToggleTheme = styled.label`
   position: relative;
   display: inline-block;
   width: 35px;
-  height: 15px;
+  height: 16px;
 
   input {
     opacity: 0;
@@ -20,7 +20,7 @@ export const SwitchToggleTheme = styled.label`
   }
 
   input:checked + span::before {
-    transform: translateX(20px);
+    transform: translateX(18px);
   }
 `;
 
@@ -44,7 +44,7 @@ export const SwitchSlider = styled.span`
     height: 20px;
     width: 20px;
     left: -3px;
-    bottom: -4px;
+    bottom: -0.3em;
     background-color: ${({ theme, colorTheme }) =>
       colorTheme === 'light' ? theme.colors.main : theme.colors.white};
     transition: ${({ theme }) => theme.transition};

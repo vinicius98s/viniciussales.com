@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import ReactGA from 'react-ga';
 
 import useLocalStorage from 'src/utils/useLocalStorage';
 import Layout from 'src/components/Layout';
@@ -18,6 +19,12 @@ const LayoutContext = ({ children, readingProgress }) => {
     const newColorTheme = colorTheme === 'light' ? 'dark' : 'light';
     setColorTheme(newColorTheme);
     setLocalStorageColorTheme(newColorTheme);
+
+    ReactGA.event({
+      category: 'Theme',
+      action: 'Toggle to new theme',
+      label: newColorTheme,
+    });
   };
 
   return (

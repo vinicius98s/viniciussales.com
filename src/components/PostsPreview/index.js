@@ -27,8 +27,8 @@ const PostsPreview = ({ posts, theme }) => {
 
   const sendGAEvent = postTitle =>
     ReactGA.event({
-      category: 'posts',
-      action: 'click',
+      category: 'Posts',
+      action: 'Click',
       label: postTitle,
     });
 

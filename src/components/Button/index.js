@@ -59,8 +59,24 @@ Button.propTypes = {
   customColor: PropTypes.string,
   customColorHover: PropTypes.string,
   padding: PropTypes.string,
-  margin: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  borderRadius: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  margin: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.shape({
+      top: PropTypes.string,
+      right: PropTypes.string,
+      bottom: PropTypes.string,
+      left: PropTypes.string,
+    }),
+  ]),
+  borderRadius: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.shape({
+      topLeft: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      topRight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      bottomRight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      bottomLeft: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    }),
+  ]),
   fontWeight: PropTypes.string,
   noHover: PropTypes.bool,
   onClick: PropTypes.func,
