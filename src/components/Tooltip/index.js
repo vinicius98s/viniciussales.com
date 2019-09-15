@@ -6,7 +6,7 @@ import { ThemeContext } from 'src/components/LayoutContext';
 import { TooltipContainer, TooltipText } from './styles';
 
 const Tooltip = ({ children, title, width, onMouseEnter, onMouseLeave }) => {
-  const [isHovered, setIsHovered] = useState(false);
+  const [isHovered, setIsHovered] = useState(true);
   const { colorTheme } = useContext(ThemeContext);
 
   const handleOnMouseEnter = () => {
@@ -34,7 +34,7 @@ const Tooltip = ({ children, title, width, onMouseEnter, onMouseLeave }) => {
       >
         {children}
         {isHovered && (
-          <TooltipText width={width} colorTheme={colorTheme}>
+          <TooltipText tooltipWidth={width} colorTheme={colorTheme}>
             {title}
           </TooltipText>
         )}

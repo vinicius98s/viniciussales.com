@@ -22,7 +22,7 @@ export const TooltipContainer = styled.div`
 `;
 
 export const TooltipText = styled.div`
-  width: ${({ width }) => `${width}px`};
+  width: ${({ tooltipWidth }) => `${tooltipWidth}px`};
   background-color: ${({ theme, colorTheme }) =>
     colorTheme === 'light' ? theme.colors.white : theme.colors.semiDarkGrey};
   color: ${({ theme, colorTheme }) =>
@@ -33,7 +33,7 @@ export const TooltipText = styled.div`
   position: absolute;
   z-index: 1;
   top: 150%;
-  left: 50%;
+  left: -105%;
   margin-left: ${({ width }) => `${width / -2}px`};
   font-size: 11px;
   animation: ${fadeAnimation} 0.3s linear;
