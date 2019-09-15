@@ -39,6 +39,7 @@ const BlogPostContent = ({ data }) => {
           category: 'Posts',
           action: 'Scroll',
           label: `${postDetails.title} - ${percentage}%`,
+          nonInteraction: true,
         });
       default:
         return false;
