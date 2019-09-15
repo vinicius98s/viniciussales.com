@@ -2,11 +2,13 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
-
 import Img from 'gatsby-image';
+import ReactGA from 'react-ga';
 
 import LayoutContext from 'src/components/LayoutContext';
 import PostTags from 'src/components/PostTags';
+
+import useScroll from 'src/utils/useScroll';
 
 import {
   MainInfoWrapper,
@@ -16,9 +18,34 @@ import {
   Post,
 } from './styles';
 
+const sendGAEvent = scrollPercentage => {
+  const eventsCondition = {
+    initial: scrollPercentage > 10 && scrollPercentage < 25,
+    middle: scrollPercentage > 26 && scrollPercentage < 50,
+    end: scrollPercentage > 75 && scrollPercentage <= 100,
+  };
+
+  switch (true) {
+    case eventsCondition.initial:
+    case eventsCondition.middle:
+    case eventsCondition.end:
+      console.log('Scroll percentage', scrollPercentage);
+      return ReactGA.event({
+        category: 'Posts',
+        action: 'Scroll',
+        label: `${scrollPercentage}%`,
+      });
+    default:
+      return false;
+  }
+};
+
 const BlogPostContent = ({ data }) => {
   const { markdownRemark: post } = data;
   const { frontmatter: postDetails } = post;
+
+  const { scrollPercentage } = useScroll();
+  sendGAEvent(scrollPercentage);
 
   return (
     <LayoutContext readingProgress>
