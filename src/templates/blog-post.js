@@ -29,7 +29,6 @@ const sendGAEvent = scrollPercentage => {
     case eventsCondition.initial:
     case eventsCondition.middle:
     case eventsCondition.end:
-      console.log('Scroll percentage', scrollPercentage);
       return ReactGA.event({
         category: 'Posts',
         action: 'Scroll',

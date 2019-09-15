@@ -1,5 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { FaLinkedinIn, FaTwitter, FaGithub } from 'react-icons/fa';
+import ReactGA from 'react-ga';
 
 import { SocialMediaWrapper, Link } from './styles';
 
@@ -8,6 +9,30 @@ import { ThemeContext } from '../LayoutContext';
 const SocialMedia = () => {
   const { colorTheme } = useContext(ThemeContext);
 
+  useEffect(() => {
+    const eventListener = event =>
+      ReactGA.event({
+        category: 'Social media',
+        action: 'Click',
+        label: event.target.parentNode.id,
+      });
+
+    const socialMedias = [
+      ...document.querySelector('#linkedin'),
+      ...document.querySelector('#github'),
+      ...document.querySelector('#twitter'),
+    ];
+
+    socialMedias.forEach(socialMedia =>
+      socialMedia.addEventListener('click', eventListener)
+    );
+
+    return () =>
+      socialMedias.forEach(socialMedia =>
+        socialMedia.removeEventListener('click', eventListener)
+      );
+  }, []);
+
   return (
     <SocialMediaWrapper>
       <Link
@@ -15,6 +40,7 @@ const SocialMedia = () => {
         target="_blank"
         rel="noopener noreferrer"
         colorTheme={colorTheme}
+        id="linkedin"
       >
         <FaLinkedinIn />
       </Link>
@@ -23,6 +49,7 @@ const SocialMedia = () => {
         target="_blank"
         rel="noopener noreferrer"
         colorTheme={colorTheme}
+        id="github"
       >
         <FaGithub />
       </Link>
@@ -31,6 +58,7 @@ const SocialMedia = () => {
         target="_blank"
         rel="noopener noreferrer"
         colorTheme={colorTheme}
+        id="twitter"
       >
         <FaTwitter />
       </Link>

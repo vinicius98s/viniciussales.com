@@ -10,7 +10,6 @@ const Tooltip = ({ children, title, width, onMouseEnter, onMouseLeave }) => {
   const { colorTheme } = useContext(ThemeContext);
 
   const handleOnMouseEnter = () => {
-    console.log('disparada func!!!');
     setIsHovered(true);
     if (onMouseEnter && typeof onMouseEnter === 'function') {
       onMouseEnter();
