@@ -76,3 +76,15 @@ export const Techs = styled.div`
     }
   }
 `;
+
+export const FooterNote = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+
+  a {
+    color: ${({ theme }) => theme.colors.main};
+    text-decoration: underline dotted;
+  }
+`;

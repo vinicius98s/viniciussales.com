@@ -16,6 +16,7 @@ import {
   TechInfo,
   Techs,
   StyledText,
+  FooterNote,
 } from 'src/assets/styles';
 
 const Home = ({ data }) => {
@@ -64,6 +65,16 @@ const Home = ({ data }) => {
         </StyledText>
         <SocialMedia />
         <PostsPreview posts={posts} />
+        <FooterNote>
+          <ReactGA.OutboundLink
+            eventLabel="Home page footer note"
+            to="https://github.com/vinicius98s/viniciussales.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Found something wrong? Help me to maintain this project
+          </ReactGA.OutboundLink>
+        </FooterNote>
       </LayoutContext>
     </>
   );

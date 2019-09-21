@@ -41,7 +41,7 @@ const Menu = () => {
 
       <MenuUl
         shouldDisplay={windowWidth > WIDTH_BREAKPOINT}
-        active={mobileMenuActive}
+        active={mobileMenuActive && windowWidth < WIDTH_BREAKPOINT}
       >
         <MenuLi active={windowLocation === '/'} colorTheme={colorTheme}>
           <TransitionLink>Home</TransitionLink>
