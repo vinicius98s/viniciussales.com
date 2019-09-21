@@ -9,7 +9,7 @@ import { HeaderWrapper, Logo } from './styles';
 const Header = () => (
   <HeaderWrapper>
     <TransitionLink>
-      <Logo src={logoSvg} />
+      <Logo src={logoSvg} alt="Vinícius Sales logo" />
     </TransitionLink>
     <Menu />
   </HeaderWrapper>

@@ -1,5 +1,7 @@
 import styled, { css, keyframes, createGlobalStyle } from 'styled-components';
 
+import { WIDTH_BREAKPOINT } from 'src/utils/constants';
+
 const fadeUpAnimation = keyframes`
   from {
     opacity: 0;
@@ -52,9 +54,13 @@ export const MobileMenuWrapper = styled.div`
   width: 40px;
   height: 40px;
   cursor: pointer;
-  display: flex;
+  display: none;
   align-items: center;
   z-index: 999;
+
+  @media (max-width: ${WIDTH_BREAKPOINT}px) {
+    display: flex;
+  }
 `;
 
 export const MobileMenu = styled.div`
@@ -102,11 +108,11 @@ export const MobileMenu = styled.div`
 
 export const MenuUl = styled.ul`
   z-index: 998;
+  display: flex;
 
-  ${({ active, theme, shouldDisplay }) =>
+  ${({ active, theme }) =>
     active
       ? css`
-          display: flex;
           position: absolute;
           flex-direction: column;
           align-items: center;
@@ -122,8 +128,10 @@ export const MenuUl = styled.ul`
           }
         `
       : css`
-          display: ${shouldDisplay ? 'flex' : 'none'};
           align-items: center;
+          @media (max-width: ${WIDTH_BREAKPOINT}px) {
+            display: none;
+          }
         `};
 `;
 

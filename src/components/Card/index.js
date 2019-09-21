@@ -16,6 +16,8 @@ const Card = ({
   margin,
   alignItems,
   animation,
+  post,
+  postBreakpoint,
 }) => {
   const { colorTheme } = useContext(ThemeContext);
 
@@ -32,6 +34,8 @@ const Card = ({
       customBackgroundColor={customBackgroundColor}
       margin={margin}
       animation={animation}
+      post={post}
+      postBreakpoint={postBreakpoint}
     >
       {children}
     </CardWrapper>
@@ -39,6 +43,7 @@ const Card = ({
 };
 
 Card.defaultProps = {
+  width: '100%',
   animation: false,
   alignItems: 'center',
   flexDirection: 'column',
@@ -51,6 +56,8 @@ Card.defaultProps = {
 };
 
 Card.propTypes = {
+  postBreakpoint: PropTypes.number,
+  post: PropTypes.bool,
   animation: PropTypes.bool,
   width: PropTypes.string,
   height: PropTypes.string,
@@ -58,7 +65,12 @@ Card.propTypes = {
   customBackgroundColor: PropTypes.string,
   flexDirection: PropTypes.string,
   flexBasis: PropTypes.number,
-  margin: PropTypes.object,
+  margin: PropTypes.shape({
+    top: PropTypes.string,
+    right: PropTypes.string,
+    bottom: PropTypes.string,
+    left: PropTypes.string,
+  }),
   flexWrap: PropTypes.string,
   alignItems: PropTypes.string,
 };

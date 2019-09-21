@@ -42,9 +42,20 @@ export const CardWrapper = styled.div`
   border-top: 5px solid
     ${({ theme, customBorderColor }) => customBorderColor || theme.colors.main};
   border-radius: 15px;
-  margin-top: ${({ theme, margin }) => theme.sizes[margin.top]};
-  margin-right: ${({ theme, margin }) => theme.sizes[margin.right]};
-  margin-bottom: ${({ theme, margin }) => theme.sizes[margin.bottom]};
-  margin-left: ${({ theme, margin }) => theme.sizes[margin.left]};
+  margin-top: ${({ theme, margin }) => theme.sizes[margin.top] || 0};
+  margin-right: ${({ theme, margin }) => theme.sizes[margin.right] || 0};
+  margin-bottom: ${({ theme, margin }) => theme.sizes[margin.bottom] || 0};
+  margin-left: ${({ theme, margin }) => theme.sizes[margin.left] || 0};
   padding: ${({ theme }) => theme.sizes.default};
+
+  ${({ post, postBreakpoint }) =>
+    post &&
+    css`
+      width: 50%;
+
+      @media (max-width: ${postBreakpoint}px) {
+        width: 100%;
+        margin-right: 0;
+      }
+    `}
 `;

@@ -10,8 +10,6 @@ import Button from 'src/components/Button';
 import PostTags from 'src/components/PostTags';
 import Card from 'src/components/Card';
 
-import useWindowSize from 'src/utils/useWindowSize';
-
 import { POSTS_PREVIEW_BREAKPOINT } from './constants';
 import {
   PostsPreviewWrapper,
@@ -23,8 +21,6 @@ import {
 } from './styles';
 
 const PostsPreview = ({ posts, theme }) => {
-  const [windowWidth] = useWindowSize();
-
   const sendGAEvent = postTitle =>
     ReactGA.event({
       category: 'Posts',
@@ -35,28 +31,24 @@ const PostsPreview = ({ posts, theme }) => {
   return (
     <TransitionState>
       {({ transitionStatus } = 'entered') => (
-        <PostsPreviewWrapper
-          shouldWrap={windowWidth < POSTS_PREVIEW_BREAKPOINT}
-        >
+        <PostsPreviewWrapper>
           {posts.map(({ node: post }, index) => {
             const { frontmatter: postDetails } = post;
 
             return (
               <Card
                 key={post.id}
-                width={windowWidth > POSTS_PREVIEW_BREAKPOINT ? '50%' : '100%'}
                 flexDirection="row"
                 animation={
                   transitionStatus === 'entering' ||
                   transitionStatus === 'entered'
                 }
                 margin={{
-                  right:
-                    index % 2 === 0 &&
-                    windowWidth > POSTS_PREVIEW_BREAKPOINT &&
-                    'default',
-                  bottom: 'medium',
+                  right: index % 2 === 0 && 'default',
+                  bottom: 'big',
                 }}
+                post
+                postBreakpoint={POSTS_PREVIEW_BREAKPOINT}
               >
                 <PostDetails>
                   <Img fixed={postDetails.previewImage.childImageSharp.fixed} />

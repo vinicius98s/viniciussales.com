@@ -22,27 +22,20 @@ const Menu = () => {
   const { colorTheme, toggleTheme } = useContext(ThemeContext);
 
   const windowLocation =
-    typeof window !== 'undefined' ? window.location.pathname : '/';
+    typeof window === 'object' ? window.location.pathname : '/';
 
   const toggleMobileMenuActive = () =>
-    setMobileMenuActive(previousState => !previousState);
+    setMobileMenuActive(isMenuActive => !isMenuActive);
 
   return (
     <>
-      {windowWidth < WIDTH_BREAKPOINT && (
-        <>
-          {mobileMenuActive && <BodyOverflowHidden />}
-          <ExpandBackground expand={mobileMenuActive} colorTheme={colorTheme} />
-          <MobileMenuWrapper role="button" onClick={toggleMobileMenuActive}>
-            <MobileMenu active={mobileMenuActive} />
-          </MobileMenuWrapper>
-        </>
-      )}
+      {mobileMenuActive && <BodyOverflowHidden />}
+      <ExpandBackground expand={mobileMenuActive} colorTheme={colorTheme} />
+      <MobileMenuWrapper role="button" onClick={toggleMobileMenuActive}>
+        <MobileMenu active={mobileMenuActive} />
+      </MobileMenuWrapper>
 
-      <MenuUl
-        shouldDisplay={windowWidth > WIDTH_BREAKPOINT}
-        active={mobileMenuActive && windowWidth < WIDTH_BREAKPOINT}
-      >
+      <MenuUl active={mobileMenuActive && windowWidth < WIDTH_BREAKPOINT}>
         <MenuLi active={windowLocation === '/'} colorTheme={colorTheme}>
           <TransitionLink>Home</TransitionLink>
         </MenuLi>

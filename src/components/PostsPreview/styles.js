@@ -1,10 +1,15 @@
 import styled from 'styled-components';
 
+import { POSTS_PREVIEW_BREAKPOINT } from './constants';
+
 export const PostsPreviewWrapper = styled.div`
   width: 100%;
   display: flex;
-  flex-wrap: ${({ shouldWrap }) => (shouldWrap ? 'wrap' : 'no-wrap')};
   margin-top: ${({ theme }) => theme.sizes.medium};
+
+  @media (max-width: ${POSTS_PREVIEW_BREAKPOINT}px) {
+    flex-wrap: wrap;
+  }
 `;
 
 export const PostTitle = styled.h1`
