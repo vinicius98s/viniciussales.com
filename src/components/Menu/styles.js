@@ -1,4 +1,4 @@
-import styled, { css, keyframes } from 'styled-components';
+import styled, { css, keyframes, createGlobalStyle } from 'styled-components';
 
 const fadeUpAnimation = keyframes`
   from {
@@ -9,6 +9,12 @@ const fadeUpAnimation = keyframes`
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+`;
+
+export const BodyOverflowHidden = createGlobalStyle`
+  body {
+    overflow: hidden;
   }
 `;
 

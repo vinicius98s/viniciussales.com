@@ -13,6 +13,7 @@ import {
   MobileMenu,
   MobileMenuWrapper,
   ExpandBackground,
+  BodyOverflowHidden,
 } from './styles';
 
 const Menu = () => {
@@ -30,6 +31,7 @@ const Menu = () => {
     <>
       {windowWidth < WIDTH_BREAKPOINT && (
         <>
+          {mobileMenuActive && <BodyOverflowHidden />}
           <ExpandBackground expand={mobileMenuActive} colorTheme={colorTheme} />
           <MobileMenuWrapper role="button" onClick={toggleMobileMenuActive}>
             <MobileMenu active={mobileMenuActive} />
