@@ -17,6 +17,7 @@ const SocialMedia = () => {
         target="_blank"
         rel="noopener noreferrer"
         colorTheme={colorTheme}
+        aria-label="Follow me on LinkedIn"
       >
         <FaLinkedinIn />
       </Link>
@@ -26,6 +27,7 @@ const SocialMedia = () => {
         target="_blank"
         rel="noopener noreferrer"
         colorTheme={colorTheme}
+        aria-label="Follow me on Github"
       >
         <FaGithub />
       </Link>
@@ -35,6 +37,7 @@ const SocialMedia = () => {
         target="_blank"
         rel="noopener noreferrer"
         colorTheme={colorTheme}
+        aria-label="Follow me on Twitter"
       >
         <FaTwitter />
       </Link>
@@ -42,6 +45,7 @@ const SocialMedia = () => {
         eventLabel="Social Media - Email"
         to="mailto:vinicius.2010.s@gmail.com"
         colorTheme={colorTheme}
+        aria-label="Send me an email"
       >
         <FaEnvelope />
       </Link>

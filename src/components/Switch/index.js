@@ -7,7 +7,7 @@ import {
   SwitchSlider,
 } from './styles';
 
-const Switch = ({ handleOnToggle, checked, colorTheme }) => {
+const Switch = ({ handleOnToggle, checked, colorTheme, label }) => {
   return (
     <SwitchWrapper>
       <SwitchLabel
@@ -18,7 +18,12 @@ const Switch = ({ handleOnToggle, checked, colorTheme }) => {
         Light
       </SwitchLabel>
       <SwitchToggleTheme colorTheme={colorTheme}>
-        <input onChange={handleOnToggle} type="checkbox" checked={checked} />
+        <input
+          onChange={handleOnToggle}
+          type="checkbox"
+          checked={checked}
+          aria-label={label}
+        />
         <SwitchSlider colorTheme={colorTheme} />
       </SwitchToggleTheme>
       <SwitchLabel
@@ -41,6 +46,7 @@ Switch.propTypes = {
   handleOnToggle: PropTypes.func.isRequired,
   checked: PropTypes.bool,
   colorTheme: PropTypes.string,
+  label: PropTypes.string,
 };
 
 export default Switch;

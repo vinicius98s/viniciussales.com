@@ -52,6 +52,7 @@ const Menu = () => {
           handleOnToggle={toggleTheme}
           checked={colorTheme === 'dark'}
           colorTheme={colorTheme}
+          label="Switch the site theme"
         />
       </MenuUl>
     </>

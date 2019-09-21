@@ -18,7 +18,7 @@ export const StyledText = styled.p`
   margin-top: ${({ theme }) => theme.sizes.small};
 
   a {
-    color: ${({ theme }) => theme.colors.main};
+    color: ${({ theme }) => theme.colors.mainHover};
   }
 `;
 
@@ -89,7 +89,7 @@ export const FooterNote = styled.div`
   text-align: center;
 
   a {
-    color: ${({ theme }) => theme.colors.main};
+    color: ${({ theme }) => theme.colors.mainHover};
     text-decoration: underline dotted;
   }
 `;
