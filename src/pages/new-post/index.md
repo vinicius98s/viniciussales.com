@@ -5,7 +5,7 @@ title: 'This is a test post'
 description: 'I`m so excited.'
 previewImage: './preview.jpg'
 featuredImage: './featured.jpg'
-tags: []
+tags: ['Node.js', 'React', 'React Native', 'Gatsby']
 ---
 
 ```javascript

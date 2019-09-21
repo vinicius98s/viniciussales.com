@@ -88,3 +88,31 @@ export const FooterNote = styled.div`
     text-decoration: underline dotted;
   }
 `;
+
+export const NotFoundWrapper = styled.div`
+  width: 100%;
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  h1 {
+    font-size: 60px;
+    color: ${({ theme }) => theme.colors.main};
+  }
+
+  div {
+    margin-left: ${({ theme }) => theme.sizes.small};
+    margin-top: ${({ theme }) => theme.sizes.default};
+  }
+
+  @media (max-width: 540px) {
+    flex-direction: column;
+    text-align: center;
+  }
+`;
+
+export const ErrorIcon = styled.img`
+  width: 200px;
+  height: 200px;
+`;
