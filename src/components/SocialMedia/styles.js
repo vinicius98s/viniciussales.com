@@ -2,8 +2,11 @@ import styled from 'styled-components';
 import ReactGA from 'react-ga';
 
 export const SocialMediaWrapper = styled.div`
-  display: flex;
-  margin-top: ${({ theme }) => theme.sizes.default};
+  margin-top: ${({ theme }) => theme.sizes.medium};
+
+  p {
+    margin-bottom: ${({ theme }) => theme.sizes.small};
+  }
 `;
 
 export const Link = styled(ReactGA.OutboundLink)`

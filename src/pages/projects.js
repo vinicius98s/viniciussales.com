@@ -8,6 +8,7 @@ import LayoutContext from 'src/components/LayoutContext';
 import SEO from 'src/components/SEO';
 import Card from 'src/components/Card';
 import Button from 'src/components/Button';
+import PostTags from 'src/components/PostTags';
 
 import { projects } from 'src/utils/constants';
 import useWindowSize from 'src/utils/useWindowSize';
@@ -39,15 +40,22 @@ const Projects = ({ data }) => {
         <>
           <SEO
             title="Projects"
-            keywords={[`Vinicius Sales`, `projects`, `Front-end`, 'react']}
+            keywords={[
+              `Vinicius Sales`,
+              `projects`,
+              `front-end`,
+              'development',
+              'React',
+              'Vue',
+              'JavaScript',
+              'Nodejs',
+            ]}
           />
           <LayoutContext>
             <StyledH1>Projects</StyledH1>
             <StyledText>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Consequuntur odio, quia quae cupiditate eius est vitae dolorum,
-              iste impedit cumque facilis quas sapiente! Placeat mollitia
-              reprehenderit ratione? Excepturi, placeat ducimus?
+              Here you can find most of my personal projects and a link for
+              their repositories.
             </StyledText>
             {projects.map(project => (
               <Card
@@ -67,7 +75,10 @@ const Projects = ({ data }) => {
                 }
               >
                 <ImageWrapper minWidth={windowWidth > WIDTH_BREAKPOINT}>
-                  <Img fluid={getProjectImage(project.imageName)} />
+                  <Img
+                    fluid={getProjectImage(project.imageName)}
+                    alt={project.name}
+                  />
                 </ImageWrapper>
                 <ProjectInfoWrapper
                   marginTop={windowWidth < WIDTH_BREAKPOINT}
@@ -75,6 +86,7 @@ const Projects = ({ data }) => {
                 >
                   <StyledH1>{project.name}</StyledH1>
                   <StyledText>{project.description}</StyledText>
+                  <PostTags tags={project.techs} justifyContent="flex-start" />
                   <Button
                     margin={{
                       top: 'default',
@@ -108,7 +120,7 @@ export const imagesQuery = graphql`
       edges {
         node {
           childImageSharp {
-            fluid(maxHeight: 250, quality: 100) {
+            fluid(quality: 100) {
               ...GatsbyImageSharpFluid
             }
           }

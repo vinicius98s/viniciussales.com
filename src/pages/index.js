@@ -31,9 +31,20 @@ const Home = ({ data }) => {
 
   return (
     <>
-      <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
+      <SEO
+        title="Home"
+        keywords={[
+          `Vinicius Sales`,
+          `front-end`,
+          'development',
+          'React',
+          'Vue',
+          'JavaScript',
+          'Nodejs',
+        ]}
+      />
       <LayoutContext>
-        <StyledH1>Vinicius Sales</StyledH1>
+        <StyledH1>Vinícius Sales</StyledH1>
         <TechInfo>
           <StyledH2 noMargin>A web developer currently working with:</StyledH2>
           <Techs>
@@ -58,10 +69,20 @@ const Home = ({ data }) => {
           </Techs>
         </TechInfo>
         <StyledText>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequuntur
-          odio, quia quae cupiditate eius est vitae dolorum, iste impedit cumque
-          facilis quas sapiente! Placeat mollitia reprehenderit ratione?
-          Excepturi, placeat ducimus?
+          I&apos;m a 20 years old front-end developer currently working at{' '}
+          <a
+            href="https://www.hubster.com.br/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Hubster
+          </a>{' '}
+          and also graduating at Anhembi Morumbi for Digital Design. My current
+          goals are to domain JavaScript and <i>.then</i> go for the fullstack
+          development. <br />
+          <br />
+          Here you will find everything related to this journey, hope you like
+          it.
         </StyledText>
         <SocialMedia />
         <PostsPreview posts={posts} />

@@ -2,18 +2,27 @@ export const localStorageThemeColorKey = '@vinicius98s:ThemeColor';
 
 export const projects = [
   {
-    name: 'Mobile Flash Cards',
+    name: 'Udacity Readable',
     description:
-      'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequuntur odio, quia quae cupiditate eius est vitae dolorum, iste impedit cumque facilis quas sapiente! Placeat mollitia reprehenderit ratione? Excepturi, placeat ducimus?',
-    imageName: 'Project.png',
-    pathToRepository: 'https://github.com/vinicius98s/mobileflashcards',
+      'This app is a basic forum with no authentication to handle posts or comments.',
+    imageName: 'udacity-readable.png',
+    pathToRepository: 'https://github.com/vinicius98s/udacity-readable',
+    techs: ['React', 'Redux'],
   },
   {
-    name: 'Second project',
+    name: 'Facebook Vue Clone',
     description:
-      'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequuntur odio, quia quae cupiditate eius est vitae dolorum, iste impedit cumque facilis quas sapiente! Placeat mollitia reprehenderit ratione? Excepturi, placeat ducimus?',
-    imageName: 'Project copy.png',
-    pathToRepository: 'https://github.com/vinicius98s/udacity-readable',
+      'This is a very basic clone of the facebook post and comments system.',
+    imageName: 'facebook-vue-clone.png',
+    pathToRepository: 'https://github.com/vinicius98s/facebook-vue-clone',
+    techs: ['Vue', 'Webpack', 'SCSS'],
+  },
+  {
+    name: 'Github Repos',
+    description: 'An application to see your favorites Github repositories.',
+    imageName: 'github-repos.png',
+    pathToRepository: 'https://github.com/vinicius98s/vue-github-repos',
+    techs: ['Vue', 'Vue CLI'],
   },
 ];
 

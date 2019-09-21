@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { FaLinkedinIn, FaTwitter, FaGithub } from 'react-icons/fa';
+import { FaLinkedinIn, FaTwitter, FaGithub, FaEnvelope } from 'react-icons/fa';
 
 import { SocialMediaWrapper, Link } from './styles';
 
@@ -10,9 +10,10 @@ const SocialMedia = () => {
 
   return (
     <SocialMediaWrapper>
+      <p>Get in touch:</p>
       <Link
         eventLabel="Social Media - Linkedin"
-        to="https://www.linkedin.com/in/vinicius-sales-57b8b9143/"
+        to="https://www.linkedin.com/in/vinicius-sales/"
         target="_blank"
         rel="noopener noreferrer"
         colorTheme={colorTheme}
@@ -36,6 +37,13 @@ const SocialMedia = () => {
         colorTheme={colorTheme}
       >
         <FaTwitter />
+      </Link>
+      <Link
+        eventLabel="Social Media - Email"
+        to="mailto:vinicius.2010.s@gmail.com"
+        colorTheme={colorTheme}
+      >
+        <FaEnvelope />
       </Link>
     </SocialMediaWrapper>
   );

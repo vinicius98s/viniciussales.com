@@ -16,6 +16,10 @@ export const StyledText = styled.p`
   font-size: 20px;
   font-weight: ${({ theme }) => theme.fonts.regular};
   margin-top: ${({ theme }) => theme.sizes.small};
+
+  a {
+    color: ${({ theme }) => theme.colors.main};
+  }
 `;
 
 export const ProjectInfoWrapper = styled.div`
@@ -29,6 +33,7 @@ export const ProjectInfoWrapper = styled.div`
 
 export const ImageWrapper = styled.div`
   min-width: ${({ minWidth }) => minWidth && '400px'};
+  max-width: 600px;
   width: 100%;
 `;
 

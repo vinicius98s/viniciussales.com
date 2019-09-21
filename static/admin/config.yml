@@ -17,10 +17,4 @@ collections:
       - { name: body, label: Body, widget: markdown }
       - { name: featuredImage, label: Featured Image, widget: image }
       - { name: previewImage, label: Preview Image, widget: image }
-      - {
-          name: tags,
-          label: Tags,
-          widget: list,
-          allow_add: true,
-          default: [javascript, node],
-        }
+      - { name: tags, label: Tags, widget: list, allow_add: true, default: [] }
