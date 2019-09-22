@@ -10,7 +10,7 @@ import { ThemeContext } from 'src/components/LayoutContext';
 
 import useWindowSize from 'src/utils/useWindowSize';
 
-import { LayoutWrapper, TopLine, ContentWrapper, Normalize } from './styles';
+import { LayoutWrapper, TopLine, ContentWrapper, GlobalStyle } from './styles';
 
 const Layout = ({ children, readingProgress }) => {
   const { colorTheme } = useContext(ThemeContext);
@@ -39,7 +39,7 @@ const Layout = ({ children, readingProgress }) => {
           ref={layouRef}
           windowWidth={windowWidth}
         >
-          <Normalize />
+          <GlobalStyle />
           <ContentWrapper>
             <Header />
             {children}

@@ -33,7 +33,9 @@ export const TopLine = styled.div`
   z-index: 1;
 `;
 
-export const Normalize = createGlobalStyle`
+export const GlobalStyle = createGlobalStyle`
+  @import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,700&display=swap');
+  
   *,
   *:after,
   *:before {

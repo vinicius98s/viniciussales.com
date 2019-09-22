@@ -16,14 +16,6 @@ module.exports = {
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
-      resolve: 'gatsby-plugin-web-font-loader',
-      options: {
-        google: {
-          families: ['Montserrat:400,500,700'],
-        },
-      },
-    },
-    {
       resolve: 'gatsby-plugin-root-import',
       options: {
         src: `${__dirname}/src`,
