@@ -15,6 +15,7 @@ module.exports = {
     `gatsby-plugin-transition-link`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+    `gatsby-plugin-sitemap`,
     {
       resolve: 'gatsby-plugin-root-import',
       options: {
