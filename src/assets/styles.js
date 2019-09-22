@@ -1,8 +1,13 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const StyledH1 = styled.h1`
   font-size: 26px;
   font-weight: ${({ theme }) => theme.fonts.bold};
+  ${({ mainColor, theme }) =>
+    mainColor &&
+    css`
+      color: ${theme.colors.main};
+    `}
 `;
 
 export const StyledH2 = styled.h2`
@@ -79,18 +84,6 @@ export const Techs = styled.div`
     :hover {
       color: #41b883;
     }
-  }
-`;
-
-export const FooterNote = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  text-align: center;
-
-  a {
-    color: ${({ theme }) => theme.colors.mainHover};
-    text-decoration: underline dotted;
   }
 `;
 

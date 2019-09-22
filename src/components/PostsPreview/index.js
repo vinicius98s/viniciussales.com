@@ -45,7 +45,7 @@ const PostsPreview = ({ posts, theme }) => {
                 }
                 margin={{
                   right: index % 2 === 0 && 'default',
-                  bottom: 'big',
+                  bottom: 'medium',
                 }}
                 post
                 postBreakpoint={POSTS_PREVIEW_BREAKPOINT}

@@ -18,6 +18,7 @@ const Button = ({
   customColorHover,
   noHover,
   onClick,
+  title,
 }) => (
   <ButtonWrapper
     variant={variant}
@@ -34,6 +35,7 @@ const Button = ({
     noHover={noHover}
     onClick={onClick}
   >
+    {title && title}
     {children}
   </ButtonWrapper>
 );
@@ -51,6 +53,7 @@ Button.defaultProps = {
 };
 
 Button.propTypes = {
+  title: PropTypes.string,
   variant: PropTypes.string,
   fontColor: PropTypes.string,
   width: PropTypes.string,

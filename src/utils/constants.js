@@ -27,3 +27,5 @@ export const projects = [
 ];
 
 export const WIDTH_BREAKPOINT = 710;
+
+export const CONTAINER_MAX_WIDTH = 1170;

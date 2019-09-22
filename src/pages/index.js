@@ -44,7 +44,7 @@ const Home = ({ data }) => {
         ]}
       />
       <LayoutContext>
-        <StyledH1>Vinícius Sales</StyledH1>
+        <StyledH1 mainColor>Vinícius Sales</StyledH1>
         <TechInfo>
           <StyledH2 noMargin>A web developer currently working with:</StyledH2>
           <Techs>
@@ -86,16 +86,6 @@ const Home = ({ data }) => {
         </StyledText>
         <SocialMedia />
         <PostsPreview posts={posts} />
-        <FooterNote>
-          <ReactGA.OutboundLink
-            eventLabel="Home page footer note"
-            to="https://github.com/vinicius98s/viniciussales.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Found something wrong? Help me to maintain this project
-          </ReactGA.OutboundLink>
-        </FooterNote>
       </LayoutContext>
     </>
   );

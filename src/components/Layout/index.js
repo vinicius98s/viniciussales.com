@@ -5,6 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import theme from 'src/assets/theme';
 import Header from 'src/components/Header';
 import ReadingProgress from 'src/components/ReadingProgress';
+import Footer from 'src/components/Footer';
 import { ThemeContext } from 'src/components/LayoutContext';
 
 import useWindowSize from 'src/utils/useWindowSize';
@@ -43,6 +44,7 @@ const Layout = ({ children, readingProgress }) => {
             <Header />
             {children}
           </ContentWrapper>
+          <Footer colorTheme={colorTheme} />
         </LayoutWrapper>
       </>
     </ThemeProvider>

@@ -74,5 +74,12 @@ module.exports = {
         trackingId: 'UA-145380484-1',
       },
     },
+    {
+      resolve: `gatsby-plugin-mailchimp`,
+      options: {
+        endpoint:
+          'https://gmail.us20.list-manage.com/subscribe/post?u=b769adbb557f0adab72e198d1&amp;id=445c1948d1',
+      },
+    },
   ],
 };

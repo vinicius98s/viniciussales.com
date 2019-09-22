@@ -24,7 +24,7 @@ module.exports = {
     'react/forbid-prop-types': 'off',
     'react/require-default-props': 'off',
     'import/no-cycle': 'off',
-    'react/prop-types': [2, { ignore: ['children'] }],
+    'react/prop-types': [2, { ignore: ['children', 'theme'] }],
     'consistent-return': 'off',
   },
   globals: {

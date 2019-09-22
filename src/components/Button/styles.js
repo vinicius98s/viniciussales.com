@@ -12,10 +12,13 @@ export const ButtonWrapper = styled.button`
       : `2px solid ${theme.colors.main}`};
   font-weight: ${({ theme, fontWeight }) =>
     fontWeight && theme.fonts[fontWeight]};
-  margin-top: ${({ theme, margin }) => theme.sizes[margin.top]};
-  margin-right: ${({ theme, margin }) => theme.sizes[margin.right]};
-  margin-bottom: ${({ theme, margin }) => theme.sizes[margin.bottom]};
-  margin-left: ${({ theme, margin }) => theme.sizes[margin.left]};
+  margin-top: ${({ theme, margin }) => theme.sizes[margin.top] || margin.top};
+  margin-right: ${({ theme, margin }) =>
+    theme.sizes[margin.right] || margin.right};
+  margin-bottom: ${({ theme, margin }) =>
+    theme.sizes[margin.bottom] || margin.bottom};
+  margin-left: ${({ theme, margin }) =>
+    theme.sizes[margin.left] || margin.left};
   padding: ${({ padding }) => padding};
   width: ${({ width }) => width};
   height: ${({ height }) => height};
@@ -23,7 +26,11 @@ export const ButtonWrapper = styled.button`
     borderRadius
       ? typeof borderRadius === 'string'
         ? borderRadius
-        : `${borderRadius.topLeft} ${borderRadius.topRight} ${borderRadius.bottomRight} ${borderRadius.bottomLeft}`
+        : `${theme.sizes[borderRadius.topLeft] || borderRadius.topLeft} ${theme
+            .sizes[borderRadius.topRight] || borderRadius.topRight} ${theme
+            .sizes[borderRadius.bottomRight] ||
+            borderRadius.bottomRight} ${theme.sizes[borderRadius.bottomLeft] ||
+            borderRadius.bottomLeft}`
       : theme.sizes.small};
   outline: none;
   font-size: ${({ fontSize }) => fontSize || '18px'};

@@ -1,16 +1,16 @@
 import styled, { createGlobalStyle } from 'styled-components';
-import { WIDTH_BREAKPOINT } from 'src/utils/constants';
+import { WIDTH_BREAKPOINT, CONTAINER_MAX_WIDTH } from 'src/utils/constants';
 
 export const LayoutWrapper = styled.div`
   width: 100%;
   height: 100%;
-  min-height: 100vh;
   position: relative;
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  padding: ${({ theme, windowWidth }) =>
-      windowWidth > WIDTH_BREAKPOINT ? theme.sizes.medium : theme.sizes.default}
-    0;
+  padding-top: ${({ theme, windowWidth }) =>
+    windowWidth > WIDTH_BREAKPOINT ? theme.sizes.medium : theme.sizes.default};
   background: ${({ theme, colorTheme }) =>
     colorTheme === 'light' ? theme.colors.lightGrey : theme.colors.darkGrey};
   color: ${({ theme, colorTheme }) =>
@@ -19,8 +19,8 @@ export const LayoutWrapper = styled.div`
 
 export const ContentWrapper = styled.div`
   width: 100%;
-  max-width: 1175px;
-  padding: ${({ theme }) => `0 ${theme.sizes.default}`};
+  max-width: ${CONTAINER_MAX_WIDTH}px;
+  padding: 0 ${({ theme }) => theme.sizes.default};
 `;
 
 export const TopLine = styled.div`
