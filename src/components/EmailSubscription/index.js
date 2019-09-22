@@ -60,6 +60,16 @@ const EmailSubscription = () => {
           action: 'Subscribed to the newsletter',
           label: `Name: ${name.value}, Email: ${email.value}`,
         });
+
+        setName({
+          value: '',
+          error: '',
+        });
+
+        setEmail({
+          value: '',
+          error: '',
+        });
       } else {
         ReactGA.event({
           category: 'Email',
