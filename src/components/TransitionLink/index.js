@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AniLink from 'gatsby-plugin-transition-link/AniLink';
+// import AniLink from 'gatsby-plugin-transition-link/AniLink';
+import { Link } from 'gatsby';
 import { withTheme } from 'styled-components';
 
 const TransitionLink = ({
@@ -11,15 +12,15 @@ const TransitionLink = ({
   duration,
   children,
 }) => (
-  <AniLink
-    cover
-    duration={duration}
-    bg={theme.colors[color]}
-    direction={direction}
+  <Link
+    // cover
+    // duration={duration}
+    // bg={theme.colors[color]}
+    // direction={direction}
     to={to}
   >
     {children}
-  </AniLink>
+  </Link>
 );
 
 TransitionLink.defaultProps = {

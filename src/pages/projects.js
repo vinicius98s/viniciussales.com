@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import Img from 'gatsby-image';
-import { TransitionState } from 'gatsby-plugin-transition-link';
+// import { TransitionState } from 'gatsby-plugin-transition-link';
 
 import LayoutContext from 'src/components/LayoutContext';
 import SEO from 'src/components/SEO';
@@ -35,84 +35,80 @@ const Projects = ({ data }) => {
   const WIDTH_BREAKPOINT = 820;
 
   return (
-    <TransitionState>
-      {({ transitionStatus }) => (
-        <>
-          <SEO
-            title="Projects"
-            keywords={[
-              `Vinicius Sales`,
-              `projects`,
-              `front-end`,
-              'development',
-              'React',
-              'Vue',
-              'JavaScript',
-              'Nodejs',
-            ]}
-          />
-          <LayoutContext>
-            <StyledH1>Projects</StyledH1>
-            <StyledText>
-              Here you can find most of my personal projects and a link for
-              their repositories.
-            </StyledText>
-            {projects.map(project => (
-              <Card
-                key={project.pathToRepository}
-                flexDirection={
-                  windowWidth < WIDTH_BREAKPOINT ? 'column' : 'row'
-                }
+    // <TransitionState>
+    //   {({ transitionStatus }) => (
+    <>
+      <SEO
+        title="Projects"
+        keywords={[
+          `Vinicius Sales`,
+          `projects`,
+          `front-end`,
+          'development',
+          'React',
+          'Vue',
+          'JavaScript',
+          'Nodejs',
+        ]}
+      />
+      <LayoutContext>
+        <StyledH1>Projects</StyledH1>
+        <StyledText>
+          Here you can find most of my personal projects and a link for their
+          repositories.
+        </StyledText>
+        {projects.map(project => (
+          <Card
+            key={project.pathToRepository}
+            flexDirection={windowWidth < WIDTH_BREAKPOINT ? 'column' : 'row'}
+            margin={{
+              top: 'medium',
+              right: 'none',
+              bottom: 'none',
+              left: 'none',
+            }}
+            animation={true}
+          >
+            <ImageWrapper minWidth={windowWidth > WIDTH_BREAKPOINT}>
+              <Img
+                fluid={getProjectImage(project.imageName)}
+                alt={project.name}
+              />
+            </ImageWrapper>
+            <ProjectInfoWrapper
+              marginTop={windowWidth < WIDTH_BREAKPOINT}
+              marginLeft={windowWidth > WIDTH_BREAKPOINT}
+            >
+              <StyledH1>{project.name}</StyledH1>
+              <StyledText>{project.description}</StyledText>
+              <PostTags tags={project.techs} justifyContent="flex-start" />
+              <Button
                 margin={{
-                  top: 'medium',
+                  top: 'default',
                   right: 'none',
                   bottom: 'none',
                   left: 'none',
                 }}
-                animation={
-                  transitionStatus === 'entering' ||
-                  transitionStatus === 'entered'
-                }
+                fontSize="16px"
               >
-                <ImageWrapper minWidth={windowWidth > WIDTH_BREAKPOINT}>
-                  <Img
-                    fluid={getProjectImage(project.imageName)}
-                    alt={project.name}
-                  />
-                </ImageWrapper>
-                <ProjectInfoWrapper
-                  marginTop={windowWidth < WIDTH_BREAKPOINT}
-                  marginLeft={windowWidth > WIDTH_BREAKPOINT}
+                <a
+                  href={project.pathToRepository}
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  <StyledH1>{project.name}</StyledH1>
-                  <StyledText>{project.description}</StyledText>
-                  <PostTags tags={project.techs} justifyContent="flex-start" />
-                  <Button
-                    margin={{
-                      top: 'default',
-                      right: 'none',
-                      bottom: 'none',
-                      left: 'none',
-                    }}
-                    fontSize="16px"
-                  >
-                    <a
-                      href={project.pathToRepository}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Repository
-                    </a>
-                  </Button>
-                </ProjectInfoWrapper>
-              </Card>
-            ))}
-          </LayoutContext>
-        </>
-      )}
-    </TransitionState>
+                  Repository
+                </a>
+              </Button>
+            </ProjectInfoWrapper>
+          </Card>
+        ))}
+      </LayoutContext>
+    </>
   );
 };
+//   </TransitionState>
+// );
+// };
 
 export const imagesQuery = graphql`
   query {

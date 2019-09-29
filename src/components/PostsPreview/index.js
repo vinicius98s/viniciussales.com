@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Img from 'gatsby-image';
-import { TransitionState } from 'gatsby-plugin-transition-link';
+// import { TransitionState } from 'gatsby-plugin-transition-link';
 import { withTheme } from 'styled-components';
 import ReactGA from 'react-ga';
 
@@ -29,63 +29,57 @@ const PostsPreview = ({ posts, theme }) => {
     });
 
   return (
-    <TransitionState>
-      {({ transitionStatus } = 'entered') => (
-        <PostsPreviewWrapper>
-          {posts.map(({ node: post }, index) => {
-            const { frontmatter: postDetails } = post;
+    // <TransitionState>
+    // {({ transitionStatus } = 'entered') => (
+    <PostsPreviewWrapper>
+      {posts.map(({ node: post }, index) => {
+        const { frontmatter: postDetails } = post;
 
-            return (
-              <Card
-                key={post.id}
-                flexDirection="row"
-                animation={
-                  transitionStatus === 'entering' ||
-                  transitionStatus === 'entered'
-                }
-                margin={{
-                  right: index % 2 === 0 && 'default',
-                  bottom: 'medium',
-                }}
-                post
-                postBreakpoint={POSTS_PREVIEW_BREAKPOINT}
-              >
-                <PostDetails>
-                  <Img fixed={postDetails.previewImage.childImageSharp.fixed} />
-                  <PostDetailsText>
-                    <PostTitle>{postDetails.title}</PostTitle>
-                    <PostDescription>{postDetails.description}</PostDescription>
-                    <PostTags
-                      tags={postDetails.tags}
-                      justifyContent="flex-start"
-                    />
-                  </PostDetailsText>
-                </PostDetails>
-                <ButtonWrapper>
-                  <TransitionLink direction="up" to={postDetails.path}>
-                    <Button
-                      onClick={() => sendGAEvent(postDetails.title)}
-                      width="100%"
-                      padding={`${theme.sizes.small} 0`}
-                      fontWeight="bold"
-                      borderRadius={{
-                        topLeft: 0,
-                        topRight: 0,
-                        bottomLeft: theme.sizes.small,
-                        bottomRight: theme.sizes.small,
-                      }}
-                    >
-                      Continue reading
-                    </Button>
-                  </TransitionLink>
-                </ButtonWrapper>
-              </Card>
-            );
-          })}
-        </PostsPreviewWrapper>
-      )}
-    </TransitionState>
+        return (
+          <Card
+            key={post.id}
+            flexDirection="row"
+            animation={true}
+            margin={{
+              right: index % 2 === 0 && 'default',
+              bottom: 'medium',
+            }}
+            post
+            postBreakpoint={POSTS_PREVIEW_BREAKPOINT}
+          >
+            <PostDetails>
+              <Img fixed={postDetails.previewImage.childImageSharp.fixed} />
+              <PostDetailsText>
+                <PostTitle>{postDetails.title}</PostTitle>
+                <PostDescription>{postDetails.description}</PostDescription>
+                <PostTags tags={postDetails.tags} justifyContent="flex-start" />
+              </PostDetailsText>
+            </PostDetails>
+            <ButtonWrapper>
+              <TransitionLink direction="up" to={postDetails.path}>
+                <Button
+                  onClick={() => sendGAEvent(postDetails.title)}
+                  width="100%"
+                  padding={`${theme.sizes.small} 0`}
+                  fontWeight="bold"
+                  borderRadius={{
+                    topLeft: 0,
+                    topRight: 0,
+                    bottomLeft: theme.sizes.small,
+                    bottomRight: theme.sizes.small,
+                  }}
+                >
+                  Continue reading
+                </Button>
+              </TransitionLink>
+            </ButtonWrapper>
+          </Card>
+        );
+      })}
+    </PostsPreviewWrapper>
   );
+  //   </TransitionState>
+  // );
 };
 
 PostsPreview.propTypes = {

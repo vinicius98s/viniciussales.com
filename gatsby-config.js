@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: `Vinicius Sales`,
-    description: `A portfolio and personal blog from a Front-End developer made with Gatsby and React.`,
+    description: `A portfolio and personal blog from a Front-End developer made with Gatsby.`,
     author: `@vinicius98s`,
     siteUrl: 'https://viniciussales.com',
   },
@@ -12,7 +12,6 @@ module.exports = {
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-robots-txt`,
     `gatsby-plugin-offline`,
-    `gatsby-plugin-transition-link`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     `gatsby-plugin-sitemap`,
