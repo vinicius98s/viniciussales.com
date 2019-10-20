@@ -101,7 +101,7 @@ export const Post = styled.div`
 
     * {
       font-family: Consolas, Menlo, Monaco, source-code-pro, Courier New,
-        monospace !important;
+        monospace;
       font-size: 16px;
     }
   }

@@ -18,7 +18,8 @@ export const StyledH2 = styled.h2`
 `;
 
 export const StyledText = styled.p`
-  font-size: 20px;
+  font-size: 18px;
+  line-height: 1.5em;
   font-weight: ${({ theme }) => theme.fonts.regular};
   margin-top: ${({ theme }) => theme.sizes.small};
 

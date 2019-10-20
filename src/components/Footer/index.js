@@ -3,27 +3,35 @@ import ReactGA from 'react-ga';
 import PropTypes from 'prop-types';
 
 import EmailSubscription from 'src/components/EmailSubscription';
+import SocialMedia from 'src/components/SocialMedia';
 
-import { FooterWrapper, MailSubscription } from './styles';
+import {
+  FooterContainer,
+  FooterWrapper,
+  MailSubscription,
+  Contact,
+} from './styles';
 
 const Footer = ({ colorTheme }) => (
-  <FooterWrapper colorTheme={colorTheme}>
-    <MailSubscription>
-      <div>
+  <FooterContainer colorTheme={colorTheme}>
+    <FooterWrapper>
+      <MailSubscription>
         <h1>Join the newsletter</h1>
         <EmailSubscription />
-      </div>
-      <ReactGA.OutboundLink
-        eventLabel="Home page footer note"
-        to="https://github.com/vinicius98s/viniciussales.com"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Found something wrong? <br />
-        Help me to maintain this project
-      </ReactGA.OutboundLink>
-    </MailSubscription>
-  </FooterWrapper>
+      </MailSubscription>
+      <Contact>
+        <SocialMedia noMarginTop alignTextRight />
+        <ReactGA.OutboundLink
+          eventLabel="Home page footer note"
+          to="https://github.com/vinicius98s/viniciussales.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Help me to maintain this project
+        </ReactGA.OutboundLink>
+      </Contact>
+    </FooterWrapper>
+  </FooterContainer>
 );
 
 Footer.propTypes = {

@@ -30,7 +30,18 @@ export const PostDetails = styled.div`
   align-items: center;
   padding-bottom: ${({ theme }) => theme.sizes.medium};
 
+  & div:first-child {
+    position: absolute !important;
+    left: 0;
+    border-radius: 0 20px 20px 0;
+    margin-top: 4px;
+  }
+
   @media (max-width: 768px) {
+    & div:first-child {
+      position: relative !important;
+    }
+
     flex-wrap: wrap;
     justify-content: center;
     width: 100%;
@@ -38,11 +49,11 @@ export const PostDetails = styled.div`
 `;
 
 export const PostDetailsText = styled.div`
-  width: calc(100% - 135px);
-  margin-left: ${({ theme }) => theme.sizes.default};
+  width: 100%;
+  /* Featured image size = 200px */
+  margin-left: 200px;
 
   @media (max-width: 768px) {
-    width: 100%;
     margin-left: 0;
 
     h1 {

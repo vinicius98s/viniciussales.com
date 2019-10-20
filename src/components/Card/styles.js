@@ -28,6 +28,7 @@ export const CardWrapper = styled.div`
   height: ${({ height }) => height};
   display: flex;
   flex-direction: ${({ flexDirection }) => flexDirection};
+  overflow: ${({ overflow }) => overflow};
   ${({ theme, colorTheme }) =>
     colorTheme === 'light' &&
     css`

@@ -16,7 +16,6 @@ import {
   TechInfo,
   Techs,
   StyledText,
-  FooterNote,
 } from 'src/assets/styles';
 
 const Home = ({ data }) => {
@@ -105,7 +104,7 @@ export const pageQuery = graphql`
             tags
             previewImage {
               childImageSharp {
-                fixed(width: 135, height: 135, quality: 100) {
+                fixed(width: 200, height: 200, quality: 100) {
                   ...GatsbyImageSharpFixed
                 }
               }

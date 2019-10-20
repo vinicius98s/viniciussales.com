@@ -1,15 +1,19 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import { FaLinkedinIn, FaTwitter, FaGithub, FaEnvelope } from 'react-icons/fa';
 
 import { SocialMediaWrapper, Link } from './styles';
 
 import { ThemeContext } from '../LayoutContext';
 
-const SocialMedia = () => {
+const SocialMedia = ({ noMarginTop, alignTextRight }) => {
   const { colorTheme } = useContext(ThemeContext);
 
   return (
-    <SocialMediaWrapper>
+    <SocialMediaWrapper
+      noMarginTop={noMarginTop}
+      alignTextRight={alignTextRight}
+    >
       <p>Get in touch:</p>
       <Link
         eventLabel="Social Media - Linkedin"
@@ -51,6 +55,16 @@ const SocialMedia = () => {
       </Link>
     </SocialMediaWrapper>
   );
+};
+
+SocialMedia.defaultProps = {
+  noMarginTop: false,
+  alignTextRight: false,
+};
+
+SocialMedia.propTypes = {
+  noMarginTop: PropTypes.bool,
+  alignTextRight: PropTypes.bool,
 };
 
 export default SocialMedia;

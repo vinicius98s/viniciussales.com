@@ -18,6 +18,7 @@ const Card = ({
   animation,
   post,
   postBreakpoint,
+  overflow,
 }) => {
   const { colorTheme } = useContext(ThemeContext);
 
@@ -36,6 +37,7 @@ const Card = ({
       animation={animation}
       post={post}
       postBreakpoint={postBreakpoint}
+      overflow={overflow}
     >
       {children}
     </CardWrapper>
@@ -47,6 +49,7 @@ Card.defaultProps = {
   animation: false,
   alignItems: 'center',
   flexDirection: 'column',
+  overflow: 'auto',
   margin: {
     top: 'default',
     right: 'default',
@@ -56,6 +59,7 @@ Card.defaultProps = {
 };
 
 Card.propTypes = {
+  overflow: PropTypes.string,
   postBreakpoint: PropTypes.number,
   post: PropTypes.bool,
   animation: PropTypes.bool,
