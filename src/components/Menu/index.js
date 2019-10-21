@@ -31,7 +31,11 @@ const Menu = () => {
     <>
       {mobileMenuActive && <BodyOverflowHidden />}
       <ExpandBackground expand={mobileMenuActive} colorTheme={colorTheme} />
-      <MobileMenuWrapper role="button" onClick={toggleMobileMenuActive}>
+      <MobileMenuWrapper
+        aria-label="Toggle menu"
+        role="button"
+        onClick={toggleMobileMenuActive}
+      >
         <MobileMenu active={mobileMenuActive} />
       </MobileMenuWrapper>
 

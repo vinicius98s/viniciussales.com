@@ -6,6 +6,7 @@ import Img from 'gatsby-image';
 import ReactGA from 'react-ga';
 
 import LayoutContext from 'src/components/LayoutContext';
+import SEO from 'src/components/SEO';
 import PostTags from 'src/components/PostTags';
 
 import useScroll from 'src/utils/useScroll';
@@ -49,18 +50,21 @@ const BlogPostContent = ({ data }) => {
   sendGAEvent(scrollPercentage);
 
   return (
-    <LayoutContext readingProgress>
-      <Helmet title={postDetails.title} />
-      <MainInfoWrapper>
-        <Img fluid={postDetails.featuredImage.childImageSharp.fluid} />
-        <PostInfoWrapper>
-          <PostTitle>{postDetails.title}</PostTitle>
-          <PostDescription>{postDetails.description}</PostDescription>
-          <PostTags tags={postDetails.tags} />
-        </PostInfoWrapper>
-      </MainInfoWrapper>
-      <Post dangerouslySetInnerHTML={{ __html: post.html }} />
-    </LayoutContext>
+    <>
+      <SEO title={postDetails.title} keywords={postDetails.tags} />
+      <LayoutContext readingProgress>
+        <Helmet title={postDetails.title} />
+        <MainInfoWrapper>
+          <Img fluid={postDetails.featuredImage.childImageSharp.fluid} />
+          <PostInfoWrapper>
+            <PostTitle>{postDetails.title}</PostTitle>
+            <PostDescription>{postDetails.description}</PostDescription>
+            <PostTags tags={postDetails.tags} />
+          </PostInfoWrapper>
+        </MainInfoWrapper>
+        <Post dangerouslySetInnerHTML={{ __html: post.html }} />
+      </LayoutContext>
+    </>
   );
 };
 
