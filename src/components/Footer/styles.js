@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 
-import { CONTAINER_MAX_WIDTH, WIDTH_BREAKPOINT } from 'src/utils/constants';
+import { CONTAINER_MAX_WIDTH } from 'src/utils/constants';
+import { FOOTER_BREAKPOINT } from './constants';
 
 export const FooterContainer = styled.footer`
   width: 100%;
@@ -33,6 +34,11 @@ export const FooterWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   position: relative;
+
+  @media (max-width: ${FOOTER_BREAKPOINT}px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 export const MailSubscription = styled.div`
@@ -48,11 +54,22 @@ export const Contact = styled.div`
   display: flex;
   justify-content: flex-end;
 
+  @media (max-width: ${FOOTER_BREAKPOINT}px) {
+    flex-direction: column;
+    margin-top: ${({ theme }) => theme.sizes.default};
+  }
+
   & > a {
     text-decoration: underline dotted;
     text-align: right;
     line-height: ${({ theme }) => theme.sizes.default};
     position: absolute;
     bottom: ${({ theme }) => theme.sizes.medium};
+
+    @media (max-width: ${FOOTER_BREAKPOINT}px) {
+      position: relative;
+      bottom: 0;
+      margin-top: ${({ theme }) => theme.sizes.default};
+    }
   }
 `;

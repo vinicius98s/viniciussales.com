@@ -33,7 +33,6 @@ export const PostDetails = styled.div`
   & div:first-child {
     position: absolute !important;
     left: 0;
-    border-radius: 0 20px 20px 0;
     margin-top: 4px;
   }
 
