@@ -2,7 +2,7 @@
 path: '/test'
 date: 2019-07-10
 title: 'This is a test post'
-description: 'I`m so excited.'
+description: 'Just testing'
 previewImage: './preview.jpg'
 featuredImage: './featured.jpg'
 tags: ['Node.js', 'React', 'React Native', 'Gatsby']
