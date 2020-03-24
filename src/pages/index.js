@@ -68,17 +68,15 @@ const Home = ({ data }) => {
           </Techs>
         </TechInfo>
         <StyledText>
-          I&apos;m a 20 years old front-end developer currently working at{' '}
+          I&apos;m a 21 years old front-end developer currently working at{' '}
           <a
-            href="https://www.hubster.com.br/"
+            href="https://app.organizecloudlabs.com/organize"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Hubster
+            Organize Cloud Labs
           </a>{' '}
-          and also graduating at Anhembi Morumbi for Digital Design. My current
-          goals are to domain JavaScript and <i>.then</i> go for the fullstack
-          development. <br />
+          and also graduating at Anhembi Morumbi for Digital Design.<br />
           <br />
           Here you will find everything related to this journey, hope you like
           it.
