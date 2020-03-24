@@ -78,8 +78,6 @@ const Home = ({ data }) => {
           </a>{' '}
           and also graduating at Anhembi Morumbi for Digital Design.<br />
           <br />
-          Here you will find everything related to this journey, hope you like
-          it.
         </StyledText>
         <SocialMedia />
         <PostsPreview posts={posts} />
