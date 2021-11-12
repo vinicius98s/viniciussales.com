@@ -2,11 +2,18 @@ import theme from "@styles/theme";
 
 import HeartOutline from "./heart-outline";
 import heart from "./heart";
-import { Box } from "@components/Grid";
+import email from "./email";
+import github from "./github";
+import linkedin from "./linkedin";
+import twitter from "./twitter";
 
 const Icons = {
   "heart-outline": HeartOutline,
   heart,
+  email,
+  github,
+  linkedin,
+  twitter,
 };
 
 export type IconProps = {

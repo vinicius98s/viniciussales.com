@@ -1,11 +1,9 @@
 import Link from "next/link";
 import styled from "styled-components";
 
-import { Col } from "@components/Grid";
-
 export type Pages = "home" | "writing" | "contact";
 type Props = {
-  activePage: Pages;
+  activePage?: Pages;
 };
 
 const Container = styled.nav`

@@ -2,12 +2,12 @@ import Menu, { Pages } from "./Menu";
 import { Row } from "./Grid";
 
 type Props = {
-  activePage: Pages;
+  activePage?: Pages;
 };
 
 const Header: React.FC<Props> = ({ activePage }) => {
   return (
-    <Row as="header" mt={8}>
+    <Row as="header" mt={7}>
       <Menu activePage={activePage} />
     </Row>
   );
