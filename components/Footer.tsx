@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "@emotion/styled";
 import Link from "next/link";
 
 import { Row, Box, Col } from "@components/Grid";
@@ -8,6 +8,10 @@ const Wrapper = styled.footer`
 
   li:not(:first-of-type) {
     margin-top: ${(p) => p.theme.space[2]}px;
+  }
+
+  a:hover {
+    color: ${(p) => p.theme.colors.primary};
   }
 `;
 
@@ -37,9 +41,24 @@ export default function Footer() {
         </Col>
         <Col size={1}>
           <ul>
-            <li>Github</li>
-            <li>Twitter</li>
-            <li>LinkedIn</li>
+            <li>
+              <a
+                href="https://github.com/vinicius98s"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Github
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://linkedin.com/in/vinicius-sales"
+                target="_blank"
+                rel="noreferrer"
+              >
+                LinkedIn
+              </a>
+            </li>
           </ul>
         </Col>
       </Row>

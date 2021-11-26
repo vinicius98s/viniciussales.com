@@ -22,8 +22,10 @@ export type IconProps = {
   color?: keyof typeof theme["colors"];
 };
 
+export type IconNames = keyof typeof Icons;
+
 type Props = {
-  name: keyof typeof Icons;
+  name: IconNames;
   onClick?: () => void;
 } & IconProps;
 

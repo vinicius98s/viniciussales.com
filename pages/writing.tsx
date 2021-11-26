@@ -8,6 +8,7 @@ import { getFromTaskEither } from "@utils/fp-ts";
 
 import { getNotionClient, getBlogPostsPreview, Post } from "@services/notion";
 import { Heading } from "@components/Typography";
+import Seo from "@components/Seo";
 
 type Props = {
   posts: Post[];
@@ -16,6 +17,7 @@ type Props = {
 const Writings: NextPage<Props> = ({ posts }) => {
   return (
     <>
+      <Seo title="Writing" />
       <Header activePage="writing" />
       <Row mt={7} as="section">
         <Col size={3}>

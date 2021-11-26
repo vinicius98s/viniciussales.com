@@ -4,7 +4,6 @@ import * as E from "fp-ts/Either";
 import * as O from "fp-ts/Option";
 import * as A from "fp-ts/Array";
 import { Client } from "@notionhq/client";
-import slugify from "@sindresorhus/slugify";
 
 export function getNotionClient() {
   return new Client({ auth: process.env.NOTION_SECRET });

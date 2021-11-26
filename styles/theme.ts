@@ -10,4 +10,6 @@ const theme = {
   space: [0, 4, 8, 16, 24, 32, 40, 48, 56, 64],
 };
 
+export type Theme = typeof theme;
+
 export default theme;

@@ -28,7 +28,7 @@ const Home: NextPage<{ posts: Post[]; songs: Song[] }> = ({ posts, songs }) => {
           <Heading level={2} mt={2} fontSize="24px">
             A nice and clean subject.
           </Heading>
-          <Text mt={3} fontSize="16px">
+          <Text mt={3} fontSize="16px" lineHeight={1.35}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut

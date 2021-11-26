@@ -1,11 +1,11 @@
 import Link from "next/link";
 import axios from "axios";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 import * as O from "fp-ts/Option";
 import { flow, pipe } from "fp-ts/function";
 
 import { Flex } from "@components/Grid";
-import { Heading, Text } from "@components/Typography";
+import { Text } from "@components/Typography";
 
 import { Post } from "@services/notion";
 import Icon from "@icons/Icon";
@@ -15,7 +15,7 @@ const PostWrapper = styled(Flex)`
   cursor: pointer;
 
   :hover {
-    h3 {
+    a {
       color: ${(p) => p.theme.colors.primary};
       transition: 0.3s ease;
     }
@@ -53,9 +53,9 @@ const PostPreview: React.FC<{ post: Post }> = ({ post }) => {
     <>
       <PostWrapper justifyContent="space-between" alignItems="center">
         <Link href={`/blog/${post.slug}`} passHref>
-          <Heading level={3} fontSize="20px" as="a">
+          <Text fontWeight={700} fontSize="20px" as="a">
             {post.title}
-          </Heading>
+          </Text>
         </Link>
         <Icon
           name={liked ? "heart" : "heart-outline"}

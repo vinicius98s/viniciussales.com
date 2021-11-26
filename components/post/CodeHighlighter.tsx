@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "@emotion/styled";
 import { Prism } from "react-syntax-highlighter";
 // @ts-ignore
 import { coldarkDark } from "react-syntax-highlighter/dist/cjs/styles/prism";

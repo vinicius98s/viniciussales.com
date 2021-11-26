@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "@emotion/styled";
 import * as SS from "styled-system";
 
 export const Row = styled.div<SS.SpaceProps>`

@@ -1,11 +1,12 @@
 import type { NextPage } from "next";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 import Header from "@components/Header";
 import { Col, Flex, Row } from "@components/Grid";
 import { Heading, Text } from "@components/Typography";
 import Seo from "@components/Seo";
 
+import type { IconNames } from "@icons/Icon";
 import Icon from "@icons/Icon";
 
 const IconsWrapper = styled(Flex)`
@@ -13,6 +14,14 @@ const IconsWrapper = styled(Flex)`
     margin-right: 16px;
   }
 `;
+
+const IconLink = (props: { name: IconNames; href: string }) => {
+  return (
+    <a target="_blank" rel="noreferrer" href={props.href}>
+      <Icon name={props.name} color="white" width={24} height={24} />
+    </a>
+  );
+};
 
 const Contact: NextPage = () => {
   return (
@@ -30,7 +39,7 @@ const Contact: NextPage = () => {
           <Heading level={2} mt={2} fontSize="24px">
             Feel free to reach me out.
           </Heading>
-          <Text mt={3} fontSize="16px">
+          <Text mt={3} fontSize="16px" lineHeight={1.35}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
@@ -42,10 +51,12 @@ const Contact: NextPage = () => {
         </Col>
       </Row>
       <IconsWrapper mt={4}>
-        <Icon name="github" color="white" width={24} height={24} />
-        <Icon name="linkedin" color="white" width={24} height={24} />
-        <Icon name="twitter" color="white" width={24} height={24} />
-        <Icon name="email" color="white" width={24} height={24} />
+        <IconLink name="github" href="https://github.com/vinicius98s" />
+        <IconLink
+          name="linkedin"
+          href="https://linkedin.com/in/vinicius-sales"
+        />
+        <IconLink name="email" href="mailto:vinicius.2010.s@gmail.com" />
       </IconsWrapper>
     </>
   );

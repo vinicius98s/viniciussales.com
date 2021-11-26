@@ -1,27 +1,24 @@
-import styled, { css } from "styled-components";
+import styled from "@emotion/styled";
+import { forwardRef, PropsWithChildren } from "react";
 import * as SS from "styled-system";
 
-type HeadingProps = {
-  fontWeight?: 400 | 600 | 700;
-  level?: 1 | 2 | 3 | 4 | 5 | 6;
-} & SS.ColorProps &
-  SS.TypographyProps &
-  SS.SpaceProps;
-
-export const Heading = styled("h1").attrs<HeadingProps>(({ level = 1 }) => ({
-  as: `h${level}`,
-}))<HeadingProps>`
-  ${css`
-    ${SS.color};
-    ${SS.typography};
-    ${SS.space};
-  `}
-`;
-
 type TextProps = SS.ColorProps & SS.TypographyProps & SS.SpaceProps;
-
 export const Text = styled.p<TextProps>`
   ${SS.color};
   ${SS.typography};
   ${SS.space};
 `;
+
+type HeadingProps = TextProps & {
+  fontWeight?: 400 | 600 | 700;
+  level?: 1 | 2 | 3 | 4 | 5 | 6;
+};
+
+export const Heading = forwardRef<
+  HTMLHeadingElement,
+  PropsWithChildren<HeadingProps>
+>(({ color, ...props }, ref) => (
+  <Text color={color as any} ref={ref} as={`h${props.level ?? 1}`} {...props} />
+));
+
+Heading.displayName = "Heading";
