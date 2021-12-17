@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import * as E from "fp-ts/Either";
 import { pipe, flow } from "fp-ts/function";
 
-function getInitialValue<T>(key: string, initialValue: T) {
+function getKeyValue<T>(key: string) {
   return pipe(
     E.tryCatch(
       () => window.localStorage.getItem(key),
@@ -18,8 +18,7 @@ function getInitialValue<T>(key: string, initialValue: T) {
           )
         )
       )
-    ),
-    E.getOrElse(() => initialValue)
+    )
   );
 }
 
@@ -29,19 +28,26 @@ export default function useLocalStorage<T>(key: string, initialValue: T) {
   // This useEffect is to prevent next.js rehydration error
   // due to client rendering different than the server
   useEffect(() => {
-    const value = getInitialValue(key, initialValue);
-    setStoredValue(value);
-  }, [initialValue, key]);
+    pipe(
+      getKeyValue<T>(key),
+      E.getOrElse(() => initialValue),
+      flow(setStoredValue)
+    );
+  }, []);
 
   const setValue = (value: T | ((prevValue: T) => T)) => {
-    try {
-      const valueToStore =
-        value instanceof Function ? value(storedValue) : value;
-      setStoredValue(valueToStore);
-      window.localStorage.setItem(key, JSON.stringify(valueToStore));
-    } catch (error) {
-      console.error("Failed to save items", error);
-    }
+    return pipe(
+      E.tryCatch(
+        () => {
+          const valueToStore =
+            value instanceof Function ? value(storedValue) : value;
+
+          setStoredValue(valueToStore);
+          window.localStorage.setItem(key, JSON.stringify(valueToStore));
+        },
+        () => new Error("Failed to save item")
+      )
+    );
   };
 
   return [storedValue, setValue] as const;

@@ -24,7 +24,7 @@ export const Flex = styled.div<FlexProps>`
 
   ${SS.space}
   ${SS.flexbox}
-	${SS.color}
+  ${SS.color}
   ${SS.layout}
 `;
 

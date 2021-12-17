@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 
 import Header from "@components/Header";
 import LastWritings from "@components/LastWritings";
-import { Col, Row } from "@components/Grid";
+import { Col, Flex, Row } from "@components/Grid";
 import { Heading, Text } from "@components/Typography";
 import Songs from "@components/Songs";
 import Seo from "@components/Seo";
@@ -19,16 +19,18 @@ const Home: NextPage<{ posts: Post[]; songs: Song[] }> = ({ posts, songs }) => {
       <Header activePage="home" />
       <Row mt={7} as="section">
         <Col size={3}>
-          <Heading color="primary" fontSize="32px">
-            <span role="img" aria-label="waving hand">
+          <Flex alignItems="center">
+            <span role="img" aria-label="waving hand" style={{ fontSize: 32 }}>
               👋
-            </span>{" "}
-            Hi, I’m Vinicius.
-          </Heading>
-          <Heading level={2} mt={2} fontSize="24px">
+            </span>
+            <Heading color="primary" fontSize={5} ml={2}>
+              Hi, I’m Vinicius.
+            </Heading>
+          </Flex>
+          <Heading level={2} mt={2} fontSize={4}>
             A nice and clean subject.
           </Heading>
-          <Text mt={3} fontSize="16px" lineHeight={1.35}>
+          <Text mt={3} fontSize="16px" lineHeight={1.4}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut

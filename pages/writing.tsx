@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 
 import Header from "@components/Header";
 import PostPreview from "@components/PostPreview";
-import { Box, Col, Row } from "@components/Grid";
+import { Box, Col, Flex, Row } from "@components/Grid";
 
 import { getFromTaskEither } from "@utils/fp-ts";
 
@@ -22,12 +22,20 @@ const Writings: NextPage<Props> = ({ posts }) => {
       <Row mt={7} as="section">
         <Col size={3}>
           <Heading color="primary" fontSize="32px">
-            <span role="img" aria-label="writing hand">
-              ✍🏽
-            </span>{" "}
-            Writing.
+            <Flex alignItems="center">
+              <span
+                role="img"
+                aria-label="writing hand"
+                style={{ fontSize: 32 }}
+              >
+                ✍🏽
+              </span>
+              <Heading color="primary" fontSize={5} ml={2}>
+                Writing.
+              </Heading>
+            </Flex>
           </Heading>
-          <Heading level={2} mt={2} fontSize="24px">
+          <Heading level={2} mt={2} fontSize={4}>
             All posts I&apos;ve written.
           </Heading>
         </Col>

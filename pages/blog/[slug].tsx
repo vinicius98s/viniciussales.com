@@ -9,6 +9,7 @@ import BlockRenderer from "@components/post/BlockRenderer";
 import { Heading } from "@components/Typography";
 import Header from "@components/Header";
 import { Box } from "@components/Grid";
+import Seo from "@components/Seo";
 
 import { getFromTaskEither } from "@utils/fp-ts";
 
@@ -40,7 +41,8 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
 const Slug: NextPage<Props> = (post) => {
   return (
     <>
-      <Header />
+      <Header activePage="writing" />
+      <Seo title={post.title} />
       <Box as="article" mt={8}>
         <Heading color="primary" textAlign="center">
           {post.title}
