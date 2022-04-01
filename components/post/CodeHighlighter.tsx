@@ -18,6 +18,22 @@ const SyntaxHighlighter = styled(Prism)`
     font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
   }
 
+  ::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: ${(p) => p.theme.colors.gray};
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: ${(p) => p.theme.colors.darkGray};
+  }
+
   ::before {
     content: "";
     display: block;
@@ -32,7 +48,7 @@ const SyntaxHighlighter = styled(Prism)`
 
 export default function CodeHighlighter({ language, code }: Props) {
   return (
-    <Box my={5}>
+    <Box my={5} display="grid">
       <SyntaxHighlighter language={language} style={coldarkDark}>
         {code}
       </SyntaxHighlighter>

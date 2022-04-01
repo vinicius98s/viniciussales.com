@@ -22,7 +22,7 @@ const StyledText = styled(Text)`
   line-height: 2em;
 
   span {
-    background: ${(p) => p.theme.colors.darkGrey};
+    background: ${(p) => p.theme.colors.darkGray};
     color: ${(p) => p.theme.colors.primary};
     display: inline;
     padding: 0 0.2em;

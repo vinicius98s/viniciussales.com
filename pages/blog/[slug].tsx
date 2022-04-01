@@ -43,7 +43,7 @@ const Slug: NextPage<Props> = (post) => {
     <>
       <Header activePage="writing" />
       <Seo title={post.title} />
-      <Box as="article" mt={8}>
+      <Box as="article" mt={8} px={[4, 0]}>
         <Heading color="primary" textAlign="center">
           {post.title}
         </Heading>

@@ -21,25 +21,30 @@ const SongLink = styled.a`
 
 const Songs: React.FC<Props> = ({ songs }) => {
   return (
-    <Box as="section" my={7}>
+    <Box as="section" my={7} px={[4, 0]}>
       <Heading level={2} mb={2}>
         What I&apos;ve been listening.
       </Heading>
+
       <Image src={spotify} width={47} height={14} alt="Spotify" />
-      <Row mt={3}>
+
+      <Row mt={3} gridTemplateColumns={["1fr", "repeat(4, 1fr)"]}>
         {songs.map((song) => {
           const artists = song.artists.map((artist) => artist.name).join(" & ");
 
           return (
-            <Col size={2} key={song.id}>
+            <Col size={2} key={song.id} mb={[3, 0]}>
               <Link href={song.external_urls.spotify} passHref>
                 <SongLink target="_blank" rel="noreferrer">
-                  <Image
-                    src={song.album.images[0].url}
-                    width={64}
-                    height={64}
-                    alt={song.name}
-                  />
+                  <div>
+                    <Image
+                      src={song.album.images[0].url}
+                      width={64}
+                      height={64}
+                      alt={song.name}
+                      layout="fixed"
+                    />
+                  </div>
                   <div>
                     <Heading level={3} fontSize="20px" ml={2}>
                       {song.name}

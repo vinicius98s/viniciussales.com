@@ -1,13 +1,16 @@
 import styled from "@emotion/styled";
 import * as SS from "styled-system";
 
-export const Row = styled.div<SS.SpaceProps>`
-  width: 624px;
+type RowProps = SS.SpaceProps & SS.GridProps;
+export const Row = styled.div<RowProps>`
+  width: 100%;
+  max-width: 624px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 16px;
 
   ${SS.space}
+  ${SS.grid}
 `;
 
 type ColumnSize = 1 | 2 | 3 | 4;

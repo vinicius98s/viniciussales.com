@@ -28,7 +28,12 @@ const Contact: NextPage = () => {
     <>
       <Seo title="Contact" />
       <Header activePage="contact" />
-      <Row mt={7} as="section">
+      <Row
+        mt={7}
+        as="section"
+        px={[4, 0]}
+        gridTemplateColumns={["auto", "repeat(4, 1fr)"]}
+      >
         <Col size={3}>
           <Flex alignItems="center">
             <span role="img" aria-label="mail box" style={{ fontSize: 32 }}>
@@ -52,7 +57,8 @@ const Contact: NextPage = () => {
           </Text>
         </Col>
       </Row>
-      <IconsWrapper mt={4}>
+
+      <IconsWrapper mt={4} px={[4, 0]}>
         <IconLink name="github" href="https://github.com/vinicius98s" />
         <IconLink
           name="linkedin"

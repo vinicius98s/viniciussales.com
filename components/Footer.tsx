@@ -19,7 +19,7 @@ export default function Footer() {
   return (
     <Wrapper>
       <Box bg="darkGrey" width="100%" height="1px" my={5} />
-      <Row>
+      <Row px={[4, 0]}>
         <Col size={1}>
           <ul>
             <li>

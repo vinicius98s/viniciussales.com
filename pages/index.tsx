@@ -17,7 +17,12 @@ const Home: NextPage<{ posts: Post[]; songs: Song[] }> = ({ posts, songs }) => {
     <>
       <Seo title="Vinicius Sales" />
       <Header activePage="home" />
-      <Row mt={7} as="section">
+      <Row
+        mt={7}
+        as="section"
+        px={[4, 0]}
+        gridTemplateColumns={["auto", "repeat(4, 1fr)"]}
+      >
         <Col size={3}>
           <Flex alignItems="center">
             <span role="img" aria-label="waving hand" style={{ fontSize: 32 }}>
