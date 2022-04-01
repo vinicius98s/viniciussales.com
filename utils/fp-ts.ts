@@ -8,6 +8,9 @@ export function getFromTaskEither<T>(
 ) {
   return pipe(
     task,
-    TE.getOrElse(() => T.of(defaultValue))
+    TE.getOrElse((e) => {
+      console.error(e);
+      return T.of(defaultValue);
+    })
   )();
 }

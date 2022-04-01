@@ -16,6 +16,7 @@ export default function GlobalStyles() {
         body {
           color: ${white};
         }
+
         li {
           list-style: none;
         }

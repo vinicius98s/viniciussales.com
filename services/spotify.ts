@@ -24,7 +24,7 @@ export function getTopSongs() {
     TE.fromOption(() => new Error("Missing SPOTIFY_AUTH_TOKEN")),
     TE.chain((token) =>
       TE.tryCatch(async () => {
-        const url = `${SPOTIFY_BASE_URL}/me/top/tracks?time_range=short_term&limit=2`;
+        const url = `${SPOTIFY_BASE_URL}/me/top/tracks?time_range=medium_term&limit=2`;
         const response = await axios.get<{ items: Song[] }>(url, {
           headers: { Authorization: `Bearer ${token}` },
         });

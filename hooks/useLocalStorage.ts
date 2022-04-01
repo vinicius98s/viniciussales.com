@@ -33,6 +33,7 @@ export default function useLocalStorage<T>(key: string, initialValue: T) {
       E.getOrElse(() => initialValue),
       flow(setStoredValue)
     );
+    // eslint-disable-next-line
   }, []);
 
   const setValue = (value: T | ((prevValue: T) => T)) => {

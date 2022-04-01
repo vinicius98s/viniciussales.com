@@ -20,8 +20,8 @@ export type Post = {
 
 function getDatabaseId() {
   return pipe(
-    O.fromNullable(process.env.DATABASE_ID),
-    TE.fromOption(() => new Error("Missing DATABASE_ID"))
+    O.fromNullable(process.env.NOTION_DATABASE_ID),
+    TE.fromOption(() => new Error("Missing NOTION_DATABASE_ID"))
   );
 }
 
@@ -60,11 +60,12 @@ export function fetchPostBySlug(slug: string) {
               const content = await client.blocks.children.list({
                 block_id: post.id,
               });
+
+              const properties = post.properties as any;
               const description =
-                // @ts-ignore
-                post.properties.description.rich_text[0].plain_text;
-              // @ts-ignore
-              const title = post.properties.title.title[0].plain_text;
+                properties.description.rich_text[0].plain_text;
+              const title = properties.title.title[0].plain_text;
+
               return { content, title, description };
             }, E.toError)
           )
@@ -98,19 +99,17 @@ export function getBlogPostsPreview(
     TE.map((data) =>
       pipe(
         data.results,
-        A.map((post) => ({
-          id: post.id,
-          // @ts-ignore
-          title: post.properties.title.title[0].plain_text,
-          // @ts-ignore
-          slug: post.properties.slug.rich_text[0].plain_text,
-          // @ts-ignore
-          description: post.properties.description.rich_text[0].plain_text,
-          // @ts-ignore
-          createdAt: post.properties.createdAt.date.start,
-          // @ts-ignore
-          likes: post.properties.likes.number,
-        }))
+        A.map((post) => {
+          const properties = post.properties as any;
+          return {
+            id: post.id,
+            title: properties.title.title[0].plain_text,
+            slug: properties.slug.rich_text[0].plain_text,
+            description: properties.description.rich_text[0].plain_text,
+            createdAt: properties.createdAt.date.start,
+            likes: properties.likes.number,
+          };
+        })
       )
     )
   );
