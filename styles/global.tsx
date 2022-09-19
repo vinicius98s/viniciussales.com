@@ -6,6 +6,10 @@ export default function GlobalStyles() {
   return (
     <Global
       styles={css`
+        :root {
+          color-scheme: dark;
+        }
+
         * {
           margin: 0;
           padding: 0;
@@ -15,6 +19,7 @@ export default function GlobalStyles() {
 
         body {
           color: ${white};
+          overflow-y: scroll;
         }
 
         li {
