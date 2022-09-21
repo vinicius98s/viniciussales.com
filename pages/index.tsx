@@ -1,4 +1,8 @@
-import type { NextPage } from "next";
+import type {
+  NextPage,
+  InferGetServerSidePropsType,
+  GetServerSidePropsContext,
+} from "next";
 
 import Header from "@components/Header";
 import LastWritings from "@components/LastWritings";
@@ -9,10 +13,12 @@ import Seo from "@components/Seo";
 
 import { getFromTaskEither } from "@utils/fp-ts";
 
-import { getBlogPostsPreview, getNotionClient, Post } from "@services/notion";
-import { getTopSongs, Song } from "@services/spotify";
+import { getBlogPostsPreview, getNotionClient } from "@services/notion";
+import { getTopSongs } from "@services/spotify";
 
-const Home: NextPage<{ posts: Post[]; songs: Song[] }> = ({ posts, songs }) => {
+type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
+
+const Home: NextPage<Props> = ({ posts, songs, allowSpotifyIntegration }) => {
   return (
     <>
       <Seo title="Vinicius Sales" />
@@ -47,17 +53,36 @@ const Home: NextPage<{ posts: Post[]; songs: Song[] }> = ({ posts, songs }) => {
         </Col>
       </Row>
       <LastWritings posts={posts} />
-      <Songs songs={songs} />
+      <Songs songs={songs} allowSpotifyIntegration={allowSpotifyIntegration} />
     </>
   );
 };
 
-export async function getStaticProps() {
+const ONE_HOUR = 60 * 60;
+
+export async function getServerSideProps({
+  res,
+  query,
+}: GetServerSidePropsContext) {
+  res.setHeader(
+    "Cache-Control",
+    `public, s-maxage=${ONE_HOUR}, stale-while-revalidate=${ONE_HOUR * 2}`
+  );
+
   const client = getNotionClient();
   const posts = await getFromTaskEither(getBlogPostsPreview(client, 2), []);
-  const songs = await getFromTaskEither(getTopSongs(), []);
+  const code = typeof query.code === "string" ? query.code : null;
+  const songs = await getFromTaskEither(getTopSongs(code), []);
+  const allowSpotifyIntegration =
+    query.spotify === process.env.SPOTIFY_PASSWORD;
 
-  return { props: { posts, songs } };
+  return {
+    props: {
+      songs,
+      posts,
+      allowSpotifyIntegration,
+    },
+  };
 }
 
 export default Home;

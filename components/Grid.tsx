@@ -21,7 +21,11 @@ export const Col = styled.div<{ size: ColumnSize } & SS.SpaceProps>`
   ${SS.space}
 `;
 
-type FlexProps = SS.FlexboxProps & SS.SpaceProps & SS.ColorProps;
+type FlexProps = SS.FlexboxProps &
+  SS.SpaceProps &
+  SS.ColorProps &
+  SS.BorderProps &
+  SS.PositionProps;
 export const Flex = styled.div<FlexProps>`
   display: flex;
 
@@ -29,13 +33,21 @@ export const Flex = styled.div<FlexProps>`
   ${SS.flexbox}
   ${SS.color}
   ${SS.layout}
+  ${SS.border}
+  ${SS.position}
 `;
 
-type BoxProps = SS.SpaceProps & SS.ColorProps & SS.LayoutProps;
+type BoxProps = SS.SpaceProps &
+  SS.ColorProps &
+  SS.LayoutProps &
+  SS.BorderProps &
+  SS.PositionProps;
 export const Box = styled.div<BoxProps>`
   display: block;
 
   ${SS.space}
   ${SS.color}
   ${SS.layout}
+  ${SS.border}
+  ${SS.position}
 `;
