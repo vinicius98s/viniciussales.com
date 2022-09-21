@@ -58,7 +58,17 @@ const Home: NextPage<Props> = ({ posts, songs, allowSpotifyIntegration }) => {
   );
 };
 
-export async function getServerSideProps({ query }: GetServerSidePropsContext) {
+const ONE_HOUR = 60 * 60;
+
+export async function getServerSideProps({
+  res,
+  query,
+}: GetServerSidePropsContext) {
+  res.setHeader(
+    "Cache-Control",
+    `public, s-maxage=${ONE_HOUR}, stale-while-revalidate=${ONE_HOUR * 2}`
+  );
+
   const client = getNotionClient();
   const posts = await getFromTaskEither(getBlogPostsPreview(client, 2), []);
   const code = typeof query.code === "string" ? query.code : null;

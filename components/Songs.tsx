@@ -54,7 +54,7 @@ const Songs: React.FC<Props> = ({ songs, allowSpotifyIntegration }) => {
               <Box bg="rgba(13, 171, 118, 0.25)" borderRadius="4px">
                 <Link href={song.external_urls.spotify} passHref>
                   <SongLink target="_blank" rel="noreferrer">
-                    <Flex alignItems="center" padding={1}>
+                    <Flex alignItems="center" padding={2}>
                       <Image
                         src={song.album.images[0].url}
                         width={64}
@@ -64,10 +64,10 @@ const Songs: React.FC<Props> = ({ songs, allowSpotifyIntegration }) => {
                       />
                     </Flex>
                     <div>
-                      <Heading level={3} fontSize="20px" ml={2}>
+                      <Heading level={3} fontSize="20px" ml={1}>
                         {song.name}
                       </Heading>
-                      <Text fontSize="14px" color="gray" ml={2}>
+                      <Text fontSize="14px" color="gray" ml={1}>
                         {artists}
                       </Text>
                     </div>
