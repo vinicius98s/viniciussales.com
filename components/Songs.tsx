@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import styled from "@emotion/styled";
+import qs from "query-string";
 
 import { Row, Col, Box, Flex } from "@components/Grid";
 import { Heading, Text } from "@components/Typography";
@@ -27,7 +28,14 @@ const SongLink = styled.a`
 `;
 
 function buildSpotifyIntegrationUrl() {
-  return `https://accounts.spotify.com/authorize?scope=user-top-read&response_type=code&client_id=${process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_SPOTIFY_REDIRECT_URI}`;
+  const params = qs.stringify({
+    scope: "user-top-read",
+    response_type: "code",
+    client_id: process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID,
+    redirect_uri: process.env.NEXT_PUBLIC_SPOTIFY_REDIRECT_URI,
+  });
+
+  return `https://accounts.spotify.com/authorize?=${params}`;
 }
 
 const Songs: React.FC<Props> = ({ songs, allowSpotifyIntegration }) => {
@@ -54,7 +62,7 @@ const Songs: React.FC<Props> = ({ songs, allowSpotifyIntegration }) => {
               <Box bg="rgba(13, 171, 118, 0.25)" borderRadius="4px">
                 <Link href={song.external_urls.spotify} passHref>
                   <SongLink target="_blank" rel="noreferrer">
-                    <Flex alignItems="center" padding={2}>
+                    <Flex padding={2}>
                       <Image
                         src={song.album.images[0].url}
                         width={64}
@@ -63,14 +71,14 @@ const Songs: React.FC<Props> = ({ songs, allowSpotifyIntegration }) => {
                         layout="fixed"
                       />
                     </Flex>
-                    <div>
-                      <Heading level={3} fontSize="20px" ml={1}>
+                    <Box pr={5}>
+                      <Heading level={3} fontSize="18px" ml={1}>
                         {song.name}
                       </Heading>
                       <Text fontSize="14px" color="gray" ml={1}>
                         {artists}
                       </Text>
-                    </div>
+                    </Box>
                     <Box position="absolute" top={2} right={2}>
                       <Image
                         width={15}
