@@ -1,4 +1,4 @@
-import { pipe } from "fp-ts/function";
+import { flow, pipe } from "fp-ts/function";
 import * as O from "fp-ts/Option";
 import * as E from "fp-ts/Either";
 import * as TE from "fp-ts/TaskEither";
@@ -85,6 +85,30 @@ function getRedisClient() {
   );
 }
 
+function getAndSaveTopSongs(client: Client) {
+  return (getToken: TE.TaskEither<Error, string>) =>
+    pipe(
+      getToken,
+      TE.chain((token) =>
+        pipe(
+          TE.tryCatch(async () => {
+            const url = `${SPOTIFY_API_BASE_URL}/me/top/tracks?time_range=short_term&limit=2`;
+            const response = await axios.get<{ items: Song[] }>(url, {
+              headers: { Authorization: `Bearer ${token}` },
+            });
+            return response.data.items;
+          }, E.toError),
+          TE.chain((songs) =>
+            TE.tryCatch(async () => {
+              await client.set(REDIS_KEY, JSON.stringify(songs));
+              return songs;
+            }, E.toError)
+          )
+        )
+      )
+    );
+}
+
 export function getTopSongs(code: string | null) {
   return pipe(
     getRedisClient(),
@@ -98,29 +122,7 @@ export function getTopSongs(code: string | null) {
               const response = (await client.get(REDIS_KEY)) ?? "[]";
               return JSON.parse(response) as Song[];
             }, E.toError),
-          (code) =>
-            pipe(
-              getAccessToken(code),
-              TE.chain((token) =>
-                pipe(
-                  TE.tryCatch(async () => {
-                    const url = `${SPOTIFY_API_BASE_URL}/me/top/tracks?time_range=medium_term&limit=2`;
-                    const response = await axios.get<{ items: Song[] }>(url, {
-                      headers: { Authorization: `Bearer ${token}` },
-                    });
-                    return response.data.items;
-                  }, E.toError),
-                  TE.chain((songs) =>
-                    pipe(
-                      TE.tryCatch(async () => {
-                        await client.set(REDIS_KEY, JSON.stringify(songs));
-                        return songs;
-                      }, E.toError)
-                    )
-                  )
-                )
-              )
-            )
+          flow(getAccessToken, getAndSaveTopSongs(client))
         )
       )
     )
