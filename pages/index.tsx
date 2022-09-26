@@ -66,7 +66,7 @@ export async function getServerSideProps({
 }: GetServerSidePropsContext) {
   res.setHeader(
     "Cache-Control",
-    `public, s-maxage=${ONE_HOUR}, stale-while-revalidate=${ONE_HOUR * 2}`
+    `public, s-maxage=${ONE_HOUR * 0.5}, stale-while-revalidate=${ONE_HOUR}`
   );
 
   const client = getNotionClient();
@@ -77,6 +77,12 @@ export async function getServerSideProps({
     query.spotify === process.env.SPOTIFY_PASSWORD;
 
   return {
+    ...(!!code && {
+      redirect: {
+        destination: "/",
+        statusCode: 308,
+      },
+    }),
     props: {
       songs,
       posts,

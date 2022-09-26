@@ -109,7 +109,7 @@ function getAndSaveTopSongs(client: Client) {
     );
 }
 
-export function getTopSongs(code: string | null) {
+export function getTopSongs(code: string | null): TE.TaskEither<Error, Song[]> {
   return pipe(
     getRedisClient(),
     TE.fromOption(() => new Error("Failed to get redis client")),

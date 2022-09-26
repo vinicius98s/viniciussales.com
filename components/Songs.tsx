@@ -35,7 +35,7 @@ function buildSpotifyIntegrationUrl() {
     redirect_uri: process.env.NEXT_PUBLIC_SPOTIFY_REDIRECT_URI,
   });
 
-  return `https://accounts.spotify.com/authorize?=${params}`;
+  return `https://accounts.spotify.com/authorize?${params}`;
 }
 
 const Songs: React.FC<Props> = ({ songs, allowSpotifyIntegration }) => {

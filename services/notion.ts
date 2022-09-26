@@ -3,7 +3,11 @@ import * as TE from "fp-ts/TaskEither";
 import * as E from "fp-ts/Either";
 import * as O from "fp-ts/Option";
 import * as A from "fp-ts/Array";
-import { Client } from "@notionhq/client";
+import { Client, isFullPage } from "@notionhq/client";
+import {
+  PartialPageObjectResponse,
+  PageObjectResponse,
+} from "@notionhq/client/build/src/api-endpoints";
 
 export function getNotionClient() {
   return new Client({ auth: process.env.NOTION_SECRET });
@@ -21,13 +25,14 @@ export type Post = {
 function getDatabaseId() {
   return pipe(
     O.fromNullable(process.env.NOTION_DATABASE_ID),
-    TE.fromOption(() => new Error("Missing NOTION_DATABASE_ID"))
+    E.fromOption(() => new Error("Missing NOTION_DATABASE_ID"))
   );
 }
 
 export function getDatabase(client: Client, pageSize?: number) {
   return pipe(
     getDatabaseId(),
+    TE.fromEither,
     TE.chain((database_id) =>
       TE.tryCatch(
         () => client.databases.query({ database_id, page_size: pageSize }),
@@ -37,39 +42,54 @@ export function getDatabase(client: Client, pageSize?: number) {
   );
 }
 
+function buildPostTitleAndDescription(
+  page: PageObjectResponse | PartialPageObjectResponse
+) {
+  if (!isFullPage(page)) return E.left("bad page response");
+  const pageDescription = page.properties.description;
+  const pageTitle = page.properties.title;
+  if (pageDescription.type !== "rich_text" || pageTitle.type !== "title") {
+    return E.left("invalid page 'description' or 'title'");
+  }
+  const description = pageDescription.rich_text[0].plain_text;
+  const title = pageTitle.title[0].plain_text;
+  return E.right({ title, description, page });
+}
+
 export function fetchPostBySlug(slug: string) {
   return function (client: Client) {
     return pipe(
       getDatabaseId(),
+      TE.fromEither,
       TE.chain((database_id) =>
         TE.tryCatch(
           () =>
             client.databases.query({
               database_id,
-              filter: { text: { equals: slug }, property: "slug" },
+              filter: { rich_text: { equals: slug }, property: "slug" },
             }),
           E.toError
         )
       ),
       TE.map((data) => pipe(data.results, ([post]) => O.fromNullable(post))),
-      TE.chain(
-        flow(
-          TE.fromOption(() => new Error("failed to get page id")),
-          TE.chain((post) =>
-            TE.tryCatch(async () => {
-              const content = await client.blocks.children.list({
-                block_id: post.id,
-              });
+      TE.chain(flow(TE.fromOption(() => new Error("post not found")))),
+      TE.chain((page) =>
+        TE.tryCatch(async () => {
+          const content = await client.blocks.children.list({
+            block_id: page.id,
+          });
 
-              const properties = post.properties as any;
-              const description =
-                properties.description.rich_text[0].plain_text;
-              const title = properties.title.title[0].plain_text;
+          const post = buildPostTitleAndDescription(page);
+          if (E.isLeft(post)) {
+            throw new Error(post.left);
+          }
 
-              return { content, title, description };
-            }, E.toError)
-          )
-        )
+          return {
+            content,
+            title: post.right.title,
+            description: post.right.description,
+          };
+        }, E.toError)
       )
     );
   };
@@ -90,27 +110,54 @@ export function likePost(post: { id: string; likes: number }) {
   };
 }
 
+function buildPostPreview(
+  page: PageObjectResponse | PartialPageObjectResponse
+) {
+  return pipe(
+    page,
+    buildPostTitleAndDescription,
+    E.chain(({ title, description, page }) => {
+      const properties = page.properties;
+      const pageSlug = properties.slug;
+      const pageCreatedAt = properties.createdAt;
+      const pageLikes = properties.likes;
+
+      if (pageSlug.type !== "rich_text") {
+        return E.left("bad page 'slug' type");
+      }
+
+      if (pageCreatedAt.type !== "date") {
+        return E.left("bad page 'createdAt' type");
+      }
+      const createdAt = pageCreatedAt.date?.start;
+      if (!createdAt) {
+        return E.left("missing 'start' from 'createdAt' page");
+      }
+
+      if (pageLikes.type !== "number") {
+        return E.left("bad page 'likes' type");
+      }
+
+      return E.right({
+        id: page.id,
+        title,
+        description,
+        slug: pageSlug.rich_text[0].plain_text,
+        createdAt,
+        likes: pageLikes.number ?? 0,
+      });
+    })
+  );
+}
+
 export function getBlogPostsPreview(
   client: Client,
   pageSize?: number
 ): TE.TaskEither<Error, Post[]> {
   return pipe(
     getDatabase(client, pageSize),
-    TE.map((data) =>
-      pipe(
-        data.results,
-        A.map((post) => {
-          const properties = post.properties as any;
-          return {
-            id: post.id,
-            title: properties.title.title[0].plain_text,
-            slug: properties.slug.rich_text[0].plain_text,
-            description: properties.description.rich_text[0].plain_text,
-            createdAt: properties.createdAt.date.start,
-            likes: properties.likes.number,
-          };
-        })
-      )
+    TE.map(({ results }) =>
+      pipe(results, A.filterMap(flow(buildPostPreview, O.fromEither)))
     )
   );
 }
