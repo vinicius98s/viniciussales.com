@@ -27,6 +27,17 @@ const SongLink = styled.a`
   }
 `;
 
+const SongTextWrapper = styled(Box)`
+  h3 {
+    max-height: 46px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+`;
+
 function buildSpotifyIntegrationUrl() {
   const params = qs.stringify({
     scope: "user-top-read",
@@ -61,7 +72,7 @@ const Songs: React.FC<Props> = ({ songs, allowSpotifyIntegration }) => {
             <Col size={2} key={song.id} mb={[3, 0]}>
               <Box bg="rgba(13, 171, 118, 0.25)" borderRadius="4px">
                 <Link href={song.external_urls.spotify} passHref>
-                  <SongLink target="_blank" rel="noreferrer">
+                  <SongLink target="_blank" rel="noreferrer" title={song.name}>
                     <Flex padding={2}>
                       <Image
                         src={song.album.images[0].url}
@@ -71,14 +82,14 @@ const Songs: React.FC<Props> = ({ songs, allowSpotifyIntegration }) => {
                         layout="fixed"
                       />
                     </Flex>
-                    <Box pr={5}>
+                    <SongTextWrapper pr={5}>
                       <Heading level={3} fontSize="18px" ml={1}>
                         {song.name}
                       </Heading>
                       <Text fontSize="14px" color="gray" ml={1}>
                         {artists}
                       </Text>
-                    </Box>
+                    </SongTextWrapper>
                     <Box position="absolute" top={2} right={2}>
                       <Image
                         width={15}

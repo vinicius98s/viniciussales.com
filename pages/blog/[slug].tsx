@@ -13,11 +13,7 @@ import Seo from "@components/Seo";
 
 import { getFromTaskEither } from "@utils/fp-ts";
 
-import {
-  getBlogPostsPreview,
-  getNotionClient,
-  fetchPostBySlug,
-} from "@services/notion";
+import { getBlogPostsPreview, fetchPostBySlug } from "@services/notion";
 
 type Props = {
   content: ListBlockChildrenResponse;
@@ -27,7 +23,6 @@ type Props = {
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
   const post = await pipe(
-    getNotionClient(),
     fetchPostBySlug(params?.slug as string),
     TE.fold(
       () => T.of(O.none),
@@ -59,8 +54,7 @@ const Slug: NextPage<Props> = (post) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const client = getNotionClient();
-  const posts = await getFromTaskEither(getBlogPostsPreview(client), []);
+  const posts = await getFromTaskEither(getBlogPostsPreview(), []);
 
   return {
     fallback: false,

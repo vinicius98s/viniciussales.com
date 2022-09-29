@@ -13,7 +13,7 @@ import Seo from "@components/Seo";
 
 import { getFromTaskEither } from "@utils/fp-ts";
 
-import { getBlogPostsPreview, getNotionClient } from "@services/notion";
+import { getBlogPostsPreview } from "@services/notion";
 import { getTopSongs } from "@services/spotify";
 
 type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
@@ -58,19 +58,8 @@ const Home: NextPage<Props> = ({ posts, songs, allowSpotifyIntegration }) => {
   );
 };
 
-const ONE_HOUR = 60 * 60;
-
-export async function getServerSideProps({
-  res,
-  query,
-}: GetServerSidePropsContext) {
-  res.setHeader(
-    "Cache-Control",
-    `public, s-maxage=${ONE_HOUR * 0.5}, stale-while-revalidate=${ONE_HOUR}`
-  );
-
-  const client = getNotionClient();
-  const posts = await getFromTaskEither(getBlogPostsPreview(client, 2), []);
+export async function getServerSideProps({ query }: GetServerSidePropsContext) {
+  const posts = await getFromTaskEither(getBlogPostsPreview(2), []);
   const code = typeof query.code === "string" ? query.code : null;
   const songs = await getFromTaskEither(getTopSongs(code), []);
   const allowSpotifyIntegration =

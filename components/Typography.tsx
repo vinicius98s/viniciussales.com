@@ -2,11 +2,15 @@ import styled from "@emotion/styled";
 import { forwardRef, PropsWithChildren } from "react";
 import * as SS from "styled-system";
 
-type TextProps = SS.ColorProps & SS.TypographyProps & SS.SpaceProps;
+type TextProps = SS.ColorProps &
+  SS.TypographyProps &
+  SS.SpaceProps &
+  SS.LayoutProps;
 export const Text = styled.p<TextProps>`
   ${SS.color};
   ${SS.typography};
   ${SS.space};
+  ${SS.layout};
 `;
 
 type HeadingProps = TextProps & {

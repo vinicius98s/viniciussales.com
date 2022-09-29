@@ -29,17 +29,19 @@ function getDatabaseId() {
   );
 }
 
-export function getDatabase(client: Client, pageSize?: number) {
-  return pipe(
-    getDatabaseId(),
-    TE.fromEither,
-    TE.chain((database_id) =>
-      TE.tryCatch(
-        () => client.databases.query({ database_id, page_size: pageSize }),
-        E.toError
+export function getDatabase(pageSize?: number) {
+  return function (client: Client) {
+    return pipe(
+      getDatabaseId(),
+      TE.fromEither,
+      TE.chain((database_id) =>
+        TE.tryCatch(
+          () => client.databases.query({ database_id, page_size: pageSize }),
+          E.toError
+        )
       )
-    )
-  );
+    );
+  };
 }
 
 function buildPostTitleAndDescription(
@@ -57,8 +59,8 @@ function buildPostTitleAndDescription(
 }
 
 export function fetchPostBySlug(slug: string) {
-  return function (client: Client) {
-    return pipe(
+  return pipe(getNotionClient(), (client) =>
+    pipe(
       getDatabaseId(),
       TE.fromEither,
       TE.chain((database_id) =>
@@ -91,8 +93,8 @@ export function fetchPostBySlug(slug: string) {
           };
         }, E.toError)
       )
-    );
-  };
+    )
+  );
 }
 
 export function likePost(post: { id: string; likes: number }) {
@@ -151,11 +153,11 @@ function buildPostPreview(
 }
 
 export function getBlogPostsPreview(
-  client: Client,
   pageSize?: number
 ): TE.TaskEither<Error, Post[]> {
   return pipe(
-    getDatabase(client, pageSize),
+    getNotionClient(),
+    getDatabase(pageSize),
     TE.map(({ results }) =>
       pipe(results, A.filterMap(flow(buildPostPreview, O.fromEither)))
     )

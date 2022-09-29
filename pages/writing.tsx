@@ -6,7 +6,7 @@ import { Box, Col, Flex, Row } from "@components/Grid";
 
 import { getFromTaskEither } from "@utils/fp-ts";
 
-import { getNotionClient, getBlogPostsPreview, Post } from "@services/notion";
+import { getBlogPostsPreview, Post } from "@services/notion";
 import { Heading } from "@components/Typography";
 import Seo from "@components/Seo";
 
@@ -58,8 +58,7 @@ const Writings: NextPage<Props> = ({ posts }) => {
 };
 
 export async function getStaticProps() {
-  const client = getNotionClient();
-  const posts = await getFromTaskEither(getBlogPostsPreview(client), []);
+  const posts = await getFromTaskEither(getBlogPostsPreview(), []);
 
   return { props: { posts } };
 }
