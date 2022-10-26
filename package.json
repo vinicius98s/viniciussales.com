@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postbuild": "next-sitemap --config next-sitemap.config.js"
   },
   "dependencies": {
     "@emotion/react": "^11.7.0",
@@ -14,24 +15,25 @@
     "@notionhq/client": "^2.2.0",
     "@sindresorhus/slugify": "^2.1.0",
     "axios": "^0.22.0",
-    "fp-ts": "^2.11.4",
+    "fp-ts": "^2.13.1",
     "ioredis": "^5.2.3",
-    "next": "^12.3.0",
+    "next": "^13.0.0",
+    "next-sitemap": "^3.1.29",
     "query-string": "^7.1.1",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-syntax-highlighter": "^15.4.4",
     "sharp": "^0.29.1",
     "styled-system": "^5.1.5"
   },
   "devDependencies": {
-    "@types/react": "17.0.27",
+    "@types/react": "^18.0.23",
     "@types/react-syntax-highlighter": "^13.5.2",
     "@types/styled-system": "^5.1.13",
-    "eslint": "7.32.0",
-    "eslint-config-next": "11.1.2",
-    "eslint-plugin-prettier": "^4.0.0",
-    "prettier": "^2.5.1",
-    "typescript": "4.4.3"
+    "eslint": "^8.26.0",
+    "eslint-config-next": "^13.0.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.7.1",
+    "typescript": "^4.8.4"
   }
 }
