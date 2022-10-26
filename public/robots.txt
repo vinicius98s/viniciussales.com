@@ -1,2 +1,9 @@
+# *
 User-agent: *
 Allow: /
+
+# Host
+Host: https://viniciussales.com
+
+# Sitemaps
+Sitemap: https://viniciussales.com/sitemap.xml

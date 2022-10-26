@@ -1,3 +1,4 @@
+import { PropsWithChildren } from "react";
 import styled from "@emotion/styled";
 
 const Container = styled.div`
@@ -20,7 +21,7 @@ const TopLine = styled.div`
   left: 0;
 `;
 
-const Layout: React.FC = ({ children }) => {
+const Layout = ({ children }: PropsWithChildren) => {
   return (
     <>
       <TopLine />
