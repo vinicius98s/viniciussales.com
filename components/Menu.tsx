@@ -37,23 +37,17 @@ const Menu: React.FC<Props> = ({ activePage }) => {
   return (
     <Container>
       <MenuItem>
-        <Link href="/">
-          <a>Home</a>
-        </Link>
+        <Link href="/">Home</Link>
         {activePage === "home" && <ActiveBullet />}
       </MenuItem>
 
       <MenuItem>
-        <Link href="/writing">
-          <a>Writing</a>
-        </Link>
+        <Link href="/writing">Writing</Link>
         {activePage === "writing" && <ActiveBullet />}
       </MenuItem>
 
       <MenuItem>
-        <Link href="/contact">
-          <a>Contact</a>
-        </Link>
+        <Link href="/contact">Contact</Link>
         {activePage === "contact" && <ActiveBullet />}
       </MenuItem>
     </Container>

@@ -14,6 +14,7 @@ const LastWritings: React.FC<Props> = ({ posts }) => {
       <Heading level={2} mb={3}>
         Last Writings.
       </Heading>
+
       <Row gridTemplateColumns={["1fr", "repeat(4, 1fr)"]}>
         {posts.map((post) => (
           <Col size={2} key={post.id} marginBottom={[4, 0]}>

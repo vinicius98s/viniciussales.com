@@ -6,6 +6,7 @@ type TextProps = SS.ColorProps &
   SS.TypographyProps &
   SS.SpaceProps &
   SS.LayoutProps;
+
 export const Text = styled.p<TextProps>`
   ${SS.color};
   ${SS.typography};

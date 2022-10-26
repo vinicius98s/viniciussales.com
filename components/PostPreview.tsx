@@ -52,8 +52,8 @@ const PostPreview: React.FC<{ post: Post }> = ({ post }) => {
   return (
     <>
       <PostWrapper justifyContent="space-between" alignItems="center">
-        <Link href={`/blog/${post.slug}`} passHref>
-          <Text fontWeight={700} fontSize="20px" as="a">
+        <Link href={`/blog/${post.slug}`}>
+          <Text fontWeight={700} fontSize="20px">
             {post.title}
           </Text>
         </Link>

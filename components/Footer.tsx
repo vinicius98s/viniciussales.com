@@ -23,19 +23,13 @@ export default function Footer() {
         <Col size={1}>
           <ul>
             <li>
-              <Link href="/">
-                <a>Home</a>
-              </Link>
+              <Link href="/">Home</Link>
             </li>
             <li>
-              <Link href="/writing">
-                <a>Writings</a>
-              </Link>
+              <Link href="/writing">Writings</Link>
             </li>
             <li>
-              <Link href="/contact">
-                <a>Contact</a>
-              </Link>
+              <Link href="/contact">Contact</Link>
             </li>
           </ul>
         </Col>

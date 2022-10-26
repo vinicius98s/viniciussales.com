@@ -71,35 +71,37 @@ const Songs: React.FC<Props> = ({ songs, allowSpotifyIntegration }) => {
           return (
             <Col size={2} key={song.id} mb={[3, 0]}>
               <Box bg="rgba(13, 171, 118, 0.25)" borderRadius="4px">
-                <Link href={song.external_urls.spotify} passHref>
-                  <SongLink target="_blank" rel="noreferrer" title={song.name}>
-                    <Flex padding={2}>
-                      <Image
-                        src={song.album.images[0].url}
-                        width={64}
-                        height={64}
-                        alt={song.name}
-                        layout="fixed"
-                      />
-                    </Flex>
-                    <SongTextWrapper pr={5}>
-                      <Heading level={3} fontSize="18px" ml={1}>
-                        {song.name}
-                      </Heading>
-                      <Text fontSize="14px" color="gray" ml={1}>
-                        {artists}
-                      </Text>
-                    </SongTextWrapper>
-                    <Box position="absolute" top={2} right={2}>
-                      <Image
-                        width={15}
-                        height={14}
-                        src="/spotify-white.png"
-                        alt="Spotify logo white"
-                      />
-                    </Box>
-                  </SongLink>
-                </Link>
+                <SongLink
+                  href={song.external_urls.spotify}
+                  target="_blank"
+                  rel="noreferrer"
+                  title={song.name}
+                >
+                  <Flex padding={2}>
+                    <Image
+                      src={song.album.images[0].url}
+                      width={64}
+                      height={64}
+                      alt={song.name}
+                    />
+                  </Flex>
+                  <SongTextWrapper pr={5}>
+                    <Heading level={3} fontSize="18px" ml={1}>
+                      {song.name}
+                    </Heading>
+                    <Text fontSize="14px" color="gray" ml={1}>
+                      {artists}
+                    </Text>
+                  </SongTextWrapper>
+                  <Box position="absolute" top={2} right={2}>
+                    <Image
+                      width={15}
+                      height={14}
+                      src="/spotify-white.png"
+                      alt="Spotify logo white"
+                    />
+                  </Box>
+                </SongLink>
               </Box>
             </Col>
           );
