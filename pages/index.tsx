@@ -1,8 +1,4 @@
-import type {
-  NextPage,
-  InferGetServerSidePropsType,
-  GetServerSidePropsContext,
-} from "next";
+import type { NextPage, InferGetServerSidePropsType } from "next";
 
 import Header from "@components/Header";
 import LastWritings from "@components/LastWritings";
@@ -18,7 +14,7 @@ import { getTopSongs } from "@services/spotify";
 
 type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
 
-const Home: NextPage<Props> = ({ posts, songs, allowSpotifyIntegration }) => {
+const Home: NextPage<Props> = ({ posts, songs }) => {
   return (
     <>
       <Seo title="Vinicius Sales" />
@@ -53,29 +49,19 @@ const Home: NextPage<Props> = ({ posts, songs, allowSpotifyIntegration }) => {
         </Col>
       </Row>
       <LastWritings posts={posts} />
-      <Songs songs={songs} allowSpotifyIntegration={allowSpotifyIntegration} />
+      <Songs songs={songs} />
     </>
   );
 };
 
-export async function getServerSideProps({ query }: GetServerSidePropsContext) {
+export async function getServerSideProps() {
   const posts = await getFromTaskEither(getBlogPostsPreview(2), []);
-  const code = typeof query.code === "string" ? query.code : null;
-  const songs = await getFromTaskEither(getTopSongs(code), []);
-  const allowSpotifyIntegration =
-    query.spotify === process.env.SPOTIFY_PASSWORD;
+  const songs = await getFromTaskEither(getTopSongs(), []);
 
   return {
-    ...(!!code && {
-      redirect: {
-        destination: "/",
-        statusCode: 308,
-      },
-    }),
     props: {
       songs,
       posts,
-      allowSpotifyIntegration,
     },
   };
 }

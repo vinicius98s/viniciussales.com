@@ -6,7 +6,8 @@ import { Box, Col, Flex, Row } from "@components/Grid";
 
 import { getFromTaskEither } from "@utils/fp-ts";
 
-import { getBlogPostsPreview, Post } from "@services/notion";
+import { getBlogPostsPreview } from "@services/notion";
+import { Post } from "@services/notion.types";
 import { Heading } from "@components/Typography";
 import Seo from "@components/Seo";
 

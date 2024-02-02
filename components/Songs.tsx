@@ -1,18 +1,15 @@
-import Link from "next/link";
 import Image from "next/image";
 import styled from "@emotion/styled";
-import qs from "query-string";
 
 import { Row, Col, Box, Flex } from "@components/Grid";
 import { Heading, Text } from "@components/Typography";
 
-import { Song } from "@services/spotify";
+import { Song } from "@services/spotify.types";
 
 import spotify from "../public/spotify.png";
 
 type Props = {
   songs: Song[];
-  allowSpotifyIntegration: boolean;
 };
 
 const SongLink = styled.a`
@@ -38,31 +35,14 @@ const SongTextWrapper = styled(Box)`
   }
 `;
 
-function buildSpotifyIntegrationUrl() {
-  const params = qs.stringify({
-    scope: "user-top-read",
-    response_type: "code",
-    client_id: process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID,
-    redirect_uri: process.env.NEXT_PUBLIC_SPOTIFY_REDIRECT_URI,
-  });
-
-  return `https://accounts.spotify.com/authorize?${params}`;
-}
-
-const Songs: React.FC<Props> = ({ songs, allowSpotifyIntegration }) => {
+const Songs: React.FC<Props> = ({ songs }) => {
   return (
     <Box as="section" my={7} px={[4, 0]}>
       <Heading level={2} mb={2}>
         What I&apos;ve been listening.
       </Heading>
 
-      {allowSpotifyIntegration ? (
-        <a href={buildSpotifyIntegrationUrl()}>
-          <Image src={spotify} width={47} height={14} alt="Spotify" />
-        </a>
-      ) : (
-        <Image src={spotify} width={47} height={14} alt="Spotify" />
-      )}
+      <Image src={spotify} width={47} height={14} alt="Spotify" />
 
       <Row mt={3} gridTemplateColumns={["1fr", "repeat(4, 1fr)"]}>
         {songs.map((song) => {
@@ -70,7 +50,7 @@ const Songs: React.FC<Props> = ({ songs, allowSpotifyIntegration }) => {
 
           return (
             <Col size={2} key={song.id} mb={[3, 0]}>
-              <Box bg="rgba(13, 171, 118, 0.25)" borderRadius="4px">
+              <Box bg="rgba(13, 171, 118, 0.1)" borderRadius="4px">
                 <SongLink
                   href={song.external_urls.spotify}
                   target="_blank"

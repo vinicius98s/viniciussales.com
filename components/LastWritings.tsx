@@ -2,7 +2,7 @@ import { Row, Box, Col } from "@components/Grid";
 import { Heading } from "@components/Typography";
 import PostPreview from "@components/PostPreview";
 
-import { Post } from "@services/notion";
+import { Post } from "@services/notion.types";
 
 type Props = {
   posts: Post[];

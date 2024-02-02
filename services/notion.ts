@@ -4,23 +4,12 @@ import * as E from "fp-ts/Either";
 import * as O from "fp-ts/Option";
 import * as A from "fp-ts/Array";
 import { Client, isFullPage } from "@notionhq/client";
-import {
-  PartialPageObjectResponse,
-  PageObjectResponse,
-} from "@notionhq/client/build/src/api-endpoints";
+
+import { Page, Post } from "./notion.types";
 
 export function getNotionClient() {
   return new Client({ auth: process.env.NOTION_SECRET });
 }
-
-export type Post = {
-  id: string;
-  title: string;
-  createdAt: string;
-  description: string;
-  slug: string;
-  likes: number;
-};
 
 function getDatabaseId() {
   return pipe(
@@ -44,9 +33,7 @@ export function getDatabase(pageSize?: number) {
   };
 }
 
-function buildPostTitleAndDescription(
-  page: PageObjectResponse | PartialPageObjectResponse
-) {
+function buildPostTitleAndDescription(page: Page) {
   if (!isFullPage(page)) return E.left("bad page response");
   const pageDescription = page.properties.description;
   const pageTitle = page.properties.title;
@@ -112,12 +99,9 @@ export function likePost(post: { id: string; likes: number }) {
   };
 }
 
-function buildPostPreview(
-  page: PageObjectResponse | PartialPageObjectResponse
-) {
+function buildPostPreview(page: Page) {
   return pipe(
-    page,
-    buildPostTitleAndDescription,
+    buildPostTitleAndDescription(page),
     E.chain(({ title, description, page }) => {
       const properties = page.properties;
       const pageSlug = properties.slug;

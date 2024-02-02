@@ -21,9 +21,16 @@
       "@services/*": ["services/*"],
       "@icons/*": ["icons/*"],
       "@hooks/*": ["hooks/*"],
-      "@utils/*": ["utils/*"]
-    }
+      "@utils/*": ["utils/*"],
+    },
+    "plugins": [{ "name": "next" }],
   },
-  "include": ["next-env.d.ts", "styled.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "emotion.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+  ],
+  "exclude": ["node_modules"],
 }

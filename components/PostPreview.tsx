@@ -7,7 +7,7 @@ import { flow, pipe } from "fp-ts/function";
 import { Flex } from "@components/Grid";
 import { Text } from "@components/Typography";
 
-import { Post } from "@services/notion";
+import { Post } from "@services/notion.types";
 import Icon from "@icons/Icon";
 import useLocalStorage from "@hooks/useLocalStorage";
 

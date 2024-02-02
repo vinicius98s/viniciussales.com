@@ -7,17 +7,7 @@ import axios, { AxiosResponse } from "axios";
 import qs from "query-string";
 import Client from "ioredis";
 
-export type Song = {
-  id: string;
-  name: string;
-  artists: { name: string }[];
-  external_urls: {
-    spotify: string;
-  };
-  album: {
-    images: { height: number; width: number; url: string }[];
-  };
-};
+import { Song, User } from "./spotify.types";
 
 const SPOTIFY_API_BASE_URL = "https://api.spotify.com/v1";
 const SPOTIFY_ACCOUNTS_BASE_URL = "https://accounts.spotify.com";
@@ -60,11 +50,17 @@ function getAccessToken(code: string) {
     buildApiOptions(code),
     TE.fromEither,
     TE.chain(({ url, headers, data }) =>
-      TE.tryCatch(async () => {
-        const response: AxiosResponse<{ access_token: string }> =
-          await axios.post(url, data, { headers });
-        return response.data.access_token;
-      }, E.toError)
+      TE.tryCatch(
+        async () => {
+          const response: AxiosResponse<{ access_token: string }> =
+            await axios.post(url, data, { headers });
+          return response.data.access_token;
+        },
+        (e) => {
+          console.log("Failed to get access token", e);
+          return E.toError(e);
+        }
+      )
     )
   );
 }
@@ -85,46 +81,68 @@ function getRedisClient() {
   );
 }
 
-function getAndSaveTopSongs(client: Client) {
-  return (getToken: TE.TaskEither<Error, string>) =>
-    pipe(
-      getToken,
-      TE.chain((token) =>
-        pipe(
+export function fetchAndSaveTopSongs(code: string) {
+  return pipe(
+    getAccessToken(code),
+    TE.chain((token) =>
+      pipe(
+        getUserData(token),
+        TE.chain(flow(isAllowedUser, TE.fromEither)),
+        TE.chain(() =>
           TE.tryCatch(async () => {
-            const url = `${SPOTIFY_API_BASE_URL}/me/top/tracks?time_range=short_term&limit=2`;
+            const url = `${SPOTIFY_API_BASE_URL}/me/top/tracks?time_range=long_term&limit=2`;
             const response = await axios.get<{ items: Song[] }>(url, {
               headers: { Authorization: `Bearer ${token}` },
             });
             return response.data.items;
-          }, E.toError),
-          TE.chain((songs) =>
-            TE.tryCatch(async () => {
-              await client.set(REDIS_KEY, JSON.stringify(songs));
-              return songs;
-            }, E.toError)
+          }, E.toError)
+        ),
+        TE.chain((songs) =>
+          pipe(
+            getRedisClient(),
+            TE.fromOption(() => new Error("Failed to get redis client")),
+            TE.chain((client) =>
+              TE.tryCatch(async () => {
+                await client.set(REDIS_KEY, JSON.stringify(songs));
+                return songs;
+              }, E.toError)
+            )
           )
         )
       )
-    );
+    )
+  );
 }
 
-export function getTopSongs(code: string | null): TE.TaskEither<Error, Song[]> {
+function getUserData(token: string): TE.TaskEither<Error, User> {
+  return TE.tryCatch(async () => {
+    const url = `${SPOTIFY_API_BASE_URL}/me`;
+    const response = await axios.get<User>(url, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  }, E.toError);
+}
+
+function isAllowedUser(user: User) {
+  return pipe(
+    user,
+    E.fromPredicate(
+      (user) => user.id === "12144179601",
+      () => new Error("Spotify user is not allowed")
+    )
+  );
+}
+
+export function getTopSongs(): TE.TaskEither<Error, Song[]> {
   return pipe(
     getRedisClient(),
     TE.fromOption(() => new Error("Failed to get redis client")),
     TE.chain((client) =>
-      pipe(
-        O.fromNullable(code),
-        O.fold(
-          () =>
-            TE.tryCatch(async () => {
-              const response = (await client.get(REDIS_KEY)) ?? "[]";
-              return JSON.parse(response) as Song[];
-            }, E.toError),
-          flow(getAccessToken, getAndSaveTopSongs(client))
-        )
-      )
+      TE.tryCatch(async () => {
+        const response = (await client.get(REDIS_KEY)) ?? "[]";
+        return JSON.parse(response) as Song[];
+      }, E.toError)
     )
   );
 }
