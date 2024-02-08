@@ -1,7 +1,9 @@
 import { pipe } from "fp-ts/function";
 import * as E from "fp-ts/Either";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getNotionClient, likePost } from "@services/notion";
+
+import { likePost } from "@services/notion";
+import { getNotionClient } from "@services/notion.utils";
 
 export default async function handler(
   req: NextApiRequest,
