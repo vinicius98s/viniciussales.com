@@ -6,6 +6,8 @@ import email from "./email";
 import github from "./github";
 import linkedin from "./linkedin";
 import twitter from "./twitter";
+import ChevronLeft from "./chevron-left";
+import ChevronRight from "./chevron-right";
 
 const Icons = {
   "heart-outline": HeartOutline,
@@ -14,12 +16,14 @@ const Icons = {
   github,
   linkedin,
   twitter,
+  "chevron-left": ChevronLeft,
+  "chevron-right": ChevronRight,
 };
 
 export type IconProps = {
   width?: number;
   height?: number;
-  color?: keyof typeof theme["colors"];
+  color?: keyof (typeof theme)["colors"];
 };
 
 export type IconNames = keyof typeof Icons;

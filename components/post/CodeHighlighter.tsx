@@ -1,5 +1,4 @@
 // TODO: better code highlighter
-// @ts-nocheck
 import styled from "@emotion/styled";
 import { Prism } from "react-syntax-highlighter";
 import { coldarkDark } from "react-syntax-highlighter/dist/cjs/styles/prism";

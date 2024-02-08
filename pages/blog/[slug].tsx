@@ -1,5 +1,4 @@
 import type { GetStaticPaths, GetStaticPropsContext, NextPage } from "next";
-import { ListBlockChildrenResponse } from "@notionhq/client/build/src/api-endpoints";
 import { pipe } from "fp-ts/function";
 import * as TE from "fp-ts/TaskEither";
 import * as O from "fp-ts/Option";
@@ -10,16 +9,12 @@ import { Heading } from "@components/Typography";
 import Header from "@components/Header";
 import { Box } from "@components/Grid";
 import Seo from "@components/Seo";
+import ContinueReading from "@components/ContinueReading";
 
 import { getFromTaskEither } from "@utils/fp-ts";
 
 import { getBlogPostsPreview, fetchPostBySlug } from "@services/notion";
-
-type Props = {
-  content: ListBlockChildrenResponse;
-  title: string;
-  description: string;
-};
+import { FormattedPost } from "@services/notion.types";
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
   const post = await pipe(
@@ -33,7 +28,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
   return O.getOrElseW(() => ({ notFound: true }))(post);
 };
 
-const Slug: NextPage<Props> = (post) => {
+const Slug: NextPage<FormattedPost> = (post) => {
   return (
     <>
       <Header activePage="writing" />
@@ -49,6 +44,10 @@ const Slug: NextPage<Props> = (post) => {
           <BlockRenderer key={block.id} block={block} />
         ))}
       </Box>
+      <ContinueReading
+        previousPost={post.previousPost}
+        nextPost={post.nextPost}
+      />
     </>
   );
 };

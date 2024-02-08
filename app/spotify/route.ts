@@ -25,7 +25,10 @@ export async function GET(req: NextRequest) {
         fetchAndSaveTopSongs,
         TE.match(
           (e) => new NextResponse(e.message),
-          () => redirect("/")
+          (songs) =>
+            new NextResponse(
+              `Updated Spotify songs: ${songs.map((song) => song.name).join(" & ")}`
+            )
         )
       )
     )

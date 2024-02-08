@@ -1,4 +1,5 @@
 import theme from "@styles/theme";
+
 import { IconProps } from "./Icon";
 
 export default function Email({

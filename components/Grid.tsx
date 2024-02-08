@@ -25,7 +25,9 @@ type FlexProps = SS.FlexboxProps &
   SS.SpaceProps &
   SS.ColorProps &
   SS.BorderProps &
-  SS.PositionProps;
+  SS.PositionProps &
+  SS.TextAlignProps;
+
 export const Flex = styled.div<FlexProps>`
   display: flex;
 
@@ -35,6 +37,7 @@ export const Flex = styled.div<FlexProps>`
   ${SS.layout}
   ${SS.border}
   ${SS.position}
+  ${SS.textAlign}
 `;
 
 type BoxProps = SS.SpaceProps &
