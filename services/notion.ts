@@ -3,7 +3,6 @@ import * as TE from "fp-ts/TaskEither";
 import * as E from "fp-ts/Either";
 import * as O from "fp-ts/Option";
 import * as A from "fp-ts/Array";
-import { Client } from "@notionhq/client";
 
 import { FormattedPost, Post } from "./notion.types";
 import {
@@ -40,18 +39,16 @@ export function fetchPostBySlug(
 }
 
 export function likePost(post: { id: string; likes: number }) {
-  return function (client: Client) {
-    return pipe(
-      TE.tryCatch(
-        () =>
-          client.pages.update({
-            page_id: post.id,
-            properties: { likes: { number: post.likes + 1 } },
-          }),
-        E.toError
-      )
-    );
-  };
+  return pipe(getNotionClient(), (client) =>
+    TE.tryCatch(
+      () =>
+        client.pages.update({
+          page_id: post.id,
+          properties: { likes: { number: post.likes + 1 } },
+        }),
+      E.toError
+    )
+  );
 }
 
 export function getBlogPostsPreview(
