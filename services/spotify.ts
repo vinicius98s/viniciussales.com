@@ -18,15 +18,20 @@ const REDIRECT_URI = process.env.NEXT_PUBLIC_SPOTIFY_REDIRECT_URI;
 const REDIS_URI = process.env.REDIS_URI;
 const REDIS_KEY = "top-tracks";
 
-const sequenceTOption = sequenceT(O.Apply);
+const sequenceTEither = sequenceT(E.Apply);
 function buildApiOptions(code: string) {
   return pipe(
-    sequenceTOption(O.fromNullable(CLIENT_ID), O.fromNullable(CLIENT_SECRET)),
-    E.fromOption(
-      () =>
-        new Error(
-          "Missing NEXT_PUBLIC_SPOTIFY_CLIENT_ID or SPOTIFY_CLIENT_SECRET"
+    sequenceTEither(
+      pipe(
+        CLIENT_ID,
+        E.fromNullable(
+          new Error("Missing NEXT_PUBLIC_SPOTIFY_CLIENT_ID env variable")
         )
+      ),
+      pipe(
+        CLIENT_SECRET,
+        E.fromNullable(new Error("Missing SPOTIFY_CLIENT_SECRET env variable"))
+      )
     ),
     E.map(([clientId, clientSecret]) => ({
       url: `${SPOTIFY_ACCOUNTS_BASE_URL}/api/token`,
