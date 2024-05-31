@@ -86,37 +86,39 @@ function getRedisClient() {
   );
 }
 
-export function fetchAndSaveTopSongs(code: string) {
-  return pipe(
-    getAccessToken(code),
-    TE.chain((token) =>
-      pipe(
-        getUserData(token),
-        TE.chain(flow(isAllowedUser, TE.fromEither)),
-        TE.chain(() =>
-          TE.tryCatch(async () => {
-            const url = `${SPOTIFY_API_BASE_URL}/me/top/tracks?time_range=long_term&limit=2`;
-            const response = await axios.get<{ items: Song[] }>(url, {
-              headers: { Authorization: `Bearer ${token}` },
-            });
-            return response.data.items;
-          }, E.toError)
-        ),
-        TE.chain((songs) =>
-          pipe(
-            getRedisClient(),
-            TE.fromOption(() => new Error("Failed to get redis client")),
-            TE.chain((client) =>
-              TE.tryCatch(async () => {
-                await client.set(REDIS_KEY, JSON.stringify(songs));
-                return songs;
-              }, E.toError)
+export function fetchAndSaveTopSongs(timeRange: string | null = "short_term") {
+  return function (code: string) {
+    return pipe(
+      getAccessToken(code),
+      TE.chain((token) =>
+        pipe(
+          getUserData(token),
+          TE.chain(flow(isAllowedUser, TE.fromEither)),
+          TE.chain(() =>
+            TE.tryCatch(async () => {
+              const url = `${SPOTIFY_API_BASE_URL}/me/top/tracks?time_range=${timeRange}&limit=2`;
+              const response = await axios.get<{ items: Song[] }>(url, {
+                headers: { Authorization: `Bearer ${token}` },
+              });
+              return response.data.items;
+            }, E.toError)
+          ),
+          TE.chain((songs) =>
+            pipe(
+              getRedisClient(),
+              TE.fromOption(() => new Error("Failed to get redis client")),
+              TE.chain((client) =>
+                TE.tryCatch(async () => {
+                  await client.set(REDIS_KEY, JSON.stringify(songs));
+                  return songs;
+                }, E.toError)
+              )
             )
           )
         )
       )
-    )
-  );
+    );
+  };
 }
 
 function getUserData(token: string): TE.TaskEither<Error, User> {
