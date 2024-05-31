@@ -1,5 +1,6 @@
 import type { AppProps } from "next/app";
 import { ThemeProvider } from "@emotion/react";
+import { Analytics } from "@vercel/analytics/react";
 
 import Layout from "@components/Layout";
 import GlobalStyles from "@styles/global";
@@ -16,6 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <Footer />
         </Layout>
       </ThemeProvider>
+      <Analytics />
     </>
   );
 }
