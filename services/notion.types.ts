@@ -12,7 +12,7 @@ export type NextOrPreviousPost = {
   slug: string;
 };
 
-export type FormattedPost = {
+export type FormattedPost = Post & {
   content: ListBlockChildrenResponse;
   title: string;
   description: string;
@@ -33,4 +33,5 @@ export type Post = {
   description: string;
   slug: string;
   likes: number;
+  isDraft: boolean;
 };

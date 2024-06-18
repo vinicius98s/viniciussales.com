@@ -17,6 +17,7 @@ const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
 const REDIRECT_URI = process.env.NEXT_PUBLIC_SPOTIFY_REDIRECT_URI;
 const REDIS_URI = process.env.REDIS_URI;
 const REDIS_KEY = "top-tracks";
+const SPOTIFY_USER_ID = process.env.SPOTIFY_USER_ID;
 
 const sequenceTEither = sequenceT(E.Apply);
 function buildApiOptions(code: string) {
@@ -135,7 +136,7 @@ function isAllowedUser(user: User) {
   return pipe(
     user,
     E.fromPredicate(
-      (user) => user.id === "12144179601",
+      (user) => user.id === SPOTIFY_USER_ID,
       () => new Error("Spotify user is not allowed")
     )
   );

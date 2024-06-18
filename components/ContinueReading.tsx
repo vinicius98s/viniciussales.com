@@ -13,7 +13,7 @@ type Props = {
 };
 
 export default function ContinueReading(props: Props) {
-  if (!props.nextPost || !props.previousPost) {
+  if (!props.nextPost && !props.previousPost) {
     return null;
   }
 

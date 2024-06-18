@@ -15,6 +15,7 @@ import { getFromTaskEither } from "@utils/fp-ts";
 
 import { getBlogPostsPreview, fetchPostBySlug } from "@services/notion";
 import { FormattedPost } from "@services/notion.types";
+import Badge from "@components/Badge";
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
   const post = await pipe(
@@ -34,6 +35,11 @@ const Slug: NextPage<FormattedPost> = (post) => {
       <Header activePage="writing" />
       <Seo title={post.title} />
       <Box as="article" mt={8} px={[4, 0]}>
+        {post.isDraft && (
+          <Box mb={4}>
+            <Badge>DRAFT</Badge>
+          </Box>
+        )}
         <Heading color="primary" textAlign="center">
           {post.title}
         </Heading>

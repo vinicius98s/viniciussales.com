@@ -14,6 +14,15 @@ type PostWithPage = Post & {
   page: PageObjectResponse;
 };
 
+export const statusFilter = {
+  or: [
+    { select: { equals: "Published" }, property: "status" },
+    ...(process.env.NODE_ENV !== "production"
+      ? [{ select: { equals: "Draft" }, property: "status" }]
+      : []),
+  ],
+};
+
 export function getNotionClient() {
   return new Client({ auth: process.env.NOTION_SECRET });
 }
@@ -36,12 +45,14 @@ export function formatPost(page?: Page): E.Either<Error, PostWithPage> {
       const pageSlug = fullPage.properties.slug;
       const pageCreatedAt = fullPage.properties.createdAt;
       const pageLikes = fullPage.properties.likes;
+      const pageStatus = fullPage.properties.status;
       if (
         pageSlug.type !== "rich_text" ||
         pageDescription.type !== "rich_text" ||
         pageTitle.type !== "title" ||
         pageCreatedAt.type !== "date" ||
-        pageLikes.type !== "number"
+        pageLikes.type !== "number" ||
+        pageStatus.type !== "select"
       ) {
         throw new Error("invalid page properties");
       }
@@ -55,6 +66,7 @@ export function formatPost(page?: Page): E.Either<Error, PostWithPage> {
       const title = pageTitle.title[0].plain_text;
       const slug = pageSlug.rich_text[0].plain_text;
       const likes = pageLikes.number ?? 0;
+      const isDraft = pageStatus.select?.name === "Draft";
       return {
         id: page.id,
         title,
@@ -63,6 +75,7 @@ export function formatPost(page?: Page): E.Either<Error, PostWithPage> {
         createdAt,
         page: fullPage,
         likes,
+        isDraft,
       };
     })
   );
@@ -120,11 +133,16 @@ function getPreviousOrNextPost(
         client.databases.query({
           database_id: page.database_id,
           filter: {
-            unique_id:
-              filter === "previous"
-                ? { less_than: page.id }
-                : { greater_than: page.id },
-            property: "id",
+            ...statusFilter,
+            and: [
+              {
+                unique_id:
+                  filter === "previous"
+                    ? { less_than: page.id }
+                    : { greater_than: page.id },
+                property: "id",
+              },
+            ],
           },
         }),
       E.toError

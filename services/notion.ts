@@ -11,6 +11,7 @@ import {
   getPreviousAndNextPosts,
   getDatabaseId,
   getNotionClient,
+  statusFilter,
 } from "./notion.utils";
 
 export function fetchPostBySlug(
@@ -25,7 +26,10 @@ export function fetchPostBySlug(
           () =>
             client.databases.query({
               database_id,
-              filter: { rich_text: { equals: slug }, property: "slug" },
+              filter: {
+                ...statusFilter,
+                and: [{ rich_text: { equals: slug }, property: "slug" }],
+              },
             }),
           E.toError
         )
@@ -62,7 +66,12 @@ export function getBlogPostsPreview(
         TE.fromEither,
         TE.chain((database_id) =>
           TE.tryCatch(
-            () => client.databases.query({ database_id, page_size: pageSize }),
+            () =>
+              client.databases.query({
+                database_id,
+                page_size: pageSize,
+                filter: statusFilter,
+              }),
             E.toError
           )
         )

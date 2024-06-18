@@ -40,10 +40,10 @@ const Home: NextPage<Props> = ({ posts, songs }) => {
           <Text mt={3} fontSize="16px" lineHeight={1.4}>
             A seasoned full-stack developer with a strong background in both
             front-end and back-end technologies. Proficient in React, Node.js,
-            Typescript, and Functional Programming, I have a proven track record
-            of developing, maintaining, and enhancing web applications. I excel
-            in modernizing codebases, implementing new features, and ensuring
-            high code quality standards. My expertise is backed by a proactive
+            Typescript, and Functional Programming. I have a proven track record
+            of developing, maintaining, and enhancing web applications, excel in
+            modernizing codebases, implementing new features, and ensuring high
+            code quality standards. My expertise is backed by a proactive
             approach to continuous learning and professional growth.
           </Text>
         </Col>

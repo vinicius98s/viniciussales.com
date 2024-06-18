@@ -4,8 +4,9 @@ import styled from "@emotion/styled";
 import * as O from "fp-ts/Option";
 import { flow, pipe } from "fp-ts/function";
 
-import { Flex } from "@components/Grid";
+import { Box, Flex } from "@components/Grid";
 import { Text } from "@components/Typography";
+import Badge from "@components/Badge";
 
 import { Post } from "@services/notion.types";
 import Icon from "@icons/Icon";
@@ -51,6 +52,11 @@ const PostPreview: React.FC<{ post: Post }> = ({ post }) => {
 
   return (
     <>
+      {post.isDraft && (
+        <Box mb={1}>
+          <Badge>DRAFT</Badge>
+        </Box>
+      )}
       <PostWrapper justifyContent="space-between" alignItems="center">
         <Link href={`/blog/${post.slug}`}>
           <Text fontWeight={700} fontSize="20px">
