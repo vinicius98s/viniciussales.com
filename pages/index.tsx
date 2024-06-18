@@ -31,20 +31,20 @@ const Home: NextPage<Props> = ({ posts, songs }) => {
               👋
             </span>
             <Heading color="primary" fontSize={5} ml={2}>
-              Hi, I’m Vinicius.
+              Hi, I’m Vinícius.
             </Heading>
           </Flex>
           <Heading level={2} mt={2} fontSize={4}>
-            A nice and clean subject.
+            Software Development Engineer
           </Heading>
           <Text mt={3} fontSize="16px" lineHeight={1.4}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
+            A seasoned full-stack developer with a strong background in both
+            front-end and back-end technologies. Proficient in React, Node.js,
+            Typescript, and Functional Programming, I have a proven track record
+            of developing, maintaining, and enhancing web applications. I excel
+            in modernizing codebases, implementing new features, and ensuring
+            high code quality standards. My expertise is backed by a proactive
+            approach to continuous learning and professional growth.
           </Text>
         </Col>
       </Row>

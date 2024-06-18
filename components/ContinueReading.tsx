@@ -4,6 +4,7 @@ import { NextOrPreviousPost } from "@services/notion.types";
 
 import { Text, Heading } from "@components/Typography";
 import { Row, Col, Flex } from "@components/Grid";
+
 import Icon from "@icons/Icon";
 
 type Props = {
@@ -12,6 +13,10 @@ type Props = {
 };
 
 export default function ContinueReading(props: Props) {
+  if (!props.nextPost || !props.previousPost) {
+    return null;
+  }
+
   return (
     <>
       <Text fontSize="20px" fontWeight="bold" mb={4} mt={8}>
