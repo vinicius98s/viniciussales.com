@@ -1,6 +1,7 @@
 import type { AppProps } from "next/app";
 import { ThemeProvider } from "@emotion/react";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import Layout from "@components/Layout";
 import GlobalStyles from "@styles/global";
@@ -18,6 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         </Layout>
       </ThemeProvider>
       <Analytics />
+      <SpeedInsights />
     </>
   );
 }
