@@ -48,7 +48,7 @@ const SyntaxHighlighter = styled(Prism)`
 
 export default function CodeHighlighter({ language, code }: Props) {
   return (
-    <Box my={5} display="grid">
+    <Box my={4} display="grid">
       <SyntaxHighlighter language={language} style={coldarkDark}>
         {code}
       </SyntaxHighlighter>

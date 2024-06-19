@@ -19,7 +19,7 @@ type Props = {
 };
 
 const StyledText = styled(Text)`
-  line-height: 2em;
+  line-height: 1.8em;
 
   span {
     background: ${(p) => p.theme.colors.darkGray};
@@ -28,12 +28,25 @@ const StyledText = styled(Text)`
     padding: 0 0.2em;
     border-radius: 0.1em;
   }
+
+  a {
+    color: ${(p) => p.theme.colors.primary};
+    text-decoration: underline;
+  }
 `;
 
 export default function Paragraph({ text }: Props) {
   return (
     <StyledText mb={4}>
-      {text.map(({ plain_text, annotations }, idx) => {
+      {text.map(({ plain_text, annotations, href }, idx) => {
+        if (href) {
+          return (
+            <a key={idx} href={href} target="_blank" rel="noopener noreferrer">
+              {plain_text}
+            </a>
+          );
+        }
+
         if (annotations.bold) {
           return <b key={idx}>{plain_text}</b>;
         }
