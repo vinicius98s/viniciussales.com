@@ -133,7 +133,6 @@ function getPreviousOrNextPost(
         client.databases.query({
           database_id: page.database_id,
           filter: {
-            ...statusFilter,
             and: [
               {
                 unique_id:
@@ -142,6 +141,7 @@ function getPreviousOrNextPost(
                     : { greater_than: page.id },
                 property: "id",
               },
+              ...statusFilter.or,
             ],
           },
         }),
