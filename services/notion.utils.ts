@@ -141,7 +141,7 @@ function getPreviousOrNextPost(
                     : { greater_than: page.id },
                 property: "id",
               },
-              ...statusFilter.or,
+              statusFilter,
             ],
           },
         }),
@@ -168,16 +168,19 @@ export function getPreviousAndNextPosts(client: Client) {
       TE.fromEither,
       TE.chainW((page) =>
         pipe(
-          getPreviousOrNextPost(client, page, "previous"),
-          TE.orElseW(() => TE.right(null)),
-          TE.chain((previousPost) =>
+          TE.Do,
+          TE.bind("previousPost", () =>
             pipe(
-              getPreviousOrNextPost(client, page, "next"),
-              TE.orElseW(() => TE.right(null)),
-              TE.map((nextPost) => ({ previousPost, nextPost }))
+              getPreviousOrNextPost(client, page, "previous"),
+              TE.orElseW(() => TE.right(null))
             )
           ),
-          TE.orElseW(() => TE.right({ previousPost: null, nextPost: null }))
+          TE.bind("nextPost", () =>
+            pipe(
+              getPreviousOrNextPost(client, page, "next"),
+              TE.orElseW(() => TE.right(null))
+            )
+          )
         )
       ),
       TE.map((postWithPreviousAndNext) => {
