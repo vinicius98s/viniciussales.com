@@ -20,13 +20,11 @@ import Badge from "@components/Badge";
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
   const post = await pipe(
     fetchPostBySlug(params?.slug as string),
-    TE.fold(
-      () => T.of(O.none),
-      (data) => T.of(O.of({ props: data }))
-    )
+    TE.map((post) => ({ props: post })),
+    TE.getOrElseW(() => T.of({ notFound: true }))
   )();
 
-  return O.getOrElseW(() => ({ notFound: true }))(post);
+  return post;
 };
 
 const Slug: NextPage<FormattedPost> = (post) => {

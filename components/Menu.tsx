@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 
 export type Pages = "home" | "writing" | "contact";
 type Props = {
-  activePage?: Pages;
+  activePage: Pages;
 };
 
 const Container = styled.nav`

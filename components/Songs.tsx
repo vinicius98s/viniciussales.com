@@ -1,5 +1,6 @@
 import Image from "next/image";
 import styled from "@emotion/styled";
+import { motion } from "framer-motion";
 
 import { Row, Col, Box, Flex } from "@components/Grid";
 import { Heading, Text } from "@components/Typography";
@@ -49,40 +50,42 @@ const Songs: React.FC<Props> = ({ songs }) => {
           const artists = song.artists.map((artist) => artist.name).join(" & ");
 
           return (
-            <Col size={2} key={song.id} mb={[3, 0]}>
-              <Box bg="rgba(13, 171, 118, 0.1)" borderRadius="4px">
-                <SongLink
-                  href={song.external_urls.spotify}
-                  target="_blank"
-                  rel="noreferrer"
-                  title={song.name}
-                >
-                  <Flex padding={2}>
-                    <Image
-                      src={song.album.images[0].url}
-                      width={64}
-                      height={64}
-                      alt={song.name}
-                    />
-                  </Flex>
-                  <SongTextWrapper pr={5}>
-                    <Heading level={3} fontSize="18px" ml={1}>
-                      {song.name}
-                    </Heading>
-                    <Text fontSize="14px" color="gray" ml={1}>
-                      {artists}
-                    </Text>
-                  </SongTextWrapper>
-                  <Box position="absolute" top={2} right={2}>
-                    <Image
-                      width={15}
-                      height={14}
-                      src="/spotify-white.png"
-                      alt="Spotify logo white"
-                    />
-                  </Box>
-                </SongLink>
-              </Box>
+            <Col key={song.id} size={2} mb={[3, 0]}>
+              <motion.div whileHover={{ scale: 1.05 }}>
+                <Box bg="rgba(13, 171, 118, 0.1)" borderRadius="4px">
+                  <SongLink
+                    href={song.external_urls.spotify}
+                    target="_blank"
+                    rel="noreferrer"
+                    title={song.name}
+                  >
+                    <Flex padding={2}>
+                      <Image
+                        src={song.album.images[0].url}
+                        width={64}
+                        height={64}
+                        alt={song.name}
+                      />
+                    </Flex>
+                    <SongTextWrapper pr={5}>
+                      <Heading level={3} fontSize="18px" ml={1}>
+                        {song.name}
+                      </Heading>
+                      <Text fontSize="14px" color="gray" ml={1}>
+                        {artists}
+                      </Text>
+                    </SongTextWrapper>
+                    <Box position="absolute" top={2} right={2}>
+                      <Image
+                        width={15}
+                        height={14}
+                        src="/spotify-white.png"
+                        alt="Spotify logo white"
+                      />
+                    </Box>
+                  </SongLink>
+                </Box>
+              </motion.div>
             </Col>
           );
         })}

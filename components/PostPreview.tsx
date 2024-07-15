@@ -3,6 +3,7 @@ import axios from "axios";
 import styled from "@emotion/styled";
 import * as O from "fp-ts/Option";
 import { flow, pipe } from "fp-ts/function";
+import { motion } from "framer-motion";
 
 import { Box, Flex } from "@components/Grid";
 import { Text } from "@components/Typography";
@@ -51,7 +52,11 @@ const PostPreview: React.FC<{ post: Post }> = ({ post }) => {
   );
 
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ ease: "easeOut", duration: 0.55 }}
+    >
       {post.isDraft && (
         <Box mb={1}>
           <Badge>DRAFT</Badge>
@@ -74,7 +79,7 @@ const PostPreview: React.FC<{ post: Post }> = ({ post }) => {
         {post.createdAt}
       </Text>
       <Text mt={2}>{post.description}</Text>
-    </>
+    </motion.div>
   );
 };
 
