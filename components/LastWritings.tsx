@@ -18,9 +18,9 @@ const LastWritings: React.FC<Props> = ({ posts }) => {
       </Heading>
 
       <Row gridTemplateColumns={["1fr", "repeat(4, 1fr)"]}>
-        {posts.map((post) => (
+        {posts.map((post, index) => (
           <Col size={2} key={post.id} marginBottom={[4, 0]}>
-            <PostPreview post={post} />
+            <PostPreview post={post} index={index} />
           </Col>
         ))}
       </Row>

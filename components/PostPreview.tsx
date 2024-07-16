@@ -24,7 +24,10 @@ const PostWrapper = styled(Flex)`
   }
 `;
 
-const PostPreview: React.FC<{ post: Post }> = ({ post }) => {
+const PostPreview: React.FC<{ post: Post; index: number }> = ({
+  post,
+  index,
+}) => {
   const [isLiked, setIsLiked] = useLocalStorage<O.Option<boolean>>(
     post.id,
     O.none
@@ -55,7 +58,7 @@ const PostPreview: React.FC<{ post: Post }> = ({ post }) => {
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ ease: "easeOut", duration: 0.55 }}
+      transition={{ ease: "easeOut", duration: 0.45, delay: index * 0.2 }}
     >
       {post.isDraft && (
         <Box mb={1}>
