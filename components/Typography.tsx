@@ -8,6 +8,8 @@ type TextProps = SS.ColorProps &
   SS.LayoutProps;
 
 export const Text = styled.p<TextProps>`
+  font-size: 1em;
+
   ${SS.color};
   ${SS.typography};
   ${SS.space};
@@ -23,7 +25,13 @@ export const Heading = forwardRef<
   HTMLHeadingElement,
   PropsWithChildren<HeadingProps>
 >(({ color, ...props }, ref) => (
-  <Text color={color as any} ref={ref} as={`h${props.level ?? 1}`} {...props} />
+  <Text
+    color={color as any}
+    ref={ref}
+    as={`h${props.level ?? 1}`}
+    fontSize="larger"
+    {...props}
+  />
 ));
 
 Heading.displayName = "Heading";

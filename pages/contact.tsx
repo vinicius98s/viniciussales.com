@@ -28,12 +28,7 @@ const Contact: NextPage = () => {
     <>
       <Seo title="Contact" />
       <Header activePage="contact" />
-      <Row
-        mt={7}
-        as="section"
-        px={[4, 0]}
-        gridTemplateColumns={["auto", "repeat(4, 1fr)"]}
-      >
+      <Row as="section" gridTemplateColumns={["auto", "repeat(4, 1fr)"]}>
         <Col size={3}>
           <Flex alignItems="center">
             <span role="img" aria-label="mail box" style={{ fontSize: 32 }}>

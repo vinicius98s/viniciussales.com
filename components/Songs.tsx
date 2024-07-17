@@ -38,7 +38,7 @@ const SongTextWrapper = styled(Box)`
 
 const Songs: React.FC<Props> = ({ songs }) => {
   return (
-    <Box as="section" my={7} px={[4, 0]}>
+    <Box as="section" my={7}>
       <Heading level={2} mb={2}>
         What I&apos;ve been listening.
       </Heading>

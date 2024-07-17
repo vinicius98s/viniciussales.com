@@ -20,12 +20,7 @@ const Writings: NextPage<Props> = ({ posts }) => {
     <>
       <Seo title="Writing" />
       <Header activePage="writing" />
-      <Row
-        mt={7}
-        as="section"
-        px={[4, 0]}
-        gridTemplateColumns={["auto", "repeat(4, 1fr)"]}
-      >
+      <Row>
         <Col size={3}>
           <Heading color="primary" fontSize="32px">
             <Flex alignItems="center">
@@ -47,10 +42,10 @@ const Writings: NextPage<Props> = ({ posts }) => {
         </Col>
       </Row>
 
-      <Box mt={6} px={[4, 0]}>
+      <Box mt={6}>
         {posts.map((post, index) => (
           <Box mb={index + 1 === posts.length ? 7 : 5} key={post.id}>
-            <PostPreview post={post} />
+            <PostPreview post={post} index={index} />
           </Box>
         ))}
       </Box>

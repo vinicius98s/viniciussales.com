@@ -12,7 +12,7 @@ type Props = {
 
 const LastWritings: React.FC<Props> = ({ posts }) => {
   return (
-    <Box as="section" my={7} px={[4, 0]}>
+    <Box as="section" my={7}>
       <Heading level={2} mb={3}>
         Last Writings.
       </Heading>

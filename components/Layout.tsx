@@ -8,27 +8,16 @@ const Container = styled.div`
   min-height: 100vh;
 
   main {
-    max-width: 624px;
+    width: 692px;
+    padding: 0 ${(p) => p.theme.space[3]}px;
   }
-`;
-
-const TopLine = styled.div`
-  background: ${(p) => p.theme.colors.primary};
-  height: 5px;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
 `;
 
 const Layout = ({ children }: PropsWithChildren) => {
   return (
-    <>
-      <TopLine />
-      <Container>
-        <main>{children}</main>
-      </Container>
-    </>
+    <Container>
+      <main>{children}</main>
+    </Container>
   );
 };
 
