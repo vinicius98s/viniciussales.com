@@ -1,4 +1,6 @@
+import { useRef } from "react";
 import Link from "next/link";
+import { motion, useInView } from "framer-motion";
 
 import { NextOrPreviousPost } from "@services/notion.types";
 
@@ -10,6 +12,68 @@ import Icon from "@icons/Icon";
 type Props = {
   previousPost: NextOrPreviousPost | null;
   nextPost: NextOrPreviousPost | null;
+};
+
+type PrevOrNextProps = {
+  preview: "previous" | "next";
+  post: NextOrPreviousPost;
+};
+
+const PrevOrNext = (props: PrevOrNextProps) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
+  const translateX = props.preview === "previous" ? -100 : 100;
+
+  return (
+    <motion.div
+      ref={ref}
+      transition={{ duration: 0.5 }}
+      initial={{ translateX, opacity: 0 }}
+      animate={{
+        translateX: isInView ? 0 : translateX,
+        opacity: isInView ? 1 : 0,
+      }}
+    >
+      <Flex
+        alignItems={props.preview === "previous" ? "flex-start" : "flex-end"}
+        flexDirection="column"
+      >
+        <Link href={`/blog/${props.post.slug}`}>
+          <Flex
+            alignItems="center"
+            justifyContent={
+              props.preview === "previous" ? "flex-start" : "flex-end"
+            }
+          >
+            {props.preview === "previous" && (
+              <Icon color="gray" name="chevron-left" width={20} height={20} />
+            )}
+            <Text
+              color="gray"
+              fontWeight="600"
+              ml={props.preview === "previous" ? 2 : 0}
+              mr={props.preview === "next" ? 2 : 0}
+            >
+              {props.preview === "previous" ? "Previous Post" : "Next Post"}
+            </Text>
+            {props.preview === "next" && (
+              <Icon color="gray" name="chevron-right" width={20} height={20} />
+            )}
+          </Flex>
+          <Heading
+            color="primary"
+            level={3}
+            fontWeight={700}
+            fontSize="20px"
+            mt={1}
+          >
+            {props.post.title}
+          </Heading>
+        </Link>
+      </Flex>
+    </motion.div>
+  );
 };
 
 export default function ContinueReading(props: Props) {
@@ -25,58 +89,12 @@ export default function ContinueReading(props: Props) {
       <Row>
         <Col size={2}>
           {props.previousPost && (
-            <Flex flexDirection="column">
-              <Link href={`/blog/${props.previousPost.slug}`}>
-                <Flex alignItems="center" justifyContent="flex-start">
-                  <Icon
-                    color="gray"
-                    name="chevron-left"
-                    width={20}
-                    height={20}
-                  />
-                  <Text color="gray" fontWeight="600" ml={2}>
-                    Previous Post
-                  </Text>
-                </Flex>
-                <Heading
-                  color="primary"
-                  level={3}
-                  fontWeight={700}
-                  fontSize="20px"
-                  mt={1}
-                >
-                  {props.previousPost.title}
-                </Heading>
-              </Link>
-            </Flex>
+            <PrevOrNext preview="previous" post={props.previousPost} />
           )}
         </Col>
         <Col size={2}>
           {props.nextPost && (
-            <Flex flexDirection="column" alignItems="flex-end">
-              <Link href={`/blog/${props.nextPost.slug}`}>
-                <Flex alignItems="center" justifyContent="flex-end">
-                  <Text color="gray" fontWeight="600" mr={2}>
-                    Next Post
-                  </Text>
-                  <Icon
-                    color="gray"
-                    name="chevron-right"
-                    width={20}
-                    height={20}
-                  />
-                </Flex>
-                <Heading
-                  color="primary"
-                  level={3}
-                  fontWeight={700}
-                  fontSize="20px"
-                  mt={1}
-                >
-                  {props.nextPost.title}
-                </Heading>
-              </Link>
-            </Flex>
+            <PrevOrNext preview="next" post={props.nextPost} />
           )}
         </Col>
       </Row>

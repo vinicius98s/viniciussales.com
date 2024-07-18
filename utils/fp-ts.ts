@@ -7,8 +7,8 @@ function isAxiosError(e: unknown | AxiosError): e is AxiosError {
   return (e as AxiosError).isAxiosError ?? false;
 }
 
-export function getFromTaskEither<T>(
-  task: TE.TaskEither<unknown, T>,
+export function getFromTaskEither<E, T>(
+  task: TE.TaskEither<E, T>,
   defaultValue: T
 ) {
   return pipe(

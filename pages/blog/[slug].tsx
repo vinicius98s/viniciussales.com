@@ -57,10 +57,10 @@ const Slug: NextPage<FormattedPost> = (post) => {
             <Badge>DRAFT</Badge>
           </Box>
         )}
-        <Heading color="primary" textAlign="center">
+        <Heading color="primary" textAlign="center" fontSize="x-large">
           {post.title}
         </Heading>
-        <Heading level={3} mt={2} mb={4} textAlign="center">
+        <Heading level={2} mt={2} mb={4} textAlign="center">
           {post.description}
         </Heading>
         {post.content.results.map((block) => (
