@@ -4,9 +4,10 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import Layout from "@components/Layout";
+import Footer from "@components/Footer";
+
 import GlobalStyles from "@styles/global";
 import theme from "@styles/theme";
-import Footer from "@components/Footer";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

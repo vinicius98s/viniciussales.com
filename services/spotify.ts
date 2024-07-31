@@ -3,7 +3,7 @@ import * as O from "fp-ts/Option";
 import * as E from "fp-ts/Either";
 import * as TE from "fp-ts/TaskEither";
 import { sequenceT } from "fp-ts/lib/Apply";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import qs from "query-string";
 import Client from "ioredis";
 
@@ -58,8 +58,11 @@ function getAccessToken(code: string) {
     TE.chain(({ url, headers, data }) =>
       TE.tryCatch(
         async () => {
-          const response: AxiosResponse<{ access_token: string }> =
-            await axios.post(url, data, { headers });
+          const response = await axios.post<{ access_token: string }>(
+            url,
+            data,
+            { headers }
+          );
           return response.data.access_token;
         },
         (e) => {

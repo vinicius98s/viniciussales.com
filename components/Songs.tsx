@@ -64,7 +64,7 @@ const Songs: React.FC<Props> = ({ songs }) => {
                         src={song.album.images[0].url}
                         width={64}
                         height={64}
-                        alt={song.name}
+                        alt={`Cover art for ${song.name} music`}
                       />
                     </Flex>
                     <SongTextWrapper pr={5}>

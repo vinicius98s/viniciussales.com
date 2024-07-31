@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { forwardRef, PropsWithChildren } from "react";
+import { forwardRef, PropsWithChildren, type HTMLProps } from "react";
 import * as SS from "styled-system";
 
 type TextProps = SS.ColorProps &
@@ -23,11 +23,12 @@ type HeadingProps = TextProps & {
 
 export const Heading = forwardRef<
   HTMLHeadingElement,
-  PropsWithChildren<HeadingProps>
+  PropsWithChildren<HeadingProps & HTMLProps<HTMLHeadingElement>>
 >(({ color, ...props }, ref) => (
   <Text
     color={color as any}
     ref={ref}
+    // @ts-ignore
     as={`h${props.level ?? 1}`}
     fontSize="larger"
     {...props}
