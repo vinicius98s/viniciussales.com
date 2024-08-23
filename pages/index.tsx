@@ -1,4 +1,4 @@
-import type { NextPage, InferGetServerSidePropsType } from "next";
+import type { InferGetStaticPropsType, GetStaticProps } from "next";
 
 import Header from "@components/Header";
 import Greetings from "@components/Greetings";
@@ -11,9 +11,9 @@ import { getFromTaskEither } from "@utils/fp-ts";
 import { getBlogPostsPreview } from "@services/notion";
 import { getTopSongs } from "@services/spotify";
 
-type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
+type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
-const Home: NextPage<Props> = ({ posts, songs }) => {
+const Home = ({ posts, songs }: Props) => {
   return (
     <>
       <Seo title="Home" />
@@ -25,11 +25,11 @@ const Home: NextPage<Props> = ({ posts, songs }) => {
   );
 };
 
-export async function getServerSideProps() {
+export const getStaticProps = (async () => {
   const posts = await getFromTaskEither(getBlogPostsPreview(2), []);
   const songs = await getFromTaskEither(getTopSongs(), []);
 
   return { props: { songs, posts } };
-}
+}) satisfies GetStaticProps;
 
 export default Home;

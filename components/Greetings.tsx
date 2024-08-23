@@ -7,6 +7,11 @@ import Popover from "@components/Popover";
 function Greetings() {
   const audioRef = useRef<HTMLMediaElement>(null);
 
+  function nameClick() {
+    audioRef.current?.play();
+    window.umami?.track("name-sound-click");
+  }
+
   return (
     <Row as="section" gridTemplateColumns={["auto", "repeat(4, 1fr)"]}>
       <Col size={3}>
@@ -20,28 +25,37 @@ function Greetings() {
         </Flex>
 
         <Flex alignItems="center" mb={3} mt={2}>
-          <Popover content="Not sure how to pronounce? Check it out.">
-            <Heading
-              color="gray"
-              level={2}
-              role="button"
-              onClick={() => audioRef.current?.play()}
-              style={{ cursor: "pointer" }}
-            >
-              /viˈnisiəs ˈsælɪs/
-            </Heading>
+          <Popover
+            event="name-hover"
+            content="Not sure how to pronounce? Check it out. Make sure you have sounds on."
+          >
+            <Flex alignItems="center">
+              <span role="img" aria-label="speaker" style={{ fontSize: 18 }}>
+                🔊
+              </span>
+              <Heading
+                color="gray"
+                level={2}
+                role="button"
+                ml={1}
+                onClick={nameClick}
+                style={{ cursor: "pointer" }}
+              >
+                /viˈnisiəs ˈsælɪs/
+              </Heading>
+            </Flex>
             <audio
               ref={audioRef}
               preload="auto"
               aria-label="Pronunciation of my name"
             >
               <source src="name.mp3" />
-              <p>Your browser doesn't support HTML audio. </p>
+              <p>Your browser doesn't support HTML audio.</p>
             </audio>
           </Popover>
         </Flex>
 
-        <Heading level={2} mt={2} fontSize={4}>
+        <Heading level={2} mt={4} fontSize={4}>
           Software Development Engineer
         </Heading>
         <Text mt={3} fontSize="16px" lineHeight={1.4}>

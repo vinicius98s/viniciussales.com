@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import type { GetStaticProps, InferGetStaticPropsType } from "next";
 
 import Header from "@components/Header";
 import PostPreview from "@components/PostPreview";
@@ -7,15 +7,12 @@ import { Box, Col, Flex, Row } from "@components/Grid";
 import { getFromTaskEither } from "@utils/fp-ts";
 
 import { getBlogPostsPreview } from "@services/notion";
-import { Post } from "@services/notion.types";
 import { Heading } from "@components/Typography";
 import Seo from "@components/Seo";
 
-type Props = {
-  posts: Post[];
-};
+type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
-const Writings: NextPage<Props> = ({ posts }) => {
+const Writings = ({ posts }: Props) => {
   return (
     <>
       <Seo title="Writing" />
@@ -53,10 +50,10 @@ const Writings: NextPage<Props> = ({ posts }) => {
   );
 };
 
-export async function getStaticProps() {
+export const getStaticProps = (async () => {
   const posts = await getFromTaskEither(getBlogPostsPreview(), []);
 
   return { props: { posts } };
-}
+}) satisfies GetStaticProps;
 
 export default Writings;

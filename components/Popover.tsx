@@ -1,4 +1,4 @@
-import { useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import styled from "@emotion/styled";
 
 import theme from "@styles/theme";
@@ -6,6 +6,8 @@ import theme from "@styles/theme";
 type Props = {
   children: ReactNode;
   content: ReactNode;
+  width?: number;
+  event?: string;
 };
 
 const Trigger = styled.button`
@@ -14,7 +16,12 @@ const Trigger = styled.button`
   border: none;
 `;
 
-const ContentContainer = styled.span<{ $top: number; $left: number }>`
+const ContentContainer = styled.span<{
+  $top: number;
+  $left: number;
+  $width: number;
+}>`
+  width: ${(p) => p.$width}px;
   position: fixed;
   margin-top: ${(p) => p.theme.space.at(1)}px;
   left: ${(p) => p.$left}px;
@@ -40,14 +47,25 @@ const ContentContainer = styled.span<{ $top: number; $left: number }>`
   }
 `;
 
-function Popover({ content, children }: Props) {
+function Popover({
+  content,
+  children,
+  width: contentWidth = 200,
+  event,
+}: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef<HTMLButtonElement>(null);
 
   const width = ref.current?.offsetWidth ?? 0;
   const height = ref.current?.offsetHeight ?? 0;
-  const left = (ref.current?.offsetLeft ?? 0) - width / 2;
-  const top = (ref.current?.offsetTop ?? 0) + height + theme.space[1];
+  const left = (ref.current?.offsetLeft ?? 0) + width / 2 - contentWidth / 2;
+  const top = (ref.current?.offsetTop ?? 0) + height + theme.space[2];
+
+  useEffect(() => {
+    if (event && isOpen) {
+      window.umami?.track(event);
+    }
+  }, [isOpen]);
 
   return (
     <Trigger
@@ -59,7 +77,12 @@ function Popover({ content, children }: Props) {
     >
       {children}
       {isOpen && (
-        <ContentContainer $top={top} $left={left} role="region">
+        <ContentContainer
+          $width={contentWidth}
+          $top={top}
+          $left={left}
+          role="region"
+        >
           {content}
         </ContentContainer>
       )}

@@ -1,4 +1,8 @@
-import type { GetStaticPaths, GetStaticPropsContext, NextPage } from "next";
+import type {
+  GetStaticPaths,
+  GetStaticProps,
+  InferGetStaticPropsType,
+} from "next";
 import { pipe } from "fp-ts/function";
 import * as TE from "fp-ts/TaskEither";
 import * as T from "fp-ts/Task";
@@ -16,15 +20,6 @@ import Badge from "@components/Badge";
 import { getFromTaskEither } from "@utils/fp-ts";
 
 import { getBlogPostsPreview, fetchPostBySlug } from "@services/notion";
-import { FormattedPost } from "@services/notion.types";
-
-export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
-  return await pipe(
-    fetchPostBySlug(params?.slug as string),
-    TE.map((post) => ({ props: post })),
-    TE.getOrElseW(() => T.of({ notFound: true }))
-  )();
-};
 
 const ProgressBar = styled(motion.div)`
   position: fixed;
@@ -37,7 +32,9 @@ const ProgressBar = styled(motion.div)`
   z-index: 1;
 `;
 
-const Slug: NextPage<FormattedPost> = (post) => {
+type Props = InferGetStaticPropsType<typeof getStaticProps>;
+
+const Slug = (post: Props) => {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     damping: 50,
@@ -74,6 +71,14 @@ const Slug: NextPage<FormattedPost> = (post) => {
     </>
   );
 };
+
+export const getStaticProps = (async ({ params }) => {
+  return await pipe(
+    fetchPostBySlug(params?.slug as string),
+    TE.map((post) => ({ props: post })),
+    TE.getOrElseW(() => T.of({ notFound: true } as const))
+  )();
+}) satisfies GetStaticProps;
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await getFromTaskEither(getBlogPostsPreview(), []);
