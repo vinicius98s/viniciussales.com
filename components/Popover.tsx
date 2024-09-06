@@ -1,7 +1,6 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import * as HoverCard from "@radix-ui/react-hover-card";
+import { type ReactNode } from "react";
 import styled from "@emotion/styled";
-
-import theme from "@styles/theme";
 
 type Props = {
   children: ReactNode;
@@ -10,41 +9,16 @@ type Props = {
   event?: string;
 };
 
-const Trigger = styled.button`
-  position: relative;
-  background: transparent;
-  border: none;
-`;
-
-const ContentContainer = styled.span<{
-  $top: number;
-  $left: number;
-  $width: number;
-}>`
+const Content = styled(HoverCard.Content)<{ $width: number }>`
   width: ${(p) => p.$width}px;
-  position: fixed;
-  margin-top: ${(p) => p.theme.space.at(1)}px;
-  left: ${(p) => p.$left}px;
-  top: ${(p) => p.$top}px;
   background: ${(p) => p.theme.colors.darkGray};
-  color: ${(p) => p.theme.colors.white};
   padding: ${(p) => p.theme.space.at(2)}px;
   border-radius: ${(p) => p.theme.space.at(1)}px;
   font-size: 14px;
+`;
 
-  ::after {
-    content: "";
-    position: absolute;
-    top: -6px;
-    left: 0;
-    margin: 0 auto;
-    right: 0;
-    width: 0;
-    height: 0;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-bottom: 6px solid ${(p) => p.theme.colors.darkGray};
-  }
+const Arrow = styled(HoverCard.Arrow)`
+  fill: ${(p) => p.theme.colors.darkGray};
 `;
 
 function Popover({
@@ -53,40 +27,22 @@ function Popover({
   width: contentWidth = 200,
   event,
 }: Props) {
-  const [isOpen, setIsOpen] = useState(false);
-  const ref = useRef<HTMLButtonElement>(null);
-
-  const width = ref.current?.offsetWidth ?? 0;
-  const height = ref.current?.offsetHeight ?? 0;
-  const left = (ref.current?.offsetLeft ?? 0) + width / 2 - contentWidth / 2;
-  const top = (ref.current?.offsetTop ?? 0) + height + theme.space[2];
-
-  useEffect(() => {
-    if (event && isOpen) {
+  const onOpenChange = (open: boolean) => {
+    if (event && open) {
       window.umami?.track(event);
     }
-  }, [isOpen]);
+  };
 
   return (
-    <Trigger
-      ref={ref}
-      onMouseOver={() => setIsOpen(true)}
-      onMouseLeave={() => setIsOpen(false)}
-      aria-expanded={isOpen}
-      onClick={() => setIsOpen((isOpened) => !isOpened)}
-    >
-      {children}
-      {isOpen && (
-        <ContentContainer
-          $width={contentWidth}
-          $top={top}
-          $left={left}
-          role="region"
-        >
+    <HoverCard.Root openDelay={300} onOpenChange={onOpenChange}>
+      <HoverCard.Trigger>{children}</HoverCard.Trigger>
+      <HoverCard.Portal>
+        <Content $width={contentWidth} sideOffset={5}>
           {content}
-        </ContentContainer>
-      )}
-    </Trigger>
+          <Arrow />
+        </Content>
+      </HoverCard.Portal>
+    </HoverCard.Root>
   );
 }
 

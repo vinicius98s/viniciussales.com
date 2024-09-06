@@ -27,17 +27,17 @@ function Greetings() {
         <Flex alignItems="center" mb={3} mt={2}>
           <Popover
             event="name-hover"
-            content="Not sure how to pronounce? Check it out. Make sure you have sounds on."
+            content="Not sure how to pronounce? Click here and check it out. Make sure you have sounds on."
           >
             <Flex alignItems="center">
-              <span role="img" aria-label="speaker" style={{ fontSize: 18 }}>
+              <span role="img" aria-label="speaker" style={{ fontSize: 17 }}>
                 🔊
               </span>
               <Heading
                 color="gray"
-                level={2}
+                level={3}
                 role="button"
-                ml={1}
+                ml={2}
                 onClick={nameClick}
                 style={{ cursor: "pointer" }}
               >

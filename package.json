@@ -13,6 +13,7 @@
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@notionhq/client": "^2.2.14",
+    "@radix-ui/react-hover-card": "^1.1.1",
     "@sindresorhus/slugify": "^2.2.1",
     "@vercel/speed-insights": "^1.0.12",
     "axios": "^1.7.2",
