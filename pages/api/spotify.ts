@@ -22,12 +22,15 @@ export default async function handler(
             fetchAndSaveTopSongs(timeRange),
             TE.match(
               (e) => res.status(500).send(e.message),
-              (songs) =>
-                res
-                  .status(200)
-                  .send(
-                    `Updated Spotify songs:\n\n${songs.map((song) => song.name).join("\n")}`
-                  )
+              (songs) => {
+                res.setHeader("Content-Type", "text/html; charset=UTF-8");
+                return res.status(200).send(`
+<style>body { background: #0C0C0C; color: #FAFAFA }</style>
+Updated Spotify songs:<br/>
+${songs.map((song) => song.name).join("<br/>")}<br/><br/>
+<a href="/">Back to home</a>
+`);
+              }
             )
           )
         )

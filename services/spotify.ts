@@ -66,7 +66,7 @@ function getAccessToken(code: string) {
           return response.data.access_token;
         },
         (e) => {
-          console.log("Failed to get access token", e);
+          console.error("Failed to get access token", e);
           return E.toError(e);
         }
       )
