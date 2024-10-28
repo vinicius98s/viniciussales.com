@@ -1,7 +1,7 @@
-/** @type {import('next').NextConfig} */
-module.exports = {
+import { NextConfig } from "next";
+
+const config: NextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "i.scdn.co" },
@@ -11,3 +11,5 @@ module.exports = {
     ],
   },
 };
+
+export default config;

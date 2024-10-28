@@ -43,8 +43,9 @@ const Contact: NextPage = () => {
           </Heading>
           <Text mt={3} fontSize="16px" lineHeight={1.4}>
             Feel free to reach out to me for any inquiries, collaboration
-            opportunities, or just to connect. I'm always open to discussing new
-            projects, sharing insights, or exploring potential partnerships.
+            opportunities, or just to connect. I&apos;m always open to
+            discussing new projects, sharing insights, or exploring potential
+            partnerships.
           </Text>
         </Col>
       </Row>

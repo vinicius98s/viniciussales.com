@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -20,23 +20,28 @@
     "fp-ts": "^2.16.2",
     "framer-motion": "^11.3.2",
     "ioredis": "^5.3.2",
-    "next": "^14.2.5",
+    "next": "15.0.1",
     "next-sitemap": "^4.2.3",
     "query-string": "^9.0.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "19.0.0-rc-69d4b800-20241021",
+    "react-dom": "19.0.0-rc-69d4b800-20241021",
     "react-syntax-highlighter": "^15.5.0",
     "sharp": "^0.33.2",
     "styled-system": "^5.1.5"
   },
   "devDependencies": {
-    "@types/react": "^18.2.51",
+    "@eslint/eslintrc": "^3.1.0",
+    "@eslint/js": "^9.13.0",
+    "@types/react": "npm:types-react@19.0.0-rc.1",
     "@types/react-syntax-highlighter": "^15.5.11",
     "@types/styled-system": "^5.1.22",
     "eslint": "^9.5.0",
-    "eslint-config-next": "^14.1.0",
+    "eslint-config-next": "^15.0.1",
     "eslint-plugin-prettier": "^5.1.3",
     "prettier": "^3.2.4",
     "typescript": "^5.3.3"
+  },
+  "resolutions": {
+    "@types/react": "npm:types-react@19.0.0-rc.1"
   }
 }

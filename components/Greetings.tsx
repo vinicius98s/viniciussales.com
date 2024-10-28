@@ -20,7 +20,7 @@ function Greetings() {
             👋
           </span>
           <Heading color="primary" fontSize={5} ml={2}>
-            Hi, I'm Vinícius Sales.
+            Hi, I&apos;m Vinícius Sales.
           </Heading>
         </Flex>
 
@@ -50,7 +50,7 @@ function Greetings() {
               aria-label="Pronunciation of my name"
             >
               <source src="name.mp3" />
-              <p>Your browser doesn't support HTML audio.</p>
+              <p>Your browser doesn&apos;t support HTML audio.</p>
             </audio>
           </Popover>
         </Flex>

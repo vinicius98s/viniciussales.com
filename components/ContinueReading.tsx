@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { RefObject, useRef } from "react";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 
@@ -20,7 +20,7 @@ type PrevOrNextProps = {
 };
 
 const PrevOrNext = (props: PrevOrNextProps) => {
-  const ref = useRef(null);
+  const ref = useRef<HTMLElement>(null) as RefObject<HTMLElement>;
   const isInView = useInView(ref, { once: true });
 
   const translateX = props.preview === "previous" ? -100 : 100;

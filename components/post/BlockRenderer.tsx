@@ -4,7 +4,7 @@ import { ListBlockChildrenResponse } from "@notionhq/client/build/src/api-endpoi
 
 import CodeHighlighter from "./CodeHighlighter";
 import Paragraph from "./Paragraph";
-import Image from "./Image";
+import ImageComponent from "./Image";
 
 type Unpacked<T> = T extends (infer U)[] ? U : T;
 
@@ -43,7 +43,7 @@ export default function BlockRenderer({ block }: Props) {
           />
         );
       case "image":
-        return <Image image={block.image} />;
+        return <ImageComponent image={block.image} />;
       default:
         return null;
     }
