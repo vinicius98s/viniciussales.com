@@ -1,7 +1,6 @@
 name: Update spotify songs
-on:
-  schedule:
-    - cron: "0 0 * * Sat"
+
+on: workflow_dispatch
 
 jobs:
   update-songs:
@@ -14,5 +13,8 @@ jobs:
           cache: yarn
       - run: yarn install --immutable --immutable-cache
       - run: npx playwright install --with-deps
-      - run: yarn tsx scripts/spotify.ts
+      - env:
+          SPOTIFY_EMAIL : ${{ vars.SPOTIFY_EMAIL }}
+          SPOTIFY_PASSWORD : ${{ secrets.SPOTIFY_PASSWORD }}
+        run: yarn tsx scripts/spotify.ts
 
