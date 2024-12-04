@@ -29,7 +29,7 @@ export const getStaticProps = (async () => {
   const posts = await getFromTaskEither(getBlogPostsPreview(2), []);
   const songs = await getFromTaskEither(getTopSongs(), []);
 
-  return { props: { songs, posts } };
+  return { props: { songs, posts }, revalidate: 1 * 60 * 60 };
 }) satisfies GetStaticProps;
 
 export default Home;
