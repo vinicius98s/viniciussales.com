@@ -1,6 +1,8 @@
 name: Update spotify songs
 
-on: workflow_dispatch
+on:
+  schedule:
+    - cron: "0 0 * * Sat"
 
 jobs:
   update-songs:
