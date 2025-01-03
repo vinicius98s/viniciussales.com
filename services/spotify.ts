@@ -80,6 +80,7 @@ function getRedisClient() {
     O.fromNullable(REDIS_URI),
     O.map((uri) =>
       pipe(
+        // @ts-ignore
         O.fromNullable(redis),
         O.fold(
           () => new Client(uri),
