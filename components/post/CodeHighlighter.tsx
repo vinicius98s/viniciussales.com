@@ -1,58 +1,67 @@
-// TODO: better code highlighter
+import { useEffect, useState } from "react";
+import { createHighlighter, type Highlighter } from "shiki";
 import styled from "@emotion/styled";
-import { Prism } from "react-syntax-highlighter";
-// @ts-ignore
-import { coldarkDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
-
-import { Box } from "@components/Grid";
 
 type Props = {
   language: string;
   code: string;
 };
 
-const SyntaxHighlighter = styled(Prism)`
-  position: relative;
-  padding: 1em 1.5em !important;
+const THEME = "vesper";
 
+const SyntaxHighlighter = styled.div`
   * {
-    font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+    font-family: "Source Code Pro", monospace;
   }
 
-  ::-webkit-scrollbar {
-    height: 8px;
-  }
+  pre {
+    padding: 1em 1.5em;
+    overflow-x: scroll;
 
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
+    ::-webkit-scrollbar {
+      height: 8px;
+    }
 
-  ::-webkit-scrollbar-thumb {
-    background: ${(p) => p.theme.colors.gray};
-  }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
 
-  ::-webkit-scrollbar-thumb:hover {
-    background: ${(p) => p.theme.colors.darkGray};
-  }
+    ::-webkit-scrollbar-thumb {
+      background: ${(p) => p.theme.colors.gray};
+    }
 
-  ::before {
-    content: "";
-    display: block;
-    width: 2px;
-    height: 100%;
-    background: ${(p) => p.theme.colors.primary};
-    position: absolute;
-    left: 0;
-    top: 0;
+    ::-webkit-scrollbar-thumb:hover {
+      background: ${(p) => p.theme.colors.darkGray};
+    }
   }
 `;
 
 export default function CodeHighlighter({ language, code }: Props) {
-  return (
-    <Box my={4} display="grid">
-      <SyntaxHighlighter language={language} style={coldarkDark}>
-        {code}
-      </SyntaxHighlighter>
-    </Box>
-  );
+  const [highlighter, setHighlighter] = useState<Highlighter | null>(null);
+  const [htmlCode, setHtmlCode] = useState("");
+
+  useEffect(() => {
+    const loadHighlighter = async () => {
+      const highlighter = await createHighlighter({
+        themes: [THEME],
+        langs: [language],
+      });
+      setHighlighter(highlighter);
+    };
+
+    loadHighlighter();
+  }, [language]);
+
+  useEffect(() => {
+    if (highlighter) {
+      const highlightedCode = highlighter.codeToHtml(code, {
+        lang: language,
+        theme: THEME,
+      });
+
+      setHtmlCode(highlightedCode);
+    }
+  }, [code, language, highlighter]);
+
+  return <SyntaxHighlighter dangerouslySetInnerHTML={{ __html: htmlCode }} />;
 }

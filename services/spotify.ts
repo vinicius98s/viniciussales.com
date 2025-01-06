@@ -74,13 +74,12 @@ function getAccessToken(code: string) {
   );
 }
 
-let redis: Client;
+let redis: Client | null = null;
 function getRedisClient() {
   return pipe(
     O.fromNullable(REDIS_URI),
     O.map((uri) =>
       pipe(
-        // @ts-ignore
         O.fromNullable(redis),
         O.fold(
           () => new Client(uri),

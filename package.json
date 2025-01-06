@@ -26,8 +26,8 @@
     "query-string": "^9.1.1",
     "react": "19.0.0",
     "react-dom": "19.0.0",
-    "react-syntax-highlighter": "15.5.0",
     "sharp": "^0.33.5",
+    "shiki": "^1.26.1",
     "styled-system": "^5.1.5"
   },
   "devDependencies": {
