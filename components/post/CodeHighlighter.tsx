@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { createHighlighter, type Highlighter } from "shiki";
 import styled from "@emotion/styled";
+import { Box } from "@components/Grid";
 
 type Props = {
   language: string;
@@ -63,5 +64,9 @@ export default function CodeHighlighter({ language, code }: Props) {
     }
   }, [code, language, highlighter]);
 
-  return <SyntaxHighlighter dangerouslySetInnerHTML={{ __html: htmlCode }} />;
+  return (
+    <Box mb={4}>
+      <SyntaxHighlighter dangerouslySetInnerHTML={{ __html: htmlCode }} />
+    </Box>
+  );
 }

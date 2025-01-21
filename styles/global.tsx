@@ -1,13 +1,26 @@
 import { Global, css } from "@emotion/react";
 import theme from "./theme";
 
+import "react-medium-image-zoom/dist/styles.css";
+
 export default function GlobalStyles() {
-  const white = theme.colors.white;
   return (
     <Global
       styles={css`
         :root {
           color-scheme: dark;
+        }
+
+        [data-rmiz-modal-overlay="visible"] {
+          background-color: rgb(0, 0, 0, 0.8);
+        }
+
+        [data-rmiz-btn-unzoom] {
+          cursor: pointer;
+          :focus-visible {
+            outline-offset: 0.4rem;
+            outline: 0.2rem solid ${theme.colors.darkGray};
+          }
         }
 
         * {
@@ -18,7 +31,7 @@ export default function GlobalStyles() {
         }
 
         body {
-          color: ${white};
+          color: ${theme.colors.white};
           overflow-y: scroll;
         }
 
@@ -28,7 +41,7 @@ export default function GlobalStyles() {
 
         a {
           text-decoration: none;
-          color: ${white};
+          color: ${theme.colors.white};
         }
       `}
     />

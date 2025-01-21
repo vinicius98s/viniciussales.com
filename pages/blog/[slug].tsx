@@ -54,10 +54,10 @@ const Slug = (post: Props) => {
             <Badge>DRAFT</Badge>
           </Box>
         )}
-        <Heading color="primary" textAlign="center" fontSize="x-large">
+        <Heading color="primary" textAlign="center" fontSize="2rem">
           {post.title}
         </Heading>
-        <Heading level={2} mt={2} mb={4} textAlign="center">
+        <Heading fontSize="1.4rem" level={2} mt={2} mb={5} textAlign="center">
           {post.description}
         </Heading>
         {post.content.results.map((block) => (
@@ -80,13 +80,15 @@ export const getStaticProps = (async ({ params }) => {
   )();
 }) satisfies GetStaticProps;
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const posts = await getFromTaskEither(getBlogPostsPreview(), []);
-
-  return {
-    fallback: false,
-    paths: posts.map(({ slug }) => ({ params: { slug } })),
-  };
-};
+export const getStaticPaths = (async () => {
+  return await pipe(
+    getBlogPostsPreview(),
+    TE.getOrElseW(() => T.of([])),
+    T.map((posts) => ({
+      fallback: false,
+      paths: posts.map(({ slug }) => ({ params: { slug } })),
+    }))
+  )();
+}) satisfies GetStaticPaths;
 
 export default Slug;

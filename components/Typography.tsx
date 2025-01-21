@@ -1,10 +1,5 @@
 import styled from "@emotion/styled";
-import {
-  ElementType,
-  forwardRef,
-  PropsWithChildren,
-  type HTMLProps,
-} from "react";
+import { forwardRef, PropsWithChildren, type HTMLProps } from "react";
 import * as SS from "styled-system";
 
 type TextProps = SS.ColorProps &
@@ -13,7 +8,7 @@ type TextProps = SS.ColorProps &
   SS.LayoutProps;
 
 export const Text = styled.p<TextProps>`
-  font-size: 1em;
+  font-size: 1.1rem;
 
   ${SS.color};
   ${SS.typography};

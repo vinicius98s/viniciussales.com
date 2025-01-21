@@ -1,4 +1,4 @@
-import { Ref, RefObject, useRef } from "react";
+import { useRef } from "react";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 

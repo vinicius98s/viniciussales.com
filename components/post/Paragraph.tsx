@@ -19,14 +19,15 @@ type Props = {
 };
 
 const StyledText = styled(Text)`
-  line-height: 1.8em;
+  line-height: 1.65rem;
 
   span {
     background: ${(p) => p.theme.colors.darkGray};
     color: ${(p) => p.theme.colors.primary};
     display: inline;
-    padding: 0 0.2em;
-    border-radius: 0.1em;
+    padding: 0 0.3rem;
+    border-radius: 0.2rem;
+    font-family: "Source Code Pro", monospace;
   }
 
   a {
@@ -37,7 +38,7 @@ const StyledText = styled(Text)`
 
 export default function Paragraph({ text }: Props) {
   return (
-    <StyledText mb={4}>
+    <StyledText mb={5}>
       {text.map(({ plain_text, annotations, href }, idx) => {
         if (href) {
           return (

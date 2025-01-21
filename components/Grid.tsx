@@ -4,7 +4,6 @@ import * as SS from "styled-system";
 type RowProps = SS.SpaceProps & SS.GridProps;
 export const Row = styled.div<RowProps>`
   width: 100%;
-  max-width: 692px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 16px;
