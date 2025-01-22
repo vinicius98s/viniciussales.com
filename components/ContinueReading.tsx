@@ -86,7 +86,7 @@ export default function ContinueReading(props: Props) {
       <Text fontSize="20px" fontWeight="bold" mb={4} mt={8}>
         Continue reading
       </Text>
-      <Row>
+      <Row style={{ overflow: "hidden" }}>
         <Col size={2}>
           {props.previousPost && (
             <PrevOrNext preview="previous" post={props.previousPost} />

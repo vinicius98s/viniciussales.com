@@ -48,7 +48,7 @@ const Slug = (post: Props) => {
       <ProgressBar style={{ scaleX }} />
       <Header activePage="writing" />
       <Seo title={post.title} description={post.description} />
-      <Box as="article" mt={8} px={[4, 0]}>
+      <Box as="article" mt={8}>
         {post.isDraft && (
           <Box mb={4}>
             <Badge>DRAFT</Badge>
@@ -75,7 +75,7 @@ const Slug = (post: Props) => {
 export const getStaticProps = (async ({ params }) => {
   return await pipe(
     fetchPostBySlug(params?.slug as string),
-    TE.map((post) => ({ props: post })),
+    TE.map((post) => ({ props: post, revalidate: 1 * 60 * 60 })),
     TE.getOrElseW(() => T.of({ notFound: true } as const))
   )();
 }) satisfies GetStaticProps;

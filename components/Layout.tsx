@@ -8,7 +8,8 @@ const Container = styled.div`
   min-height: 100vh;
 
   main {
-    width: 768px;
+    width: 100%;
+    max-width: 768px;
     padding: 0 ${(p) => p.theme.space[3]}px;
   }
 `;
