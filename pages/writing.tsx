@@ -3,19 +3,23 @@ import type { GetStaticProps, InferGetStaticPropsType } from "next";
 import Header from "@components/Header";
 import PostPreview from "@components/PostPreview";
 import { Box, Col, Flex, Row } from "@components/Grid";
+import { Heading } from "@components/Typography";
+import Seo from "@components/Seo";
 
 import { getFromTaskEither } from "@utils/fp-ts";
 
 import { getBlogPostsPreview } from "@services/notion";
-import { Heading } from "@components/Typography";
-import Seo from "@components/Seo";
+
+import { getBaseUrl } from "@utils/url";
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
 const Writings = ({ posts }: Props) => {
   return (
     <>
-      <Seo title="Writing" />
+      <Seo title="Writing">
+        <link rel="canonical" href={`${getBaseUrl()}/writing`} />
+      </Seo>
       <Header activePage="writing" />
       <Row>
         <Col size={3}>

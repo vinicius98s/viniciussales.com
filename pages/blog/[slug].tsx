@@ -17,9 +17,9 @@ import Seo from "@components/Seo";
 import ContinueReading from "@components/ContinueReading";
 import Badge from "@components/Badge";
 
-import { getFromTaskEither } from "@utils/fp-ts";
-
 import { getBlogPostsPreview, fetchPostBySlug } from "@services/notion";
+
+import { getBaseUrl } from "@utils/url";
 
 const ProgressBar = styled(motion.div)`
   position: fixed;
@@ -47,7 +47,9 @@ const Slug = (post: Props) => {
     <>
       <ProgressBar style={{ scaleX }} />
       <Header activePage="writing" />
-      <Seo title={post.title} description={post.description} />
+      <Seo title={post.title} description={post.description}>
+        <link rel="canonical" href={`${getBaseUrl()}/blog/${post.slug}`} />
+      </Seo>
       <Box as="article" mt={8}>
         {post.isDraft && (
           <Box mb={4}>

@@ -9,6 +9,8 @@ import Seo from "@components/Seo";
 import type { IconNames } from "@icons/Icon";
 import Icon from "@icons/Icon";
 
+import { getBaseUrl } from "@utils/url";
+
 const IconsWrapper = styled(Flex)`
   > * {
     margin-right: 16px;
@@ -26,7 +28,9 @@ const IconLink = (props: { name: IconNames; href: string }) => {
 const Contact: NextPage = () => {
   return (
     <>
-      <Seo title="Contact" />
+      <Seo title="Contact">
+        <link rel="canonical" href={`${getBaseUrl()}/writing`} />
+      </Seo>
       <Header activePage="contact" />
       <Row as="section" gridTemplateColumns={["auto", "repeat(4, 1fr)"]}>
         <Col size={3}>
