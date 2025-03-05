@@ -1,6 +1,6 @@
 import { chromium } from "playwright";
 
-const browser = await chromium.launch();
+const browser = await chromium.launch({ headless: false });
 const page = await browser.newPage();
 await page.goto("https://viniciussales.com/api/spotify");
 
@@ -18,7 +18,15 @@ if (!email) {
 }
 
 await page.getByTestId("login-username").fill(email);
-await page.getByTestId("login-password").fill(password);
+const passwordInput = page.getByTestId("login-password");
+if (!passwordInput) {
+  console.log("Missing password input");
+  process.exit(1);
+}
+
+await passwordInput.fill(password);
 await page.getByTestId("login-button").click();
+
+await page.waitForURL((url) => url.pathname === "/api/spotify");
 
 process.exit(0);
