@@ -80,12 +80,6 @@ export default class MyDocument extends Document {
           <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
           <meta name="theme-color" content={theme.colors.primary} />
 
-          <link
-            rel="canonical"
-            href={
-              process.env.NEXT_PUBLIC_SITE_URL ?? "https://viniciussales.com"
-            }
-          />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link

@@ -7,6 +7,7 @@ import Songs from "@components/Songs";
 import Seo from "@components/Seo";
 
 import { getFromTaskEither } from "@utils/fp-ts";
+import { getBaseUrl } from "@utils/url";
 
 import { getBlogPostsPreview } from "@services/notion";
 import { getTopSongs } from "@services/spotify";
@@ -16,7 +17,9 @@ type Props = InferGetStaticPropsType<typeof getStaticProps>;
 const Home = ({ posts, songs }: Props) => {
   return (
     <>
-      <Seo title="Home" />
+      <Seo title="Home">
+        <link rel="canonical" href={getBaseUrl()} />
+      </Seo>
       <Header activePage="home" />
       <Greetings />
       <LastWritings posts={posts} />
