@@ -16,7 +16,6 @@ jobs:
       - run: yarn install --immutable --immutable-cache
       - run: npx playwright install --with-deps
       - env:
-          SPOTIFY_EMAIL : ${{ vars.SPOTIFY_EMAIL }}
-          SPOTIFY_PASSWORD : ${{ secrets.SPOTIFY_PASSWORD }}
+          SPOTIFY_EMAIL: ${{ vars.SPOTIFY_EMAIL }}
+          SPOTIFY_PASSWORD: ${{ secrets.SPOTIFY_PASSWORD }}
         run: yarn tsx scripts/spotify.ts
-

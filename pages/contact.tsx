@@ -28,9 +28,7 @@ const IconLink = (props: { name: IconNames; href: string }) => {
 const Contact: NextPage = () => {
   return (
     <>
-      <Seo title="Contact">
-        <link rel="canonical" href={`${getBaseUrl()}/writing`} />
-      </Seo>
+      <Seo title="Contact" url={`${getBaseUrl()}/contact`} />
       <Header activePage="contact" />
       <Row as="section" gridTemplateColumns={["auto", "repeat(4, 1fr)"]}>
         <Col size={3}>
@@ -46,10 +44,10 @@ const Contact: NextPage = () => {
             Feel free to reach me out.
           </Heading>
           <Text mt={3} fontSize="16px" lineHeight={1.4}>
-            Feel free to reach out to me for any inquiries, collaboration
-            opportunities, or just to connect. I&apos;m always open to
-            discussing new projects, sharing insights, or exploring potential
-            partnerships.
+            I'm available for freelance work, collaboration opportunities, and
+            technical discussions. Whether you have a project in mind or just
+            want to connect, I'd love to hear from you. Let's create something
+            great together.
           </Text>
         </Col>
       </Row>

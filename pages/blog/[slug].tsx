@@ -47,9 +47,13 @@ const Slug = (post: Props) => {
     <>
       <ProgressBar style={{ scaleX }} />
       <Header activePage="writing" />
-      <Seo title={post.title} description={post.description}>
-        <link rel="canonical" href={`${getBaseUrl()}/blog/${post.slug}`} />
-      </Seo>
+      <Seo
+        title={post.title}
+        description={post.description}
+        url={`${getBaseUrl()}/blog/${post.slug}`}
+        type="article"
+        publishedTime={post.createdAt}
+      />
       <Box as="article" mt={8}>
         {post.isDraft && (
           <Box mb={4}>

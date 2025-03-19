@@ -17,9 +17,7 @@ type Props = InferGetStaticPropsType<typeof getStaticProps>;
 const Writings = ({ posts }: Props) => {
   return (
     <>
-      <Seo title="Writing">
-        <link rel="canonical" href={`${getBaseUrl()}/writing`} />
-      </Seo>
+      <Seo title="Writing" url={`${getBaseUrl()}/writing`} />
       <Header activePage="writing" />
       <Row>
         <Col size={3}>
