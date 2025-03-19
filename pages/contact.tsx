@@ -44,10 +44,10 @@ const Contact: NextPage = () => {
             Feel free to reach me out.
           </Heading>
           <Text mt={3} fontSize="16px" lineHeight={1.4}>
-            I'm available for freelance work, collaboration opportunities, and
-            technical discussions. Whether you have a project in mind or just
-            want to connect, I'd love to hear from you. Let's create something
-            great together.
+            I&apos;m available for freelance work, collaboration opportunities,
+            and technical discussions. Whether you have a project in mind or
+            just want to connect, I&apos;d love to hear from you. Let&apos;s
+            create something great together.
           </Text>
         </Col>
       </Row>
