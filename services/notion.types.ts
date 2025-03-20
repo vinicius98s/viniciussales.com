@@ -34,4 +34,5 @@ export type Post = {
   slug: string;
   likes: number;
   isDraft: boolean;
+  image: string | null;
 };

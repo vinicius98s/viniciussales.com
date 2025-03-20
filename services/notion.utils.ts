@@ -46,13 +46,15 @@ export function formatPost(page?: Page): E.Either<Error, PostWithPage> {
       const pageCreatedAt = fullPage.properties.createdAt;
       const pageLikes = fullPage.properties.likes;
       const pageStatus = fullPage.properties.status;
+      const pageImage = fullPage.properties.image;
       if (
         pageSlug.type !== "rich_text" ||
         pageDescription.type !== "rich_text" ||
         pageTitle.type !== "title" ||
         pageCreatedAt.type !== "date" ||
         pageLikes.type !== "number" ||
-        pageStatus.type !== "select"
+        pageStatus.type !== "select" ||
+        pageImage.type !== "files"
       ) {
         throw new Error("invalid page properties");
       }
@@ -65,11 +67,13 @@ export function formatPost(page?: Page): E.Either<Error, PostWithPage> {
       const description = pageDescription.rich_text[0].plain_text;
       const title = pageTitle.title[0].plain_text;
       const slug = pageSlug.rich_text[0].plain_text;
+      const image = pageImage.files[0]?.name ?? null;
       const likes = pageLikes.number ?? 0;
       const isDraft = pageStatus.select?.name === "Draft";
       return {
         id: page.id,
         title,
+        image,
         description,
         slug,
         createdAt,

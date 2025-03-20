@@ -53,6 +53,7 @@ const Slug = (post: Props) => {
         url={`${getBaseUrl()}/blog/${post.slug}`}
         type="article"
         publishedTime={post.createdAt}
+        {...(post.image && { ogImage: post.image })}
       />
       <Box as="article" mt={8}>
         {post.isDraft && (
