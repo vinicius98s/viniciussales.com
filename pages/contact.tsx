@@ -28,7 +28,11 @@ const IconLink = (props: { name: IconNames; href: string }) => {
 const Contact: NextPage = () => {
   return (
     <>
-      <Seo title="Contact" url={`${getBaseUrl()}/contact`} />
+      <Seo
+        title="Contact"
+        url={`${getBaseUrl()}/contact`}
+        description="Get in touch for freelance work, collaboration opportunities, and technical discussions."
+      />
       <Header activePage="contact" />
       <Row as="section" gridTemplateColumns={["auto", "repeat(4, 1fr)"]}>
         <Col size={3}>
