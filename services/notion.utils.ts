@@ -2,17 +2,53 @@ import * as TE from "fp-ts/TaskEither";
 import * as E from "fp-ts/Either";
 import * as O from "fp-ts/Option";
 import { flow, pipe } from "fp-ts/function";
-import { Client, isFullPage } from "@notionhq/client";
+import { Client, isFullPage, isFullBlock } from "@notionhq/client";
 import {
+  BlockObjectResponse,
   ListBlockChildrenResponse,
   PageObjectResponse,
 } from "@notionhq/client/build/src/api-endpoints";
+import fs from "fs";
+import path from "path";
+import axios from "axios";
 
 import { FormattedPost, NextOrPreviousPost, Page, Post } from "./notion.types";
 
 type PostWithPage = Post & {
   page: PageObjectResponse;
 };
+
+async function downloadAndSaveImage(
+  blockId: string,
+  imageUrl: string
+): Promise<string> {
+  const imagesDir = path.join(process.cwd(), "public", "images", "posts");
+  if (!fs.existsSync(imagesDir)) {
+    fs.mkdirSync(imagesDir, { recursive: true });
+  }
+
+  const fileExtension = path.extname(new URL(imageUrl).pathname);
+  const localFileName = `${blockId}${fileExtension}`;
+  const localImagePath = path.join(imagesDir, localFileName);
+  const publicPath = `/images/posts/${localFileName}`;
+
+  if (!fs.existsSync(localImagePath)) {
+    const response = await axios({
+      method: "GET",
+      url: imageUrl,
+      responseType: "stream",
+    });
+    const writer = fs.createWriteStream(localImagePath);
+    response.data.pipe(writer);
+
+    await new Promise((resolve, reject) => {
+      writer.on("finish", resolve);
+      writer.on("error", reject);
+    });
+  }
+
+  return publicPath;
+}
 
 export const statusFilter = {
   or: [
@@ -119,6 +155,33 @@ export function getPostContent(client: Client) {
           const content = await client.blocks.children.list({
             block_id: post.page.id,
           });
+
+          // Process image blocks
+          for (const block of content.results) {
+            if (isFullBlock(block) && block.type === "image") {
+              const imageBlock = block as BlockObjectResponse & {
+                type: "image";
+              };
+              const imageUrl =
+                imageBlock.image.type === "external"
+                  ? imageBlock.image.external.url
+                  : imageBlock.image.file.url;
+
+              // Download and save the image
+              const localPath = await downloadAndSaveImage(
+                block.id,
+                imageUrl
+              );
+
+              // Update the image block to use the local path
+              if (imageBlock.image.type === "file") {
+                imageBlock.image.file.url = localPath;
+              } else {
+                imageBlock.image.external.url = localPath;
+              }
+            }
+          }
+
           return { content, post };
         }, E.toError)
       )
