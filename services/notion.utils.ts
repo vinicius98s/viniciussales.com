@@ -180,22 +180,31 @@ export function getPostContent(client: Client) {
                   ? imageBlock.image.external.url
                   : imageBlock.image.file.url;
 
-              // Download and save the image
-              const localPath = await downloadAndSaveImage(
-                block.id,
-                imageUrl
-              );
+              try {
+                // Download and save the image
+                const localPath = await downloadAndSaveImage(
+                  block.id,
+                  imageUrl
+                );
 
-              // Update the image block to use the local path
-              if (imageBlock.image.type === "file") {
-                imageBlock.image.file.url = localPath;
-              } else {
-                imageBlock.image.external.url = localPath;
+                // Update the image block to use the local path
+                if (imageBlock.image.type === "file") {
+                  imageBlock.image.file.url = localPath;
+                } else {
+                  imageBlock.image.external.url = localPath;
+                }
+              } catch (error) {
+                // Log error but continue processing other images
+                console.error(
+                  `Failed to download image for block ${block.id}:`,
+                  error
+                );
+                // Keep the original URL if download fails
               }
             }
           });
 
-          // Wait for all images to be downloaded
+          // Wait for all images to be processed
           await Promise.all(imageDownloadPromises);
 
           return { content, post };
