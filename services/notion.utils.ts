@@ -27,7 +27,19 @@ async function downloadAndSaveImage(
     fs.mkdirSync(imagesDir, { recursive: true });
   }
 
-  const fileExtension = path.extname(new URL(imageUrl).pathname);
+  let fileExtension: string;
+  try {
+    const urlPath = new URL(imageUrl).pathname;
+    fileExtension = path.extname(urlPath);
+    // Default to .jpg if no extension is found
+    if (!fileExtension) {
+      fileExtension = ".jpg";
+    }
+  } catch {
+    // If URL is invalid, default to .jpg
+    fileExtension = ".jpg";
+  }
+
   const localFileName = `${blockId}${fileExtension}`;
   const localImagePath = path.join(imagesDir, localFileName);
   const publicPath = `/images/posts/${localFileName}`;
@@ -37,6 +49,7 @@ async function downloadAndSaveImage(
       method: "GET",
       url: imageUrl,
       responseType: "stream",
+      timeout: 30000, // 30 second timeout
     });
     const writer = fs.createWriteStream(localImagePath);
     response.data.pipe(writer);
@@ -156,8 +169,8 @@ export function getPostContent(client: Client) {
             block_id: post.page.id,
           });
 
-          // Process image blocks
-          for (const block of content.results) {
+          // Process image blocks in parallel for better performance
+          const imageDownloadPromises = content.results.map(async (block) => {
             if (isFullBlock(block) && block.type === "image") {
               const imageBlock = block as BlockObjectResponse & {
                 type: "image";
@@ -180,7 +193,10 @@ export function getPostContent(client: Client) {
                 imageBlock.image.external.url = localPath;
               }
             }
-          }
+          });
+
+          // Wait for all images to be downloaded
+          await Promise.all(imageDownloadPromises);
 
           return { content, post };
         }, E.toError)
