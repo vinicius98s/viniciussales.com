@@ -1,5 +1,4 @@
-import { createHighlighter } from "shiki";
-import { createCssVariablesTheme } from "shiki/theme-css-variables";
+import { createCssVariablesTheme, createHighlighter } from "shiki";
 
 import type { Block } from "./posts";
 
