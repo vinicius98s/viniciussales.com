@@ -69,12 +69,7 @@ export type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
  */
 export interface EventData {
   [key: string]:
-    | number
-    | string
-    | EventData
-    | number[]
-    | string[]
-    | EventData[];
+    number | string | EventData | number[] | string[] | EventData[];
 }
 
 export type EventProperties = {
