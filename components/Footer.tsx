@@ -1,61 +1,22 @@
-import styled from "@emotion/styled";
-import Link from "next/link";
+import type { MouseEvent } from "react";
 
-import { Row, Box, Col } from "@components/Grid";
+import t from "@styles/typography.module.css";
+import styles from "./Footer.module.css";
 
-const Wrapper = styled.footer`
-  margin-bottom: ${(p) => p.theme.space[8]}px;
-
-  li:not(:first-of-type) {
-    margin-top: ${(p) => p.theme.space[2]}px;
-  }
-
-  a:hover {
-    color: ${(p) => p.theme.colors.primary};
-  }
-`;
+const scrollToTop = (e: MouseEvent) => {
+  e.preventDefault();
+  window.scrollTo({ top: 0 });
+};
 
 export default function Footer() {
   return (
-    <Wrapper>
-      <Box bg="darkGrey" width="100%" height="1px" my={5} />
-      <Row>
-        <Col size={1}>
-          <ul>
-            <li>
-              <Link href="/">Home</Link>
-            </li>
-            <li>
-              <Link href="/writing">Writings</Link>
-            </li>
-            <li>
-              <Link href="/contact">Contact</Link>
-            </li>
-          </ul>
-        </Col>
-        <Col size={1}>
-          <ul>
-            <li>
-              <a
-                href="https://github.com/vinicius98s"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Github
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://linkedin.com/in/vinicius-sales"
-                target="_blank"
-                rel="noreferrer"
-              >
-                LinkedIn
-              </a>
-            </li>
-          </ul>
-        </Col>
-      </Row>
-    </Wrapper>
+    <footer className={`${t.container} ${t.mono} ${styles.footer}`}>
+      <span className={styles.copyright}>
+        © {new Date().getFullYear()} Vinícius Sales
+      </span>
+      <a href="#" onClick={scrollToTop} className={styles.top}>
+        Back to top ↑
+      </a>
+    </footer>
   );
 }

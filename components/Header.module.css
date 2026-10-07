@@ -1,0 +1,54 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--bg);
+  transition: background 0.4s ease;
+}
+
+.inner {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.logo {
+  font-weight: 800;
+  font-size: 24px;
+  letter-spacing: -0.04em;
+  display: flex;
+  align-items: baseline;
+}
+
+.logo:hover {
+  color: var(--fg);
+}
+
+.dot {
+  color: var(--red);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 3vw, 36px);
+}
+
+.navLink {
+  display: flex;
+  gap: 6px;
+}
+
+.navNumber {
+  opacity: 0.5;
+}
+
+/* The numbered nav doesn't fit next to the logo on phones. */
+@media (max-width: 520px) {
+  .navNumber {
+    display: none;
+  }
+}

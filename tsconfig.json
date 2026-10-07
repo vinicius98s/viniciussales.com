@@ -18,16 +18,13 @@
     "paths": {
       "@styles/*": ["styles/*"],
       "@components/*": ["components/*"],
-      "@services/*": ["services/*"],
-      "@icons/*": ["icons/*"],
-      "@hooks/*": ["hooks/*"],
+      "@lib/*": ["lib/*"],
       "@utils/*": ["utils/*"]
     },
     "plugins": [{ "name": "next" }]
   },
   "include": [
     "next-env.d.ts",
-    "emotion.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"

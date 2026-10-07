@@ -1,35 +1,35 @@
 import type { InferGetStaticPropsType, GetStaticProps } from "next";
 
 import Header from "@components/Header";
-import Greetings from "@components/Greetings";
-import LastWritings from "@components/LastWritings";
-import Songs from "@components/Songs";
 import Seo from "@components/Seo";
+import Hero from "@components/home/Hero";
+import Writing from "@components/home/Writing";
+import About from "@components/home/About";
+import Contact from "@components/home/Contact";
 
-import { getFromTaskEither } from "@utils/fp-ts";
+import { getPostPreviews } from "@lib/posts";
 
-import { getBlogPostsPreview } from "@services/notion";
-import { getTopSongs } from "@services/spotify";
+import t from "@styles/typography.module.css";
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
-const Home = ({ posts, songs }: Props) => {
+const Home = ({ posts }: Props) => {
   return (
     <>
       <Seo title="Home" />
-      <Header activePage="home" />
-      <Greetings />
-      <LastWritings posts={posts} />
-      <Songs songs={songs} />
+      <Header />
+      <main className={t.container}>
+        <Hero draft={posts.find((p) => p.isDraft)} />
+        <Writing posts={posts} />
+        <About />
+        <Contact />
+      </main>
     </>
   );
 };
 
 export const getStaticProps = (async () => {
-  const posts = await getFromTaskEither(getBlogPostsPreview(2), []);
-  const songs = await getFromTaskEither(getTopSongs(), []);
-
-  return { props: { songs, posts }, revalidate: 1 * 60 * 60 };
+  return { props: { posts: getPostPreviews() } };
 }) satisfies GetStaticProps;
 
 export default Home;

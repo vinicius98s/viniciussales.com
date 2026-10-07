@@ -1,24 +1,31 @@
 import type { AppProps } from "next/app";
 import Script from "next/script";
-import { ThemeProvider } from "@emotion/react";
+import { Bricolage_Grotesque, Geist, Geist_Mono } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
-import Layout from "@components/Layout";
 import Footer from "@components/Footer";
 
-import GlobalStyles from "@styles/global";
-import theme from "@styles/theme";
+import "@styles/globals.css";
+
+const display = Bricolage_Grotesque({
+  subsets: ["latin"],
+  axes: ["opsz", "wdth"],
+});
+const sans = Geist({ subsets: ["latin"], weight: ["400", "500", "600"] });
+const mono = Geist_Mono({ subsets: ["latin"], weight: ["400", "500"] });
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <GlobalStyles />
-        <Layout>
-          <Component {...pageProps} />
-          <Footer />
-        </Layout>
-      </ThemeProvider>
+      <style jsx global>{`
+        :root {
+          --font-display: ${display.style.fontFamily};
+          --font-sans: ${sans.style.fontFamily};
+          --font-mono: ${mono.style.fontFamily};
+        }
+      `}</style>
+      <Component {...pageProps} />
+      <Footer />
       {process.env.NODE_ENV === "production" && (
         <Script
           src="https://cloud.umami.is/script.js"

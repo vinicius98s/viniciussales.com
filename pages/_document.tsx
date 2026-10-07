@@ -1,10 +1,14 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
-import theme from "@styles/theme";
+
+const PRIMARY = "#EC2C46";
+
+// Runs before first paint so the stored theme never flashes the default one.
+const themeScript = `try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}`;
 
 export default class MyDocument extends Document {
   render() {
     return (
-      <Html lang="en-US">
+      <Html lang="en-US" data-theme="dark">
         <Head>
           <link
             rel="apple-touch-icon"
@@ -76,20 +80,11 @@ export default class MyDocument extends Document {
             href="/favicon-16x16.png"
           />
           <link rel="manifest" href="/manifest.json" />
-          <meta name="msapplication-TileColor" content={theme.colors.primary} />
+          <meta name="msapplication-TileColor" content={PRIMARY} />
           <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
-          <meta name="theme-color" content={theme.colors.primary} />
+          <meta name="theme-color" content={PRIMARY} />
 
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap"
-            rel="stylesheet"
-          />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap"
-            rel="stylesheet"
-          />
+          <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         </Head>
         <body>
           <Main />

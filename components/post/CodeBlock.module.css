@@ -1,0 +1,60 @@
+.block {
+  margin: 0 0 32px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--surface);
+
+  /* Shiki css-variables theme: keywords muted, functions red, strings pink. */
+  --shiki-foreground: var(--fg);
+  --shiki-background: transparent;
+  --shiki-token-keyword: var(--kw);
+  --shiki-token-comment: var(--kw);
+  --shiki-token-function: var(--red);
+  --shiki-token-string: var(--str);
+  --shiki-token-string-expression: var(--str);
+  --shiki-token-constant: var(--fg);
+  --shiki-token-parameter: var(--fg);
+  --shiki-token-punctuation: var(--fg);
+  --shiki-token-link: var(--red);
+}
+
+.bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--line);
+  font-size: 12px;
+}
+
+.filename {
+  opacity: 0.6;
+}
+
+.copy {
+  font: inherit;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: color 0.2s;
+}
+
+.copy:hover {
+  color: var(--red);
+}
+
+.code :global(pre) {
+  margin: 0;
+  padding: 18px 20px;
+  overflow-x: auto;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.code :global(code) {
+  font-family: inherit;
+}

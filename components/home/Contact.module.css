@@ -1,0 +1,66 @@
+.section {
+  padding: clamp(80px, 10vw, 144px) 0 48px;
+}
+
+.label {
+  opacity: 0.6;
+}
+
+.title {
+  font-weight: 700;
+  font-size: clamp(44px, 7vw, 104px);
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+  margin-top: 24px;
+}
+
+.accent {
+  color: var(--red);
+}
+
+.email {
+  display: inline-block;
+  margin-top: 20px;
+  font-weight: 500;
+  font-size: clamp(22px, 3.2vw, 44px);
+  letter-spacing: -0.03em;
+  padding-bottom: 6px;
+  background-image: linear-gradient(var(--red), var(--red));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 3px;
+  transition:
+    background-size 0.35s ease,
+    color 0.2s;
+  overflow-wrap: anywhere;
+}
+
+.email:hover {
+  background-size: 100% 100%;
+  color: var(--white);
+}
+
+.socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 40px;
+}
+
+.social {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 13px;
+  transition:
+    border-color 0.2s,
+    color 0.2s;
+}
+
+.social:hover {
+  border-color: var(--red);
+  color: var(--red);
+}

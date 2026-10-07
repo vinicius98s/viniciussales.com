@@ -1,0 +1,31 @@
+.display {
+  font-family: var(--font-display), sans-serif;
+}
+
+.mono {
+  font-family: var(--font-mono), monospace;
+}
+
+/* Small uppercase mono label: nav items, section numbers, meta. */
+.label {
+  composes: mono;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.draftBadge {
+  composes: mono;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  padding: 4px 8px;
+  border: 1px dashed currentColor;
+  border-radius: 4px;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
