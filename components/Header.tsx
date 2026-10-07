@@ -1,16 +1,37 @@
-import Menu, { Pages } from "./Menu";
-import { Row } from "./Grid";
+import Link from "next/link";
 
-type Props = {
-  activePage: Pages;
-};
+import ThemeToggle from "@components/ThemeToggle";
+import ReadingProgress from "@components/ReadingProgress";
 
-const Header: React.FC<Props> = ({ activePage }) => {
+import t from "@styles/typography.module.css";
+import styles from "./Header.module.css";
+
+const NAV = [
+  { n: "01", label: "Writing", href: "/#writing" },
+  { n: "02", label: "About", href: "/#about" },
+  { n: "03", label: "Contact", href: "/#contact" },
+];
+
+type Props = { showProgress?: boolean };
+
+export default function Header({ showProgress = false }: Props) {
   return (
-    <Row as="header" my={7} gridTemplateColumns={["auto", "repeat(4, 1fr)"]}>
-      <Menu activePage={activePage} />
-    </Row>
+    <header className={styles.header}>
+      <div className={`${t.container} ${styles.inner}`}>
+        <Link href="/" className={`${t.display} ${styles.logo}`}>
+          vs<span className={styles.dot}>.</span>
+        </Link>
+        <nav className={`${t.label} ${styles.nav}`}>
+          {NAV.map((item) => (
+            <Link key={item.href} href={item.href} className={styles.navLink}>
+              <span className={styles.navNumber}>{item.n}</span>
+              {item.label}
+            </Link>
+          ))}
+          <ThemeToggle />
+        </nav>
+      </div>
+      {showProgress && <ReadingProgress />}
+    </header>
   );
-};
-
-export default Header;
+}

@@ -1,0 +1,151 @@
+.hero {
+  padding: clamp(48px, 8vw, 112px) 0 clamp(48px, 6vw, 80px);
+}
+
+.role {
+  opacity: 0.6;
+  margin-bottom: 28px;
+}
+
+/* Name */
+
+.name {
+  position: relative;
+  font-weight: 800;
+  font-size: clamp(72px, 16vw, 232px);
+  line-height: 0.84;
+  letter-spacing: -0.05em;
+  font-variation-settings:
+    "opsz" 96,
+    "wght" 800,
+    "wdth" 100;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.nameLine {
+  display: block;
+}
+
+.letter {
+  display: inline-block;
+}
+
+.baseline {
+  display: inline-block;
+  width: 0;
+  height: 0;
+}
+
+.period {
+  color: var(--red);
+}
+
+.flyingDot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--red);
+  opacity: 0;
+  offset-rotate: 0deg;
+  pointer-events: none;
+}
+
+/* "I write about ___" + now drafting */
+
+.bottom {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  gap: 40px 64px;
+  margin-top: clamp(40px, 5vw, 72px);
+  align-items: end;
+}
+
+.writeAbout {
+  font-weight: 600;
+  font-size: clamp(28px, 3.4vw, 48px);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+}
+
+.block {
+  display: block;
+}
+
+.topicWindow {
+  display: block;
+  height: 1.15em;
+  overflow: hidden;
+  color: var(--red);
+}
+
+.topicReel {
+  display: block;
+  transition: transform 0.7s cubic-bezier(0.7, 0, 0.2, 1);
+}
+
+.topic {
+  display: block;
+  height: 1.15em;
+  white-space: nowrap;
+}
+
+.draft {
+  justify-self: end;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px 0 4px;
+  border-top: 1px solid var(--fg);
+  transition: color 0.2s;
+}
+
+.draftLabel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.draftLabelText {
+  opacity: 0.7;
+}
+
+.pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--red);
+  animation: pulse 1.6s ease-in-out infinite;
+  flex: none;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.7);
+  }
+}
+
+.draftTitle {
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.draftCta {
+  font-size: 12px;
+  opacity: 0.6;
+}

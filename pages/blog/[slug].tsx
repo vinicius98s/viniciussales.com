@@ -3,99 +3,80 @@ import type {
   GetStaticProps,
   InferGetStaticPropsType,
 } from "next";
-import { pipe } from "fp-ts/function";
-import * as TE from "fp-ts/TaskEither";
-import * as T from "fp-ts/Task";
-import { motion, useScroll, useSpring } from "framer-motion";
-import styled from "@emotion/styled";
+import Link from "next/link";
 
-import BlockRenderer from "@components/post/BlockRenderer";
-import { Heading } from "@components/Typography";
 import Header from "@components/Header";
-import { Box } from "@components/Grid";
 import Seo from "@components/Seo";
-import ContinueReading from "@components/ContinueReading";
-import Badge from "@components/Badge";
+import PostBody from "@components/post/PostBody";
+import PostNav from "@components/post/PostNav";
 
-import { getBlogPostsPreview, fetchPostBySlug } from "@services/notion";
-
+import { formatLongDate, getPostBySlug, getPostPreviews } from "@lib/posts";
+import { renderBlocks } from "@lib/highlight";
 import { getBaseUrl } from "@utils/url";
 
-const ProgressBar = styled(motion.div)`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: ${(p) => p.theme.space[1]}px;
-  background: ${(p) => p.theme.colors.primary};
-  transform-origin: 0%;
-  z-index: 1;
-`;
+import t from "@styles/typography.module.css";
+import styles from "@styles/Post.module.css";
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
-const Slug = (post: Props) => {
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    damping: 50,
-    stiffness: 250,
-    restDelta: 0.001,
-    restSpeed: 0.001,
-  });
-
+const Post = ({ post, blocks, previousPost, nextPost }: Props) => {
   return (
     <>
-      <ProgressBar style={{ scaleX }} />
-      <Header activePage="writing" />
       <Seo
         title={post.title}
         description={post.description}
         url={`${getBaseUrl()}/blog/${post.slug}`}
         type="article"
         publishedTime={post.createdAt}
-        {...(post.image && { ogImage: post.image })}
       />
-      <Box as="article" mt={8}>
-        {post.isDraft && (
-          <Box mb={4}>
-            <Badge>DRAFT</Badge>
-          </Box>
-        )}
-        <Heading color="primary" textAlign="center" fontSize="2rem">
-          {post.title}
-        </Heading>
-        <Heading fontSize="1.4rem" level={2} mt={2} mb={5} textAlign="center">
-          {post.description}
-        </Heading>
-        {post.content.results.map((block) => (
-          <BlockRenderer key={block.id} block={block} />
-        ))}
-      </Box>
-      <ContinueReading
-        previousPost={post.previousPost}
-        nextPost={post.nextPost}
-      />
+      <Header showProgress />
+      <main className={t.container}>
+        <div className={styles.intro}>
+          <Link href="/#writing" className={`${t.label} ${styles.back}`}>
+            <span>←</span>All writing
+          </Link>
+          <div className={`${t.mono} ${styles.meta}`}>
+            <time dateTime={post.createdAt} className={styles.metaItem}>
+              {formatLongDate(post.createdAt)}
+            </time>
+            <span className={styles.metaItem}>{post.readTime} min read</span>
+            {post.isDraft && (
+              <span className={`${t.draftBadge} ${styles.draft}`}>DRAFT</span>
+            )}
+          </div>
+          <h1 className={`${t.display} ${styles.title}`}>{post.title}</h1>
+          <p className={styles.description}>{post.description}</p>
+        </div>
+
+        <PostBody blocks={blocks} />
+        <PostNav previousPost={previousPost} nextPost={nextPost} />
+      </main>
     </>
   );
 };
 
 export const getStaticProps = (async ({ params }) => {
-  return await pipe(
-    fetchPostBySlug(params?.slug as string),
-    TE.map((post) => ({ props: post, revalidate: 1 * 60 * 60 })),
-    TE.getOrElseW(() => T.of({ notFound: true } as const))
-  )();
+  const result = getPostBySlug(params?.slug as string);
+  if (!result) return { notFound: true };
+
+  const { post, previousPost, nextPost } = result;
+  const { blocks, ...preview } = post;
+
+  return {
+    props: {
+      post: preview,
+      blocks: await renderBlocks(blocks),
+      previousPost,
+      nextPost,
+    },
+  };
 }) satisfies GetStaticProps;
 
 export const getStaticPaths = (async () => {
-  return await pipe(
-    getBlogPostsPreview(),
-    TE.getOrElseW(() => T.of([])),
-    T.map((posts) => ({
-      fallback: false,
-      paths: posts.map(({ slug }) => ({ params: { slug } })),
-    }))
-  )();
+  return {
+    fallback: false,
+    paths: getPostPreviews().map(({ slug }) => ({ params: { slug } })),
+  };
 }) satisfies GetStaticPaths;
 
-export default Slug;
+export default Post;
