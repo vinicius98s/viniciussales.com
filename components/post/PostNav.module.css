@@ -12,8 +12,7 @@
   border-bottom: 1px solid var(--line);
   transition:
     background 0.25s,
-    color 0.2s,
-    padding 0.35s cubic-bezier(0.34, 1.4, 0.64, 1);
+    color 0.2s;
 }
 
 .link:hover {
@@ -21,12 +20,18 @@
   color: var(--white);
 }
 
+/* The hover inset slides the text with a transform instead of changing the
+   padding, so the text box keeps its width and titles don't re-wrap. */
+.link > * {
+  transition: transform 0.35s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
 .previous {
   padding: 36px 24px 40px 0;
 }
 
-.previous:hover {
-  padding-left: 24px;
+.previous:hover > * {
+  transform: translateX(24px);
 }
 
 .next {
@@ -36,8 +41,8 @@
   grid-column: -2;
 }
 
-.next:hover {
-  padding-right: 24px;
+.next:hover > * {
+  transform: translateX(-24px);
 }
 
 .label {
