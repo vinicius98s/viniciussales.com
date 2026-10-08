@@ -1,5 +1,9 @@
 {
-  "name": "App",
+  "name": "Vinícius Sales",
+  "short_name": "vs.",
+  "theme_color": "#EC2C46",
+  "background_color": "#0C0C0C",
+  "display": "browser",
   "icons": [
     {
       "src": "/android-icon-36x36.png",
