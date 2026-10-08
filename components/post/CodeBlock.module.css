@@ -53,7 +53,22 @@
   font-family: inherit;
   font-size: 14px;
   line-height: 1.7;
-  scrollbar-color: var(--red) transparent;
+}
+
+/* Blend the scrollbar into the block's surface (see styles/globals.css). */
+.code :global(pre)::-webkit-scrollbar-track,
+.code :global(pre)::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+.code :global(pre)::-webkit-scrollbar-thumb {
+  border-color: var(--surface);
+}
+
+@supports (-moz-appearance: none) {
+  .code :global(pre) {
+    scrollbar-color: var(--red) transparent;
+  }
 }
 
 .code :global(code) {

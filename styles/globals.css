@@ -66,33 +66,35 @@ a:hover {
   color: var(--white);
 }
 
-/* Scrollbars: thin red thumb on the page background. scrollbar-color is
-   inherited, so this also covers inner scrollers like code blocks. */
-html {
-  scrollbar-width: thin;
-  scrollbar-color: var(--red) var(--bg);
+/* Scrollbars: thin red thumb on the page background, no arrow buttons.
+   Chrome, Edge and Safari use ::-webkit-scrollbar, the only way to hide the
+   arrows. Chrome drops these rules for any element that sets the standard
+   scrollbar-color/width, so those are only applied in Firefox (which draws
+   no arrows). */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
 }
 
-/* Safari doesn't support scrollbar-color yet. Chrome ignores these rules
-   once scrollbar-color is set, hence the @supports guard. */
-@supports not (scrollbar-color: auto) {
-  ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-  }
+::-webkit-scrollbar-button {
+  display: none;
+}
 
-  ::-webkit-scrollbar-track {
-    background: var(--bg);
-  }
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner {
+  background: var(--bg);
+}
 
-  ::-webkit-scrollbar-thumb {
-    background: var(--red);
-    border: 2px solid var(--bg);
-    border-radius: 999px;
-  }
+::-webkit-scrollbar-thumb {
+  background: var(--red);
+  border: 2px solid var(--bg);
+  border-radius: 999px;
+}
 
-  ::-webkit-scrollbar-corner {
-    background: var(--bg);
+@supports (-moz-appearance: none) {
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--red) var(--bg);
   }
 }
 
