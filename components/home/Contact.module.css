@@ -27,8 +27,11 @@
   padding-bottom: 6px;
   background-image: linear-gradient(var(--red), var(--red));
   background-repeat: no-repeat;
-  background-position: 0 100%;
-  background-size: 100% 3px;
+  /* Only the size animates; the anchor flips instantly. Anchored to the
+     bottom while hovered, the fill rises in from below. Anchored to the top
+     at rest, it keeps moving up and exits through the top on mouse-out. */
+  background-position: 0 0;
+  background-size: 100% 0;
   transition:
     background-size 0.35s ease,
     color 0.2s;
@@ -36,6 +39,7 @@
 }
 
 .email:hover {
+  background-position: 0 100%;
   background-size: 100% 100%;
   color: var(--white);
 }
