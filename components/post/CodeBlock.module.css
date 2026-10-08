@@ -53,6 +53,7 @@
   font-family: inherit;
   font-size: 14px;
   line-height: 1.7;
+  scrollbar-color: var(--red) transparent;
 }
 
 .code :global(code) {
