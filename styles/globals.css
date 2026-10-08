@@ -66,6 +66,36 @@ a:hover {
   color: var(--white);
 }
 
+/* Scrollbars: thin red thumb on the page background. scrollbar-color is
+   inherited, so this also covers inner scrollers like code blocks. */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--red) var(--bg);
+}
+
+/* Safari doesn't support scrollbar-color yet. Chrome ignores these rules
+   once scrollbar-color is set, hence the @supports guard. */
+@supports not (scrollbar-color: auto) {
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--bg);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--red);
+    border: 2px solid var(--bg);
+    border-radius: 999px;
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: var(--bg);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
