@@ -1,13 +1,39 @@
-// Static post data. This stands in for a CMS until we pick one, so every
-// post here is placeholder content taken from the redesign mockups.
+import { fetchPosts } from "./cms";
 
-export type Inline = string | { code: string } | { link: string; href: string };
+export type Text = {
+  type: "text";
+  text: string;
+  bold?: boolean;
+  italic?: boolean;
+  code?: boolean;
+};
+
+export type Inline =
+  Text | { type: "link"; href: string; children: Text[] } | { type: "br" };
+
+export type ListItem = { content: Inline[]; sublist?: ListBlock };
+
+export type ListBlock = {
+  type: "list";
+  ordered: boolean;
+  items: ListItem[];
+};
 
 export type Block =
   | { type: "p"; content: Inline[] }
   | { type: "h2"; text: string }
+  | { type: "h3"; text: string }
   | { type: "quote"; text: string }
-  | { type: "code"; lang: string; filename: string; code: string };
+  | ListBlock
+  | {
+      type: "image";
+      src: string;
+      alt: string;
+      width: number;
+      height: number;
+      caption?: string;
+    }
+  | { type: "code"; lang: string; filename?: string; code: string };
 
 export type Post = {
   slug: string;
@@ -22,148 +48,38 @@ export type Post = {
 
 export type PostPreview = Omit<Post, "blocks">;
 
-// TODO: replace with real content once posts come from a CMS.
-const SAMPLE_BODY: Block[] = [
-  {
-    type: "p",
-    content: [
-      "Most of the bugs I've chased in production weren't exotic. They were an ",
-      { code: "undefined" },
-      " that slipped through three layers of code before anyone noticed. This post is about how I started modelling failure explicitly instead.",
-    ],
-  },
-  { type: "h2", text: "The problem with throwing" },
-  {
-    type: "p",
-    content: [
-      "A thrown error is invisible in a function's signature. The caller has no way of knowing it needs to handle anything until it blows up. With ",
-      { link: "fp-ts", href: "https://gcanti.github.io/fp-ts/" },
-      ", failure becomes part of the type.",
-    ],
-  },
-  {
-    type: "code",
-    lang: "ts",
-    filename: "user.ts",
-    code: `const getUser = (id: string) =>
-  TE.tryCatch(
-    () => db.find(id),
-    () => "user-not-found" as const
-  );`,
-  },
-  {
-    type: "quote",
-    text: "Make illegal states unrepresentable, and make failure impossible to ignore.",
-  },
-  { type: "h2", text: "Composing the happy path" },
-  {
-    type: "p",
-    content: [
-      "Once every step returns a ",
-      { code: "TaskEither" },
-      ", composing them is a matter of piping them together. The first failure short-circuits the rest, like a train switching onto the error track.",
-    ],
-  },
-  {
-    type: "code",
-    lang: "ts",
-    filename: "checkout.ts",
-    code: `pipe(
-  getUser(id),
-  TE.chain(validateCart),
-  TE.chain(charge),
-  TE.match(toErrorPage, toReceipt)
-);`,
-  },
-  { type: "h2", text: "Where it gets awkward" },
-  {
-    type: "p",
-    content: [
-      "Libraries that throw still need a boundary. I keep those boundaries thin and push them to the edges of the app, so the core only ever sees values.",
-    ],
-  },
-];
+/**
+ * Drafts are visible everywhere except the production deployment: local dev,
+ * local builds and Vercel preview deploys all show them.
+ */
+export const showDrafts = process.env.VERCEL_ENV !== "production";
 
-// Newest first.
-const POSTS: Post[] = [
-  {
-    slug: "railway-errors-fp-ts",
-    title: "Railway-oriented error handling with fp-ts",
-    createdAt: "2026-09-18",
-    description:
-      "Modelling failure in the type system instead of hoping nobody forgets a try/catch.",
-    isDraft: true,
-    readTime: 7,
-    blocks: SAMPLE_BODY,
-  },
-  {
-    slug: "typing-notion-api",
-    title: "Typing Notion's API without losing your mind",
-    createdAt: "2026-07-02",
-    description:
-      "How I narrowed Notion's huge union types into something a blog can actually use.",
-    isDraft: false,
-    readTime: 9,
-    blocks: SAMPLE_BODY,
-  },
-  {
-    slug: "modernizing-react",
-    title: "Modernizing a five-year-old React codebase",
-    createdAt: "2026-04-11",
-    description:
-      "Class components, legacy context and Redux sagas: an incremental migration plan.",
-    isDraft: false,
-    readTime: 12,
-    blocks: SAMPLE_BODY,
-  },
-  {
-    slug: "option-vs-null",
-    title: "Option vs. null, a practical comparison",
-    createdAt: "2026-01-23",
-    description:
-      "When reaching for Option pays off, and when plain null is fine.",
-    isDraft: false,
-    readTime: 5,
-    blocks: SAMPLE_BODY,
-  },
-  {
-    slug: "spotify-github-actions",
-    title: "A Spotify widget powered by GitHub Actions",
-    createdAt: "2025-10-30",
-    description:
-      "Refreshing tokens on a cron so the homepage always knows what I'm listening to.",
-    isDraft: false,
-    readTime: 6,
-    blocks: SAMPLE_BODY,
-  },
-  {
-    slug: "framer-motion-lists",
-    title: "Staggered list animations with Framer Motion",
-    createdAt: "2025-08-14",
-    description:
-      "Small delays, big difference: making a list of posts feel alive.",
-    isDraft: false,
-    readTime: 4,
-    blocks: SAMPLE_BODY,
-  },
-];
+/**
+ * Fallback for ISR. Production is normally refreshed on publish by the CMS
+ * webhook (pages/api/revalidate.ts), which only reaches production, so preview
+ * deploys poll more often to pick up draft edits.
+ */
+export const REVALIDATE_SECONDS = showDrafts ? 60 : 60 * 60;
 
 const toPreview = ({ blocks: _blocks, ...preview }: Post): PostPreview =>
   preview;
 
-export function getPostPreviews(): PostPreview[] {
-  return POSTS.map(toPreview);
+/** Newest first. */
+export async function getPostPreviews(): Promise<PostPreview[]> {
+  const posts = await fetchPosts({ includeDrafts: showDrafts });
+  return posts.map(toPreview);
 }
 
-export function getPostBySlug(slug: string) {
-  const index = POSTS.findIndex((p) => p.slug === slug);
+export async function getPostBySlug(slug: string) {
+  const posts = await fetchPosts({ includeDrafts: showDrafts });
+  const index = posts.findIndex((p) => p.slug === slug);
   if (index === -1) return null;
 
-  const older = POSTS[index + 1];
-  const newer = POSTS[index - 1];
+  const older = posts[index + 1];
+  const newer = posts[index - 1];
 
   return {
-    post: POSTS[index],
+    post: posts[index],
     previousPost: older ? toPreview(older) : null,
     nextPost: newer ? toPreview(newer) : null,
   };

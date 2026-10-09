@@ -10,7 +10,12 @@ import Seo from "@components/Seo";
 import PostBody from "@components/post/PostBody";
 import PostNav from "@components/post/PostNav";
 
-import { formatLongDate, getPostBySlug, getPostPreviews } from "@lib/posts";
+import {
+  formatLongDate,
+  getPostBySlug,
+  getPostPreviews,
+  REVALIDATE_SECONDS,
+} from "@lib/posts";
 import { renderBlocks } from "@lib/highlight";
 import { getBaseUrl } from "@utils/url";
 
@@ -56,8 +61,8 @@ const Post = ({ post, blocks, previousPost, nextPost }: Props) => {
 };
 
 export const getStaticProps = (async ({ params }) => {
-  const result = getPostBySlug(params?.slug as string);
-  if (!result) return { notFound: true };
+  const result = await getPostBySlug(params?.slug as string);
+  if (!result) return { notFound: true, revalidate: REVALIDATE_SECONDS };
 
   const { post, previousPost, nextPost } = result;
   const { blocks, ...preview } = post;
@@ -69,13 +74,16 @@ export const getStaticProps = (async ({ params }) => {
       previousPost,
       nextPost,
     },
+    revalidate: REVALIDATE_SECONDS,
   };
 }) satisfies GetStaticProps;
 
 export const getStaticPaths = (async () => {
+  const posts = await getPostPreviews();
   return {
-    fallback: false,
-    paths: getPostPreviews().map(({ slug }) => ({ params: { slug } })),
+    // Posts published after the build are rendered on first request.
+    fallback: "blocking",
+    paths: posts.map(({ slug }) => ({ params: { slug } })),
   };
 }) satisfies GetStaticPaths;
 
