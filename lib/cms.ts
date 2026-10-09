@@ -16,14 +16,16 @@ type Media = {
   height: number;
 };
 
+// Posts use Payload's built-in drafts (`versions.drafts`), hence `_status`.
 type CmsPost = {
-  slug: string;
-  title: string;
-  description: string;
-  /** ISO datetime */
-  date: string;
-  status: "draft" | "published";
-  body: { root: LexicalElement };
+  slug?: string | null;
+  title?: string | null;
+  excerpt?: string | null;
+  content?: { root?: LexicalElement } | null;
+  /** ISO datetime; may be empty on drafts */
+  publishedAt?: string | null;
+  createdAt: string;
+  _status?: "draft" | "published" | null;
 };
 
 function getCmsUrl() {
@@ -54,28 +56,38 @@ export async function fetchPosts({
 }: {
   includeDrafts: boolean;
 }): Promise<Post[]> {
-  const params = new URLSearchParams({
-    pagination: "false",
-    depth: "1",
-    sort: "-date",
-  });
-  if (!includeDrafts) params.set("where[status][equals]", "published");
+  const params = new URLSearchParams({ pagination: "false", depth: "1" });
+  if (includeDrafts) {
+    // Latest version of every post, including unpublished edits.
+    params.set("draft", "true");
+  } else {
+    params.set("where[_status][equals]", "published");
+  }
 
   const { docs } = await cmsFetch<{ docs: CmsPost[] }>("/api/posts", params);
-  return docs.map(toPost);
+  return docs
+    .flatMap(toPost)
+    .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 }
 
-function toPost(doc: CmsPost): Post {
-  const blocks = toBlocks(doc.body?.root?.children ?? []);
-  return {
-    slug: doc.slug,
-    title: doc.title,
-    description: doc.description ?? "",
-    createdAt: doc.date.slice(0, 10),
-    isDraft: doc.status !== "published",
-    readTime: readTime(blocks),
-    blocks,
-  };
+/** Skips (and logs) posts missing what the site can't render without. */
+function toPost(doc: CmsPost): Post[] {
+  if (!doc.slug || !doc.title) {
+    console.warn("Skipping CMS post without a slug or title", doc);
+    return [];
+  }
+  const blocks = toBlocks(doc.content?.root?.children ?? []);
+  return [
+    {
+      slug: doc.slug,
+      title: doc.title,
+      description: doc.excerpt ?? "",
+      createdAt: (doc.publishedAt || doc.createdAt).slice(0, 10),
+      isDraft: doc._status !== "published",
+      readTime: readTime(blocks),
+      blocks,
+    },
+  ];
 }
 
 // Lexical text format bitflags.
@@ -186,7 +198,10 @@ function toBlocks(nodes: LexicalNode[]): Block[] {
           filename?: string;
           code?: string;
         };
-        if (fields.blockType !== "code" || !fields.code) return [];
+        // "Code" is Payload's built-in CodeBlock; "code" a custom one.
+        if (fields.blockType?.toLowerCase() !== "code" || !fields.code) {
+          return [];
+        }
         return [
           {
             type: "code",

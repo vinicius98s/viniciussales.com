@@ -5,11 +5,11 @@ over its REST API (`lib/cms.ts`). This is what the site expects from the CMS.
 
 ## Environment (Vercel)
 
-| Variable            | Purpose                                                   |
-| ------------------- | --------------------------------------------------------- |
-| `CMS_URL`           | Base URL of the CMS, e.g. `https://cms.viniciussales.com` |
-| `CMS_API_KEY`       | API key of a user in the `users` collection; reads drafts |
-| `REVALIDATE_SECRET` | Shared secret the CMS sends to `/api/revalidate`          |
+| Variable            | Purpose                                                       |
+| ------------------- | ------------------------------------------------------------- |
+| `CMS_URL`           | Base URL of the CMS, e.g. `https://cms.vps.viniciussales.com` |
+| `CMS_API_KEY`       | API key of a user in the `users` collection; reads drafts     |
+| `REVALIDATE_SECRET` | Shared secret the CMS sends to `/api/revalidate`              |
 
 `CMS_URL` must be set at build time too: `next.config.ts` allows `next/image`
 to optimize images from that host.
@@ -29,24 +29,25 @@ Upload collection. Fields used by the site: `url`, `alt` (text, required),
 
 ### `posts`
 
-| Field         | Type                                    | Notes                              |
-| ------------- | --------------------------------------- | ---------------------------------- |
-| `title`       | text, required                          |                                    |
-| `slug`        | text, required, unique, indexed         | `[a-z0-9-]+`                       |
-| `description` | textarea, required                      | Shown in lists and meta tags       |
-| `date`        | date, required, day only                | Only the `YYYY-MM-DD` part is used |
-| `status`      | select `draft` \| `published`, required | Default `draft`                    |
-| `body`        | richText (Lexical)                      | See below                          |
+Drafts use Payload's built-in drafts (`versions: { drafts: true }`), so every
+post has a `_status` of `draft` or `published`.
 
-Use this `status` field rather than Payload's `versions.drafts`. Drafts here are
-posts that aren't live yet, not unsaved edits of a live post.
+| Field         | Type                            | Notes                                          |
+| ------------- | ------------------------------- | ---------------------------------------------- |
+| `title`       | text, required                  | Posts without a title or slug are skipped      |
+| `slug`        | text, required, unique, indexed | `[a-z0-9-]+`                                   |
+| `excerpt`     | textarea                        | Shown in lists and meta tags                   |
+| `publishedAt` | date                            | Post date, `YYYY-MM-DD` part; else `createdAt` |
+| `content`     | richText (Lexical)              | See below                                      |
+
+`featuredImage` exists in the CMS but isn't used by the site yet.
 
 Read time is computed by the site from the body, so there's no field for it.
 
 #### Access
 
-- `read`: anyone can read `status = published`; authenticated users (API key)
-  can read everything.
+- `read`: anyone can read `_status = published`; the API key user can read
+  everything, including drafts.
 - `create` / `update` / `delete`: authenticated users only.
 
 #### Hooks
@@ -69,9 +70,13 @@ it and move on (pages also refresh on their own every hour).
 ## Requests the site makes
 
 ```
-GET /api/posts?pagination=false&depth=1&sort=-date
-GET /api/posts?pagination=false&depth=1&sort=-date&where[status][equals]=published   (production)
+GET /api/posts?pagination=false&depth=1&draft=true                      (everywhere but production)
+GET /api/posts?pagination=false&depth=1&where[_status][equals]=published   (production)
 ```
+
+`draft=true` returns the latest version of each post, so previews also show
+unpublished edits to live posts (marked DRAFT, since their latest version is a
+draft). Posts are sorted by date on the site.
 
 `depth=1` must populate `upload` nodes in the rich text with their `media` doc.
 
@@ -87,20 +92,30 @@ Supported nodes. Anything else is silently skipped.
 | `quote`                 | Pull quote (plain text, formatting dropped)      |
 | `list` bullet/number    | `ul` / `ol`, nested lists supported              |
 | `upload` (media)        | Image; optional `fields.caption` text as caption |
-| `block` `code`          | Highlighted code block                           |
+| `block` `Code` / `code` | Highlighted code block                           |
 | `text` bold/italic/code | `strong` / `em` / inline `code`                  |
 | `link` / `autolink`     | Link (`fields.url`)                              |
 | `linebreak`             | `br`                                             |
 
-### `code` block
+### Code block
 
-Register it with `BlocksFeature` with slug `code`:
+Use Payload's built-in one, which the site reads as is:
 
-| Field      | Type                      | Notes                                             |
-| ---------- | ------------------------- | ------------------------------------------------- |
-| `language` | text / select             | Shiki language id (`ts`, `tsx`, `bash`, ...)      |
-| `filename` | text, optional            | Shown in the block header; falls back to language |
-| `code`     | code / textarea, required |                                                   |
+```ts
+import { BlocksFeature, CodeBlock } from "@payloadcms/richtext-lexical";
+
+lexicalEditor({
+  features: ({ defaultFeatures }) => [
+    ...defaultFeatures,
+    BlocksFeature({ blocks: [CodeBlock()] }),
+  ],
+});
+```
+
+It sends `blockType: "Code"` with `language` and `code`; the block header shows
+the language. A custom block with slug `code` and an extra `filename` field
+also works, and shows the filename instead. Typing ``` fences into a paragraph
+does not create a code block.
 
 Unknown languages render as plain text.
 
