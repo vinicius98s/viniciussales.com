@@ -103,3 +103,54 @@
 .accent {
   color: var(--red);
 }
+
+.subheading {
+  font-weight: 700;
+  font-size: 24px;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin: 40px 0 14px;
+}
+
+.list {
+  font-size: 19px;
+  line-height: 1.7;
+  margin: 0 0 28px;
+  padding-left: 1.4em;
+  list-style: disc;
+}
+
+.list .list {
+  margin: 8px 0 0;
+}
+
+.ordered {
+  list-style: decimal;
+}
+
+.listItem {
+  margin-bottom: 8px;
+  padding-left: 4px;
+}
+
+.listItem::marker {
+  color: var(--red);
+}
+
+.figure {
+  margin: 44px 0;
+}
+
+.image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  background: var(--surface);
+}
+
+.caption {
+  margin-top: 12px;
+  font-size: 13px;
+  opacity: 0.7;
+}

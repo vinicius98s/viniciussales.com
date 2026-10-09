@@ -1,4 +1,6 @@
-import type { Inline } from "@lib/posts";
+import Image from "next/image";
+
+import type { Inline, ListBlock, Text } from "@lib/posts";
 import type { RenderedBlock } from "@lib/highlight";
 
 import CodeBlock from "./CodeBlock";
@@ -8,22 +10,47 @@ import styles from "./PostBody.module.css";
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
+function TextContent({ item }: { item: Text }) {
+  let node: React.ReactNode = item.text;
+  if (item.code) {
+    node = <code className={`${t.mono} ${styles.inlineCode}`}>{node}</code>;
+  }
+  if (item.italic) node = <em>{node}</em>;
+  if (item.bold) node = <strong>{node}</strong>;
+  return node;
+}
+
 function InlineContent({ content }: { content: Inline[] }) {
   return content.map((item, i) => {
-    if (typeof item === "string") return item;
-    if ("code" in item) {
-      return (
-        <code key={i} className={`${t.mono} ${styles.inlineCode}`}>
-          {item.code}
-        </code>
-      );
+    switch (item.type) {
+      case "text":
+        return <TextContent key={i} item={item} />;
+      case "br":
+        return <br key={i} />;
+      case "link":
+        return (
+          <a key={i} href={item.href} className={styles.link}>
+            {item.children.map((child, j) => (
+              <TextContent key={j} item={child} />
+            ))}
+          </a>
+        );
     }
-    return (
-      <a key={i} href={item.href} className={styles.link}>
-        {item.link}
-      </a>
-    );
   });
+}
+
+function List({ list }: { list: ListBlock }) {
+  const Tag = list.ordered ? "ol" : "ul";
+  return (
+    <Tag className={`${styles.list} ${list.ordered ? styles.ordered : ""}`}>
+      {list.items.map((item, i) => (
+        <li key={i} className={styles.listItem}>
+          <InlineContent content={item.content} />
+          {item.sublist && <List list={item.sublist} />}
+        </li>
+      ))}
+    </Tag>
+  );
 }
 
 type Props = { blocks: RenderedBlock[] };
@@ -71,6 +98,12 @@ export default function PostBody({ blocks }: Props) {
                   {block.text}
                 </h2>
               );
+            case "h3":
+              return (
+                <h3 key={i} className={`${t.display} ${styles.subheading}`}>
+                  {block.text}
+                </h3>
+              );
             case "quote":
               return (
                 <blockquote key={i} className={`${t.display} ${styles.quote}`}>
@@ -79,11 +112,31 @@ export default function PostBody({ blocks }: Props) {
                   <span className={styles.accent}>”</span>
                 </blockquote>
               );
+            case "list":
+              return <List key={i} list={block} />;
+            case "image":
+              return (
+                <figure key={i} className={styles.figure}>
+                  <Image
+                    src={block.src}
+                    alt={block.alt}
+                    width={block.width}
+                    height={block.height}
+                    sizes="(min-width: 760px) 700px, 100vw"
+                    className={styles.image}
+                  />
+                  {block.caption && (
+                    <figcaption className={`${t.mono} ${styles.caption}`}>
+                      {block.caption}
+                    </figcaption>
+                  )}
+                </figure>
+              );
             case "code":
               return (
                 <CodeBlock
                   key={i}
-                  filename={block.filename}
+                  filename={block.filename ?? block.lang}
                   code={block.code}
                   html={block.html}
                 />

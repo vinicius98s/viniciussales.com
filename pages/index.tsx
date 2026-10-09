@@ -7,7 +7,7 @@ import Writing from "@components/home/Writing";
 import About from "@components/home/About";
 import Contact from "@components/home/Contact";
 
-import { getPostPreviews } from "@lib/posts";
+import { getPostPreviews, REVALIDATE_SECONDS } from "@lib/posts";
 
 import t from "@styles/typography.module.css";
 
@@ -29,7 +29,10 @@ const Home = ({ posts }: Props) => {
 };
 
 export const getStaticProps = (async () => {
-  return { props: { posts: getPostPreviews() } };
+  return {
+    props: { posts: await getPostPreviews() },
+    revalidate: REVALIDATE_SECONDS,
+  };
 }) satisfies GetStaticProps;
 
 export default Home;
