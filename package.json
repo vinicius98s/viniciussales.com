@@ -16,7 +16,6 @@
     "next-sitemap": "^4.2.3",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
-    "sharp": "^0.35.5",
     "shiki": "^4.5.0"
   },
   "devDependencies": {
