@@ -1,0 +1,120 @@
+.trigger {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: zoom-in;
+}
+
+.hint {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-size: 16px;
+  background: rgb(12 12 12 / 0.7);
+  color: var(--white);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.trigger:hover .hint,
+.trigger:focus-visible .hint {
+  opacity: 1;
+}
+
+/* Touch screens have no hover, so the hint stays visible there. */
+@media (hover: none) {
+  .hint {
+    opacity: 1;
+  }
+}
+
+.dialog {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--white);
+  overflow: hidden;
+}
+
+.dialog::backdrop {
+  background: rgb(8 8 8 / 0.94);
+}
+
+.stage {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 56px 16px;
+  overflow: hidden;
+  touch-action: none;
+  cursor: zoom-out;
+}
+
+.full {
+  display: block;
+  max-width: calc(100vw - 32px);
+  max-height: calc(100dvh - 112px);
+  width: auto;
+  height: auto;
+  user-select: none;
+  cursor: zoom-in;
+  transition: transform 0.25s ease;
+  will-change: transform;
+}
+
+.full[data-zoomed] {
+  cursor: grab;
+}
+
+.full[data-gesturing] {
+  transition: none;
+}
+
+.full[data-zoomed][data-gesturing] {
+  cursor: grabbing;
+}
+
+.toolbar {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  gap: 8px;
+}
+
+.control {
+  min-width: 40px;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid rgb(250 250 250 / 0.2);
+  border-radius: 20px;
+  background: rgb(12 12 12 / 0.7);
+  color: var(--white);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.control:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
+.control:not(:disabled):hover {
+  background: var(--red);
+  border-color: var(--red);
+}
