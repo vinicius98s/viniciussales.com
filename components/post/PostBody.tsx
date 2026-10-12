@@ -1,9 +1,8 @@
-import Image from "next/image";
-
 import type { Inline, ListBlock, Text } from "@lib/posts";
 import type { RenderedBlock } from "@lib/highlight";
 
 import CodeBlock from "./CodeBlock";
+import ZoomableImage from "./ZoomableImage";
 
 import t from "@styles/typography.module.css";
 import styles from "./PostBody.module.css";
@@ -117,7 +116,7 @@ export default function PostBody({ blocks }: Props) {
             case "image":
               return (
                 <figure key={i} className={styles.figure}>
-                  <Image
+                  <ZoomableImage
                     src={block.src}
                     alt={block.alt}
                     width={block.width}

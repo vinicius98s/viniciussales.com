@@ -121,3 +121,27 @@
 .arrow {
   opacity: 1;
 }
+
+/* On narrow screens the date drops below the post, so the title and
+   description get the full row width instead of a thin middle column. */
+@media (max-width: 640px) {
+  .row {
+    grid-template-columns: 28px minmax(0, 1fr);
+    gap: 12px 16px;
+    padding: 24px 0;
+  }
+
+  .body {
+    padding-right: 0;
+  }
+
+  .date {
+    grid-column: 2;
+  }
+
+  .row:hover > .index,
+  .row:hover > .body,
+  .row:hover > .date {
+    transform: translateX(8px);
+  }
+}
